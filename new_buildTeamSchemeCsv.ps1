@@ -73,7 +73,7 @@ if (Test-Path $fisrFeedersFile) {
             $sub = $feederXML.CircuitConnectivity.Substation.name
             $feederSubDict[$feeder] = $sub
 
-            # Collect mRID values for matching (Switches, Reclosers, CompositeSwitches)
+            # Collect all mRID values (Switches, Reclosers, CompositeSwitches)
             $mRIDSet = [System.Collections.Generic.HashSet[string]]::new()
             # Reclosers
             $recloserNodes = $feederXML.SelectNodes("//*[local-name()='Recloser']/*[local-name()='mRID']")
@@ -165,14 +165,10 @@ if (Test-Path $fisrFeedersFile) {
     foreach ($key in $feederDeviceDict.Keys) {
         $feederNameUpper = [string]$key.ToUpper()
 
-        $deviceList = $feederDeviceDict[$key]
-
-        if ($deviceList) {
-            foreach ($value in $deviceList) {
-                if (-not [string]::IsNullOrWhiteSpace($value)) {
-                    $deviceUpper = [string]$value.ToUpper()
-                    $csvLines.Add("TEAMSWITCH,1," + $deviceUpper + "," + $feederNameUpper + "_TEAM,na,na," + $feederNameUpper + ",,PRIMARY")
-                }
+        foreach ($value in $feederDeviceDict[$key]) {
+            if (-not [string]::IsNullOrWhiteSpace($value)) {
+                $deviceUpper = [string]$value.ToUpper()
+                $csvLines.Add("TEAMSWITCH,1," + $deviceUpper + "," + $feederNameUpper + "_TEAM,na,na," + $feederNameUpper + ",,PRIMARY")
             }
         }
     }
