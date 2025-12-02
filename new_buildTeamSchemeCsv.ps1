@@ -74,7 +74,7 @@ if (Test-Path $fisrFeedersFile) {
             $feederSubDict[$feeder] = $sub
 
             # Collect all mRID values (Switches, Reclosers, CompositeSwitches)
-            $mRIDSet = [System.Collections.Generic.HashSet[string]]::new()
+            $mRIDSet = [System.Collections.Generic.HashSet[string]]::new([System.StringComparer]::OrdinalIgnoreCase)
             # Reclosers
             $recloserNodes = $feederXML.SelectNodes("//*[local-name()='Recloser']/*[local-name()='mRID']")
             if ($recloserNodes) {
