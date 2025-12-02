@@ -11,8 +11,6 @@ $etlDir = "E:\Eterra\distribution\sce\ToolsWorkspace\ETL\input\"
 $feederDeviceDict = @{}
 # feeder -> substation name
 $feederSubDict = @{}
-# feeder -> List[string] of ALL mRID values parsed from feeder XML (fallback for TEAMSWITCH)
-$feederMridDict = @{}
 
 # cache of substation internals XML: substationName -> [xml]
 $internalsCache = @{}
@@ -108,12 +106,6 @@ if (Test-Path $fisrFeedersFile) {
                 }
             }
 
-            # Store ALL mRID values for this feeder (fallback for TEAMSWITCH)
-            $feederMridDict[$feeder] = [System.Collections.Generic.List[string]]::new()
-            foreach ($m in $mRIDSet) {
-                $feederMridDict[$feeder].Add([string]$m)
-            }
-
             # Internals: add devices to feederDeviceDict (original logic preserved)
             $subXML = Get-InternalsXml -SubstationName $sub -ProcessingDir $processingDir
             if ($subXML) {
@@ -132,10 +124,8 @@ if (Test-Path $fisrFeedersFile) {
                 if ($cbList) {
                     foreach ($cb in $cbList) {
                         $cbId = $cb.Id
-                        if (-not [string]::IsNullOrWhiteSpace($cbId)) {
-                            $deviceList = Get-OrCreate-DeviceList -Dict $feederDeviceDict -Feeder $feeder
-                            if ($deviceList) { $deviceList.Add($cbId) }
-                        }
+                        $deviceList = Get-OrCreate-DeviceList -Dict $feederDeviceDict -Feeder $feeder
+                        if ($deviceList) { $deviceList.Add($cbId) }
                     }
                 }
             }
@@ -167,25 +157,14 @@ if (Test-Path $fisrFeedersFile) {
         $csvLines.Add("TEAM,1," + $feederNameUpper + "_TEAM," + $subNameUpper + "_SCHEME," + $feederNameUpper + " FISR," + $feederNameUpper + " FISR,,,")
     }
 
-    # TEAMSWITCH section (now guaranteed to have records)
+    # TEAMSWITCH section
     $csvLines.Add(",,,,,,,,")
     $csvLines.Add("TEAMSWITCH,0,ID_TEAMSW,TEAM_TEAMSW,NAME_TEAMSW,SECONDID_TEAMSW,STATION1_TEAMSW,STATION2_TEAMSW,ROLE_TEAMSW")
     foreach ($key in $feederDeviceDict.Keys) {
         $feederNameUpper = [string]$key.ToUpper()
-
-        # Prefer devices collected via internals; if none, fall back to all mRID values parsed from feeder XML
-        $deviceList = $feederDeviceDict[$key]
-        if ($null -eq $deviceList -or $deviceList.Count -eq 0) {
-            $deviceList = $feederMridDict[$key]
-        }
-
-        if ($deviceList) {
-            foreach ($value in $deviceList) {
-                if (-not [string]::IsNullOrWhiteSpace($value)) {
-                    $deviceUpper = [string]$value.ToUpper()
-                    $csvLines.Add("TEAMSWITCH,1," + $deviceUpper + "," + $feederNameUpper + "_TEAM,na,na," + $feederNameUpper + ",,PRIMARY")
-                }
-            }
+        foreach ($value in $feederDeviceDict[$key]) {
+            $deviceUpper = [string]$value.ToUpper()
+            $csvLines.Add("TEAMSWITCH,1," + $deviceUpper + "," + $feederNameUpper + "_TEAM,na,na," + $feederNameUpper + ",,PRIMARY")
         }
     }
 
