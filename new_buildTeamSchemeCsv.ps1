@@ -39,20 +39,6 @@ function Get-InternalsXml {
     return $script:internalsCache[$SubstationName]
 }
 
-function Get-OrCreate-DeviceList {
-    param(
-        [hashtable] $Dict,
-        [string] $Feeder
-    )
-    if ([string]::IsNullOrWhiteSpace($Feeder)) {
-        return $null
-    }
-    if (-not $Dict.ContainsKey($Feeder)) {
-        $Dict[$Feeder] = [System.Collections.Generic.List[string]]::new()
-    }
-    return $Dict[$Feeder]
-}
-
 Set-Content -Path $logFile -Value "Starting Automation Schemes File Build for CL FISR Device Particpation" -Encoding UTF8
 
 if (Test-Path $fisrFeedersFile) {
@@ -72,63 +58,31 @@ if (Test-Path $fisrFeedersFile) {
             }
             $sub = $feederXML.CircuitConnectivity.Substation.name
             $feederSubDict[$feeder] = $sub
+            
+            # Collect mRID values exactly like old script
+            $mRIDValues = $feederXML.SelectNodes("//*[local-name()='Switch' or local-name()='Recloser']/*[local-name()='mRID']") | ForEach-Object { $_.'#text' }
+            $mRIDValues += $feederXML.SelectNodes("//*[local-name()='CompositeSwitch']/*[local-name()='mRID']") | ForEach-Object { "$($_.'#text')_CS" }
 
-            # Collect all mRID values (Switches, Reclosers, CompositeSwitches)
-            $mRIDSet = [System.Collections.Generic.HashSet[string]]::new()
-            # Reclosers
-            $recloserNodes = $feederXML.SelectNodes("//*[local-name()='Recloser']/*[local-name()='mRID']")
-            if ($recloserNodes) {
-                foreach ($node in $recloserNodes) {
-                    $text = $node.'#text'
-                    if (-not [string]::IsNullOrWhiteSpace($text)) {
-                        [void]$mRIDSet.Add($text)
-                    }
-                }
-            }
-            # Switches
-            $switchNodes = $feederXML.SelectNodes("//*[local-name()='Switch']/*[local-name()='mRID']")
-            if ($switchNodes) {
-                foreach ($node in $switchNodes) {
-                    $text = $node.'#text'
-                    if (-not [string]::IsNullOrWhiteSpace($text)) {
-                        [void]$mRIDSet.Add($text)
-                    }
-                }
-            }
-            # CompositeSwitches (with _CS suffix)
-            $compositeNodes = $feederXML.SelectNodes("//*[local-name()='CompositeSwitch']/*[local-name()='mRID']")
-            if ($compositeNodes) {
-                foreach ($node in $compositeNodes) {
-                    $text = $node.'#text'
-                    if (-not [string]::IsNullOrWhiteSpace($text)) {
-                        [void]$mRIDSet.Add($text + "_CS")
-                    }
-                }
-            }
-
-            # Internals: add devices to feederDeviceDict (original logic preserved)
+            # Check for the internals file for all switch status measurements
             $subXML = Get-InternalsXml -SubstationName $sub -ProcessingDir $processingDir
             if ($subXML) {
                 $statusList = $subXML.SelectNodes("//Status[./pMeas/MeasType = 'SwitchStatusMeasurementType']")
                 $cbList = $subXML.SelectNodes("//Breaker[contains(Name,'$feeder')]")
 
-                if ($statusList) {
-                    foreach ($status in $statusList) {
-                        $deviceId = $status.device
-                        if (-not [string]::IsNullOrWhiteSpace($deviceId) -and $mRIDSet.Contains($deviceId)) {
-                            $deviceList = Get-OrCreate-DeviceList -Dict $feederDeviceDict -Feeder $feeder
-                            if ($deviceList) { $deviceList.Add($deviceId) }
+                # Check to see what automated devices are in the feeder file and create a list
+                foreach ($status in $statusList) {
+                    if (($status.device -in $mRIDValues)) {
+                        if (-not $feederDeviceDict.ContainsKey($feeder)) {
+                            $feederDeviceDict[$feeder] = @()
                         }
+                        $feederDeviceDict[$feeder] += $status.device
                     }
                 }
-                if ($cbList) {
-                    foreach ($cb in $cbList) {
-                        $cbId = $cb.Id
-                        if (-not [string]::IsNullOrWhiteSpace($cbId)) {
-                            $deviceList = Get-OrCreate-DeviceList -Dict $feederDeviceDict -Feeder $feeder
-                            if ($deviceList) { $deviceList.Add($cbId) }
-                        }
+                foreach ($cb in $cbList) {
+                    if (-not $feederDeviceDict.ContainsKey($feeder)) {
+                        $feederDeviceDict[$feeder] = @()
                     }
+                    $feederDeviceDict[$feeder] += $cb.Id
                 }
             }
             else {
@@ -164,7 +118,6 @@ if (Test-Path $fisrFeedersFile) {
     $csvLines.Add("TEAMSWITCH,0,ID_TEAMSW,TEAM_TEAMSW,NAME_TEAMSW,SECONDID_TEAMSW,STATION1_TEAMSW,STATION2_TEAMSW,ROLE_TEAMSW")
     foreach ($key in $feederDeviceDict.Keys) {
         $feederNameUpper = [string]$key.ToUpper()
-
         foreach ($value in $feederDeviceDict[$key]) {
             if (-not [string]::IsNullOrWhiteSpace($value)) {
                 $deviceUpper = [string]$value.ToUpper()
