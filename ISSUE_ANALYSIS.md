@@ -71,7 +71,7 @@ $csvLines.Add("TEAM,1," + $feederNameUpper + "_TEAM," + $feederNameUpper + "_SCH
 ## Test Results
 
 ### Before Fix
-- Total SCHEME entries: 4 (for RIO HONDO substationwith 4 feeders)
+- Total SCHEME entries: 4 (for RIO HONDO substation with 4 feeders)
 - Unique SCHEME IDs: 1 (all entries use "RIO HONDO_SCHEME")
 - Result: ✗ Duplicate SCHEME IDs detected
 
