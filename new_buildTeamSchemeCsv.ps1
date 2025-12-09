@@ -120,11 +120,12 @@ if (Test-Path $fisrFeedersFile) {
     $csvLines.Add(",,,,,,,,")
     $csvLines.Add("TEAMSWITCH,0,ID_TEAMSW,TEAM_TEAMSW,NAME_TEAMSW,SECONDID_TEAMSW,STATION1_TEAMSW,STATION2_TEAMSW,ROLE_TEAMSW")
     foreach ($key in $feederDeviceDict.Keys) {
+        $subNameUpper = [string]$feederSubDict[$key].ToUpper()
         $feederNameUpper = [string]$key.ToUpper()
         foreach ($value in $feederDeviceDict[$key]) {
             if (-not [string]::IsNullOrWhiteSpace($value)) {
                 $deviceUpper = [string]$value.ToUpper()
-                $csvLines.Add("TEAMSWITCH,1," + $deviceUpper + "," + $feederNameUpper + "_TEAM,na,na," + $feederNameUpper + ",,PRIMARY")
+                $csvLines.Add("TEAMSWITCH,1," + $deviceUpper + "," + $feederNameUpper + "_TEAM,na,na," + $subNameUpper + ",,PRIMARY")
             }
         }
     }
