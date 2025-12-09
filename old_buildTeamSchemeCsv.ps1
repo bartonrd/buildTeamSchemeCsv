@@ -66,14 +66,14 @@ if (Test-Path $fisrFeedersFile) {
     Set-Content -Path $teamSchemeFile -Value "SCHEME,0,ID_SCHEME,NAME_SCHEME,DESCRIPTION_SCHEME,,,,"
 
     foreach ($key in $feederDeviceDict.Keys) {
-        "SCHEME,1," + $feederSubDict[$key].ToUpper() + "_SCHEME," + $feederSubDict[$key].ToUpper() + "_SCHEME," + $key.ToUpper() + " FISR,,,," | out-file -Append -FilePath $teamSchemeFile -Encoding UTF8
+        "SCHEME,1," + $key.ToUpper() + "_SCHEME," + $key.ToUpper() + "_SCHEME," + $key.ToUpper() + " FISR,,,," | out-file -Append -FilePath $teamSchemeFile -Encoding UTF8
     }
 
     ",,,,,,,,"| out-file -Append -FilePath $teamSchemeFile -Encoding UTF8
     "TEAM,0,ID_TEAM,SCHEME_TEAM,NAME_TEAM,DESCRIPTION_TEAM,,," | out-file -Append -FilePath $teamSchemeFile -Encoding UTF8
 
     foreach ($key in $feederDeviceDict.Keys) {
-        "TEAM,1," + $key.ToUpper() + "_TEAM," + $feederSubDict[$key].ToUpper() + "_SCHEME," + $key.ToUpper() + " FISR," + $key.ToUpper() + " FISR,,," | out-file -Append -FilePath $teamSchemeFile -Encoding UTF8
+        "TEAM,1," + $key.ToUpper() + "_TEAM," + $key.ToUpper() + "_SCHEME," + $key.ToUpper() + " FISR," + $key.ToUpper() + " FISR,,," | out-file -Append -FilePath $teamSchemeFile -Encoding UTF8
     }
 
     ",,,,,,,," | out-file -Append -FilePath $teamSchemeFile -Encoding UTF8

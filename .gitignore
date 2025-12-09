@@ -1,0 +1,5 @@
+# Log files (keep for analysis but don't track changes)
+*.log
+
+# Temporary files
+*.tmp
