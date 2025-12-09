@@ -101,7 +101,7 @@ if (Test-Path $fisrFeedersFile) {
     foreach ($key in $feederDeviceDict.Keys) {
         $subNameUpper = [string]$feederSubDict[$key].ToUpper()
         $feederNameUpper = [string]$key.ToUpper()
-        $csvLines.Add("SCHEME,1," + $subNameUpper + "_SCHEME," + $subNameUpper + "_SCHEME," + $feederNameUpper + " FISR,,,,")
+        $csvLines.Add("SCHEME,1," + $feederNameUpper + "_SCHEME," + $feederNameUpper + "_SCHEME," + $feederNameUpper + " FISR,,,,")
     }
 
     # TEAM section
@@ -110,7 +110,7 @@ if (Test-Path $fisrFeedersFile) {
     foreach ($key in $feederDeviceDict.Keys) {
         $subNameUpper = [string]$feederSubDict[$key].ToUpper()
         $feederNameUpper = [string]$key.ToUpper()
-        $csvLines.Add("TEAM,1," + $feederNameUpper + "_TEAM," + $subNameUpper + "_SCHEME," + $feederNameUpper + " FISR," + $feederNameUpper + " FISR,,,")
+        $csvLines.Add("TEAM,1," + $feederNameUpper + "_TEAM," + $feederNameUpper + "_SCHEME," + $feederNameUpper + " FISR," + $feederNameUpper + " FISR,,,")
     }
 
     # TEAMSWITCH section
