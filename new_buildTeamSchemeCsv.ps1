@@ -96,12 +96,15 @@ if (Test-Path $fisrFeedersFile) {
 
     $csvLines = [System.Collections.Generic.List[string]]::new()
 
-    # SCHEME section
+    # SCHEME section - deduplicate by substation name
     $csvLines.Add("SCHEME,0,ID_SCHEME,NAME_SCHEME,DESCRIPTION_SCHEME,,,,")
+    $uniqueSubstations = @{}
     foreach ($key in $feederDeviceDict.Keys) {
         $subNameUpper = [string]$feederSubDict[$key].ToUpper()
-        $feederNameUpper = [string]$key.ToUpper()
-        $csvLines.Add("SCHEME,1," + $subNameUpper + "_SCHEME," + $subNameUpper + "_SCHEME," + $feederNameUpper + " FISR,,,,")
+        if (-not $uniqueSubstations.ContainsKey($subNameUpper)) {
+            $uniqueSubstations[$subNameUpper] = $true
+            $csvLines.Add("SCHEME,1," + $subNameUpper + "_SCHEME," + $subNameUpper + "_SCHEME,Automation Scheme,,,,")
+        }
     }
 
     # TEAM section
