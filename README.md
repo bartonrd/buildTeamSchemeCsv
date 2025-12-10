@@ -108,17 +108,25 @@ TEAMSWITCH,1,{DEVICE_ID},{FEEDER}_TEAM,na,na,{SUBSTATION},,PRIMARY
 
 ## Directory Structure
 
+The script uses the following default directory structure (paths are configurable in the script):
+
 ```
-E:\Eterra\distribution\sce\ToolsWorkspace\
-├── Converter\input\              # Processing directory
+{workspace_root}\ToolsWorkspace\
+├── Converter\input\              # Processing directory (configurable: $processingDir)
 │   ├── fisrfeeders.txt          # Input: List of feeders
 │   ├── {SUB}_INTERNALS.xml      # Input: Substation device data
 │   ├── AutomationSchemes.tmp    # Temporary output file
 │   ├── AutomationSchemes.csv    # Final output file
 │   └── fisrfeeders.log          # Processing log
-└── ETL\input\                    # ETL directory
+└── ETL\input\                    # ETL directory (configurable: $etlDir)
     └── {FEEDER}.xml             # Input: Feeder XML files
 ```
+
+**Note**: The default paths in the script are:
+- Processing directory: `E:\Eterra\distribution\sce\ToolsWorkspace\Converter\input\`
+- ETL directory: `E:\Eterra\distribution\sce\ToolsWorkspace\ETL\input\`
+
+These can be modified at the top of the script to match your environment.
 
 ## Example Output Structure
 
