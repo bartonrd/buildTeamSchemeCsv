@@ -28,6 +28,7 @@ $internalsCache = @{}
 # Track processing state
 $processingError = $null
 $stationsProcessed = @{}
+$scriptStartTime = Get-Date
 
 function Get-InternalsXml {
     param(
@@ -53,6 +54,9 @@ function Get-InternalsXml {
     # Copy to temp directory if not already cached
     if (-not $script:internalsCache.ContainsKey($SubstationName)) {
         try {
+            # Start timing for this scheme
+            $schemeStartTime = Get-Date
+            
             # Copy the file to temp directory
             Copy-Item -Path $internalsPath -Destination $tempInternalsPath -Force -ErrorAction Stop
             "[LOG] Copied $internalsFileName to temp directory" | Out-File -Append -FilePath $script:logFile -Encoding UTF8
@@ -61,8 +65,11 @@ function Get-InternalsXml {
             $xmlText = Get-Content -Path $tempInternalsPath -Raw -ErrorAction Stop
             $script:internalsCache[$SubstationName] = [xml]$xmlText
             
-            # Track this station as processed
-            $script:stationsProcessed[$SubstationName] = $tempInternalsPath
+            # Track this station as processed with timing and temp file path
+            $script:stationsProcessed[$SubstationName] = @{
+                TempPath = $tempInternalsPath
+                StartTime = $schemeStartTime
+            }
         }
         catch {
             $script:processingError = "Failed to copy or parse $internalsFileName : $_"
@@ -91,10 +98,46 @@ function Cleanup-TempFiles {
     }
 }
 
+function Cleanup-SchemeFile {
+    param(
+        [string] $SchemeName
+    )
+    if ([string]::IsNullOrWhiteSpace($SchemeName)) {
+        return
+    }
+    
+    if (-not $script:stationsProcessed.ContainsKey($SchemeName)) {
+        return
+    }
+    
+    $schemeInfo = $script:stationsProcessed[$SchemeName]
+    $tempFilePath = $schemeInfo.TempPath
+    $schemeStartTime = $schemeInfo.StartTime
+    
+    # Calculate processing time
+    $schemeEndTime = Get-Date
+    $processingTime = ($schemeEndTime - $schemeStartTime).TotalSeconds
+    
+    "[LOG] Scheme $SchemeName processing completed in $([math]::Round($processingTime, 2)) seconds" | Out-File -Append -FilePath $script:logFile -Encoding UTF8
+    
+    # Cleanup temp file for this scheme
+    try {
+        if (Test-Path $tempFilePath) {
+            Remove-Item -Path $tempFilePath -Force -ErrorAction Stop
+            "[LOG] Cleaned up temp file for scheme $SchemeName : $($SchemeName)_INTERNALS.xml" | Out-File -Append -FilePath $script:logFile -Encoding UTF8
+        }
+    }
+    catch {
+        "[ERROR] Failed to cleanup temp file for scheme $SchemeName : $_" | Out-File -Append -FilePath $script:logFile -Encoding UTF8
+    }
+}
+
 Set-Content -Path $logFile -Value "[LOG] Starting Automation Schemes File Build for CL FISR Device Participation" -Encoding UTF8
 
 if (Test-Path $fisrFeedersFile) {
     $feedersList = Get-Content $fisrFeedersFile
+    $processedSchemes = @{}  # Track which schemes have been cleaned up
+    
     foreach ($feeder in $feedersList) {
         if ([string]::IsNullOrWhiteSpace($feeder)) { continue }
         $feederXmlPath = $etlDir + $feeder + ".xml"
@@ -135,6 +178,12 @@ if (Test-Path $fisrFeedersFile) {
                         $feederDeviceDict[$feeder] = @()
                     }
                     $feederDeviceDict[$feeder] += $cb.Id
+                }
+                
+                # Clean up this scheme's temp file after processing if we haven't already
+                if (-not $processedSchemes.ContainsKey($sub)) {
+                    Cleanup-SchemeFile -SchemeName $sub
+                    $processedSchemes[$sub] = $true
                 }
             }
             else {
@@ -202,6 +251,11 @@ if (Test-Path $fisrFeedersFile) {
             
             $stationCount = $stationsProcessed.Count
             "[LOG] Processing complete - $stationCount stations processed" | Out-File -Append -FilePath $logFile -Encoding UTF8
+            
+            # Calculate and log total processing time
+            $scriptEndTime = Get-Date
+            $totalProcessingTime = ($scriptEndTime - $scriptStartTime).TotalSeconds
+            "[LOG] Total processing time: $([math]::Round($totalProcessingTime, 2)) seconds" | Out-File -Append -FilePath $logFile -Encoding UTF8
         }
         catch {
             "[ERROR] Unable to write to AutomationSchemes.csv: $_" | Out-File -Append -FilePath $logFile -Encoding UTF8
