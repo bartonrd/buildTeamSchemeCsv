@@ -4,12 +4,24 @@ $processingDir = "E:\Eterra\distribution\sce\ToolsWorkspace\Converter\input\"
 $fisrFeedersFile = $processingDir + "fisrfeeders.txt"
 $teamSchemeFile = $processingDir + "AutomationSchemes.tmp"
 $teamSchemeFileCSV = $processingDir + "AutomationSchemes.csv"
-$logFile = $processingDir + "fisrfeeders.log"
+$logFile = "E:\Eterra\distribution\sce\ToolsWorkspace\ModelManagerFolders\History\fisrfeeders.log"
 $etlDir = "E:\Eterra\distribution\sce\ToolsWorkspace\ETL\input\"
 
-# Create temp directory for processing
+# Ensure History directory exists for log file
+$historyDir = "E:\Eterra\distribution\sce\ToolsWorkspace\ModelManagerFolders\History"
 try {
-    $tempDir = [System.IO.Path]::Combine([System.IO.Path]::GetTempPath(), "AutomationSchemes_" + [System.Guid]::NewGuid().ToString())
+    if (-not (Test-Path $historyDir)) {
+        New-Item -Path $historyDir -ItemType Directory -Force -ErrorAction Stop | Out-Null
+    }
+}
+catch {
+    Write-Error "Failed to create history directory: $_"
+    exit 1
+}
+
+# Create temp directory for processing
+$tempDir = "E:\Eterra\distribution\sce\ToolsWorkspace\ModelManagerFolders\AutomationSchemes_Temp"
+try {
     New-Item -Path $tempDir -ItemType Directory -Force -ErrorAction Stop | Out-Null
 }
 catch {
