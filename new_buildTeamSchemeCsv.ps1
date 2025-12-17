@@ -8,8 +8,14 @@ $logFile = $processingDir + "fisrfeeders.log"
 $etlDir = "E:\Eterra\distribution\sce\ToolsWorkspace\ETL\input\"
 
 # Create temp directory for processing
-$tempDir = [System.IO.Path]::Combine([System.IO.Path]::GetTempPath(), "AutomationSchemes_" + [System.Guid]::NewGuid().ToString())
-New-Item -Path $tempDir -ItemType Directory -Force | Out-Null
+try {
+    $tempDir = [System.IO.Path]::Combine([System.IO.Path]::GetTempPath(), "AutomationSchemes_" + [System.Guid]::NewGuid().ToString())
+    New-Item -Path $tempDir -ItemType Directory -Force -ErrorAction Stop | Out-Null
+}
+catch {
+    Write-Error "Failed to create temp directory: $_"
+    exit 1
+}
 
 # feeder -> List[string] of devices
 $feederDeviceDict = @{}
@@ -82,7 +88,7 @@ function Cleanup-TempFiles {
     }
 }
 
-Set-Content -Path $logFile -Value "[LOG] Starting Automation Schemes File Build for CL FISR Device Particpation" -Encoding UTF8
+Set-Content -Path $logFile -Value "[LOG] Starting Automation Schemes File Build for CL FISR Device Participation" -Encoding UTF8
 
 if (Test-Path $fisrFeedersFile) {
     $feedersList = Get-Content $fisrFeedersFile
@@ -135,11 +141,6 @@ if (Test-Path $fisrFeedersFile) {
                     Cleanup-TempFiles -TempDir $tempDir
                     exit 1
                 }
-                "[ERROR] $($processingDir + $sub + '_INTERNALS.xml') substation file not found" | Out-File -Append -FilePath $logFile -Encoding UTF8
-                $processingError = "Station file not found: $($processingDir + $sub + '_INTERNALS.xml')"
-                "[ERROR] Processing Terminated: $processingError" | Out-File -Append -FilePath $logFile -Encoding UTF8
-                Cleanup-TempFiles -TempDir $tempDir
-                exit 1
             }
         }
         else {
@@ -212,4 +213,5 @@ if (Test-Path $fisrFeedersFile) {
 else {
     "[ERROR] FISR feeders file not found" | Out-File -Append -FilePath $logFile -Encoding UTF8
     Cleanup-TempFiles -TempDir $tempDir
+    exit 1
 }
