@@ -13,7 +13,7 @@ try {
     New-Item -Path $tempDir -ItemType Directory -Force -ErrorAction Stop | Out-Null
 }
 catch {
-    Write-Error "Failed to create temp directory: $_"
+    "[ERROR] Failed to create temp directory: $_" | Out-File -Append -FilePath $logFile -Encoding UTF8
     exit 1
 }
 
@@ -77,6 +77,9 @@ function Cleanup-TempFiles {
     param(
         [string] $TempDir
     )
+    if ([string]::IsNullOrWhiteSpace($TempDir)) {
+        return
+    }
     try {
         if (Test-Path $TempDir) {
             Remove-Item -Path $TempDir -Recurse -Force -ErrorAction Stop
@@ -144,7 +147,7 @@ if (Test-Path $fisrFeedersFile) {
             }
         }
         else {
-            "[ERROR] $($etlDir + $feeder + '.xml') feeders file not found" | Out-File -Append -FilePath $logFile -Encoding UTF8
+            "[ERROR] Feeders file not found: $etlDir$feeder.xml" | Out-File -Append -FilePath $logFile -Encoding UTF8
         }
         
         # Check if we should stop processing due to errors
