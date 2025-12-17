@@ -44,9 +44,25 @@ function Get-InternalsXml {
     $internalsFileName = $SubstationName + "_INTERNALS.xml"
     $tempInternalsPath = [System.IO.Path]::Combine($TempDir, $internalsFileName)
     
-    # Check if the source file exists
-    if (-not (Test-Path $internalsPath)) {
-        $script:processingError = "Station file not found: $internalsPath"
+    # Check if the source file exists with retry logic
+    $fileFound = $false
+    $maxAttempts = 3
+    $retryDelaySeconds = 15
+    
+    for ($attempt = 1; $attempt -le $maxAttempts; $attempt++) {
+        if (Test-Path $internalsPath) {
+            $fileFound = $true
+            break
+        }
+        
+        if ($attempt -lt $maxAttempts) {
+            "[LOG] Station file not found on attempt $attempt : $internalsPath - Waiting $retryDelaySeconds seconds before retry" | Out-File -Append -FilePath $script:logFile -Encoding UTF8
+            Start-Sleep -Seconds $retryDelaySeconds
+        }
+    }
+    
+    if (-not $fileFound) {
+        $script:processingError = "Station file not found after $maxAttempts attempts: $internalsPath"
         "[ERROR] $($script:processingError)" | Out-File -Append -FilePath $script:logFile -Encoding UTF8
         return $null
     }
