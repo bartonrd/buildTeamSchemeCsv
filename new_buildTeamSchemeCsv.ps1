@@ -1,3 +1,4 @@
+#Requires -Version 7.0
 
 $processingDir = "E:\Eterra\distribution\sce\ToolsWorkspace\Converter\input\"
 #$processingDir = "E:\Eterra\distribution\sce\ToolsWorkspace\ModelManagerFolders\Processing\"
@@ -6,6 +7,10 @@ $teamSchemeFile = $processingDir + "AutomationSchemes.tmp"
 $teamSchemeFileCSV = $processingDir + "AutomationSchemes.csv"
 $logFile = "E:\Eterra\distribution\sce\ToolsWorkspace\ModelManagerFolders\History\fisrfeeders.log"
 $etlDir = "E:\Eterra\distribution\sce\ToolsWorkspace\ETL\input\"
+$backupDir = "E:\Eterra\Distribution\sce\ToolsWorkspace\ModelManagerFolders\Backup\TeamSchemes"
+
+# Throttle for parallel operations (one runspace per logical processor, minimum 2)
+$maxParallel = [Math]::Max(2, [Environment]::ProcessorCount)
 
 # Ensure History directory exists for log file
 $historyDir = "E:\Eterra\distribution\sce\ToolsWorkspace\ModelManagerFolders\History"
@@ -163,75 +168,185 @@ function Cleanup-SchemeFile {
 Set-Content -Path $logFile -Value "[LOG] Starting Automation Schemes File Build for CL FISR Device Participation" -Encoding UTF8
 
 if (Test-Path $fisrFeedersFile) {
-    $feedersList = Get-Content $fisrFeedersFile
+    $feedersList = Get-Content $fisrFeedersFile | Where-Object { -not [string]::IsNullOrWhiteSpace($_) }
     $processedSchemes = @{}  # Track which schemes have been cleaned up
-    
-    foreach ($feeder in $feedersList) {
-        if ([string]::IsNullOrWhiteSpace($feeder)) { continue }
-        $feederXmlPath = $etlDir + $feeder + ".xml"
-        if (Test-Path $feederXmlPath) {
-            "[LOG] Parsing GCM feeder model for $feeder" | Out-File -Append -FilePath $logFile -Encoding UTF8
-            try {
-                $feederGC = Get-Content -Path $feederXmlPath -Raw
-                $feederXML = [xml]$feederGC
-            }
-            catch {
-                "[ERROR] Failed to parse feeder XML for $feeder at $feederXmlPath" | Out-File -Append -FilePath $logFile -Encoding UTF8
-                continue
-            }
-            $sub = $feederXML.CircuitConnectivity.Substation.name
-            $feederSubDict[$feeder] = $sub
-            
-            # Collect mRID values exactly like old script
-            $mRIDValues = $feederXML.SelectNodes("//*[local-name()='Switch' or local-name()='Recloser']/*[local-name()='mRID']") | ForEach-Object { $_.'#text' }
-            $mRIDValues += $feederXML.SelectNodes("//*[local-name()='CompositeSwitch']/*[local-name()='mRID']") | ForEach-Object { "$($_.'#text')_CS" }
 
-            # Check for the internals file for all switch status measurements
-            $subXML = Get-InternalsXml -SubstationName $sub -ProcessingDir $processingDir -TempDir $tempDir
-            if ($subXML) {
-                $statusList = $subXML.SelectNodes("//Status[./pMeas/MeasType = 'SwitchStatusMeasurementType']")
-                $cbList = $subXML.SelectNodes("//Breaker[contains(Name,'$feeder')]")
-
-                # Check to see what automated devices are in the feeder file and create a list
-                foreach ($status in $statusList) {
-                    if (($status.device -in $mRIDValues)) {
-                        if (-not $feederDeviceDict.ContainsKey($feeder)) {
-                            $feederDeviceDict[$feeder] = @()
-                        }
-                        $feederDeviceDict[$feeder] += $status.device
-                    }
-                }
-                foreach ($cb in $cbList) {
-                    if (-not $feederDeviceDict.ContainsKey($feeder)) {
-                        $feederDeviceDict[$feeder] = @()
-                    }
-                    $feederDeviceDict[$feeder] += $cb.Id
-                }
-                
-                # Clean up this scheme's temp file after processing if we haven't already
-                if (-not $processedSchemes.ContainsKey($sub)) {
-                    Cleanup-SchemeFile -SchemeName $sub
-                    $processedSchemes[$sub] = $true
-                }
-            }
-            else {
-                # If Get-InternalsXml returned null and set an error, stop processing
-                if ($processingError) {
-                    "[ERROR] Processing Terminated: $processingError" | Out-File -Append -FilePath $logFile -Encoding UTF8
-                    Cleanup-TempFiles -TempDir $tempDir
-                    exit 1
-                }
+    # -----------------------------------------------------------------
+    # Phase 1: Parse each feeder XML in parallel. Each runspace returns
+    # a record with the substation name and the collected mRID values.
+    # -----------------------------------------------------------------
+    $feederResults = $feedersList | ForEach-Object -ThrottleLimit $maxParallel -Parallel {
+        $feeder = $_
+        $etlDirLocal = $using:etlDir
+        $feederXmlPath = $etlDirLocal + $feeder + ".xml"
+        $logs = [System.Collections.Generic.List[string]]::new()
+        if (-not (Test-Path $feederXmlPath)) {
+            $logs.Add("[ERROR] Feeders file not found: $feederXmlPath")
+            return [pscustomobject]@{
+                Feeder = $feeder; Sub = $null; MRIDs = @(); Fatal = $false; Logs = $logs.ToArray()
             }
         }
-        else {
-            "[ERROR] Feeders file not found: $etlDir$feeder.xml" | Out-File -Append -FilePath $logFile -Encoding UTF8
+        $logs.Add("[LOG] Parsing GCM feeder model for $feeder")
+        try {
+            $feederGC = Get-Content -Path $feederXmlPath -Raw -ErrorAction Stop
+            $feederXML = [xml]$feederGC
         }
-        
-        # Check if we should stop processing due to errors
-        if ($processingError) {
-            "[ERROR] Processing Terminated: $processingError" | Out-File -Append -FilePath $logFile -Encoding UTF8
-            Cleanup-TempFiles -TempDir $tempDir
-            exit 1
+        catch {
+            $logs.Add("[ERROR] Failed to parse feeder XML for $feeder at $feederXmlPath")
+            return [pscustomobject]@{
+                Feeder = $feeder; Sub = $null; MRIDs = @(); Fatal = $false; Logs = $logs.ToArray()
+            }
+        }
+        $sub = $feederXML.CircuitConnectivity.Substation.name
+        $mRIDValues = @()
+        $mRIDValues += $feederXML.SelectNodes("//*[local-name()='Switch' or local-name()='Recloser']/*[local-name()='mRID']") | ForEach-Object { $_.'#text' }
+        $mRIDValues += $feederXML.SelectNodes("//*[local-name()='CompositeSwitch']/*[local-name()='mRID']") | ForEach-Object { "$($_.'#text')_CS" }
+        return [pscustomobject]@{
+            Feeder = $feeder; Sub = $sub; MRIDs = $mRIDValues; Fatal = $false; Logs = $logs.ToArray()
+        }
+    }
+
+    foreach ($r in $feederResults) {
+        foreach ($l in $r.Logs) { $l | Out-File -Append -FilePath $logFile -Encoding UTF8 }
+        if ($r.Sub) { $feederSubDict[$r.Feeder] = $r.Sub }
+    }
+
+    # Preserve original feedersList ordering (ForEach-Object -Parallel does
+    # not guarantee output order, but downstream CSV ordering should match
+    # the input list as the sequential script produced).
+    $feederOrder = @{}
+    for ($i = 0; $i -lt $feedersList.Count; $i++) { $feederOrder[$feedersList[$i]] = $i }
+    $feederResults = $feederResults | Sort-Object { $feederOrder[$_.Feeder] }
+
+    # -----------------------------------------------------------------
+    # Phase 2: Determine the unique set of substations to load.
+    # -----------------------------------------------------------------
+    $uniqueSubs = @($feederResults | Where-Object { $_.Sub } | ForEach-Object { $_.Sub } | Sort-Object -Unique)
+
+    # -----------------------------------------------------------------
+    # Phase 3: Copy and parse each substation internals XML in parallel.
+    # The expensive XML parsing and the per-substation node extraction
+    # happen inside the runspaces so that they run concurrently. Each
+    # runspace returns plain data (string arrays / pscustomobjects),
+    # which is safe to marshal back across runspaces.
+    # -----------------------------------------------------------------
+    $internalsResults = $uniqueSubs | ForEach-Object -ThrottleLimit $maxParallel -Parallel {
+        $sub = $_
+        $procDir = $using:processingDir
+        $tempD = $using:tempDir
+        $internalsFileName = $sub + "_INTERNALS.xml"
+        $internalsPath = $procDir + $internalsFileName
+        $tempInternalsPath = [System.IO.Path]::Combine($tempD, $internalsFileName)
+        $maxAttempts = 3
+        $retryDelaySeconds = 15
+        $fileFound = $false
+        $logs = [System.Collections.Generic.List[string]]::new()
+
+        for ($attempt = 1; $attempt -le $maxAttempts; $attempt++) {
+            if (Test-Path $internalsPath) { $fileFound = $true; break }
+            if ($attempt -lt $maxAttempts) {
+                $logs.Add("[LOG] Station file not found on attempt $attempt : $internalsPath - Waiting $retryDelaySeconds seconds before retry")
+                Start-Sleep -Seconds $retryDelaySeconds
+            }
+        }
+
+        if (-not $fileFound) {
+            return [pscustomobject]@{
+                Sub = $sub
+                Error = "Station file not found after $maxAttempts attempts: $internalsPath"
+                DeviceIds = @()
+                Breakers = @()
+                TempPath = $tempInternalsPath
+                StartTime = $null
+                Logs = $logs.ToArray()
+            }
+        }
+
+        $start = Get-Date
+        try {
+            Copy-Item -Path $internalsPath -Destination $tempInternalsPath -Force -ErrorAction Stop
+            $logs.Add("[LOG] Copied $internalsFileName to temp directory")
+            $xmlText = Get-Content -Path $tempInternalsPath -Raw -ErrorAction Stop
+            $subXML = [xml]$xmlText
+
+            # Pre-extract just the data we need so callers do not need to
+            # touch the XmlDocument across threads.
+            $deviceIds = @($subXML.SelectNodes("//Status[./pMeas/MeasType = 'SwitchStatusMeasurementType']") |
+                ForEach-Object { [string]$_.device })
+            $breakers = @($subXML.SelectNodes("//Breaker") | ForEach-Object {
+                [pscustomobject]@{ Name = [string]$_.Name; Id = [string]$_.Id }
+            })
+
+            return [pscustomobject]@{
+                Sub = $sub
+                Error = $null
+                DeviceIds = $deviceIds
+                Breakers = $breakers
+                TempPath = $tempInternalsPath
+                StartTime = $start
+                Logs = $logs.ToArray()
+            }
+        }
+        catch {
+            return [pscustomobject]@{
+                Sub = $sub
+                Error = "Failed to copy or parse $internalsFileName : $_"
+                DeviceIds = @()
+                Breakers = @()
+                TempPath = $tempInternalsPath
+                StartTime = $start
+                Logs = $logs.ToArray()
+            }
+        }
+    }
+
+    # Aggregate parallel internals results into per-substation lookup tables.
+    $subData = @{}
+    foreach ($r in $internalsResults) {
+        foreach ($l in $r.Logs) { $l | Out-File -Append -FilePath $logFile -Encoding UTF8 }
+        if ($r.Error) {
+            $processingError = $r.Error
+            "[ERROR] $processingError" | Out-File -Append -FilePath $logFile -Encoding UTF8
+            break
+        }
+        $subData[$r.Sub] = @{ DeviceIds = $r.DeviceIds; Breakers = $r.Breakers }
+        $stationsProcessed[$r.Sub] = @{ TempPath = $r.TempPath; StartTime = $r.StartTime }
+        # Clean up the temp file now - all needed data has already been extracted.
+        Cleanup-SchemeFile -SchemeName $r.Sub
+        $processedSchemes[$r.Sub] = $true
+    }
+
+    if ($processingError) {
+        "[ERROR] Processing Terminated: $processingError" | Out-File -Append -FilePath $logFile -Encoding UTF8
+        Cleanup-TempFiles -TempDir $tempDir
+        exit 1
+    }
+
+    # -----------------------------------------------------------------
+    # Phase 4: Build the per-feeder device list from the pre-extracted
+    # substation data. Uses a HashSet for O(1) mRID membership checks.
+    # -----------------------------------------------------------------
+    foreach ($r in $feederResults) {
+        if (-not $r.Sub) { continue }
+        $feeder = $r.Feeder
+        $sub = $r.Sub
+        if (-not $subData.ContainsKey($sub)) { continue }
+
+        $mRIDset = [System.Collections.Generic.HashSet[string]]::new()
+        foreach ($m in $r.MRIDs) {
+            if (-not [string]::IsNullOrEmpty($m)) { [void]$mRIDset.Add([string]$m) }
+        }
+
+        $devices = [System.Collections.Generic.List[string]]::new()
+        foreach ($d in $subData[$sub].DeviceIds) {
+            if ($mRIDset.Contains($d)) { $devices.Add($d) }
+        }
+        foreach ($cb in $subData[$sub].Breakers) {
+            if ($cb.Name -and $cb.Name.Contains($feeder)) { $devices.Add($cb.Id) }
+        }
+
+        if ($devices.Count -gt 0) {
+            $feederDeviceDict[$feeder] = $devices.ToArray()
         }
     }
 
@@ -274,6 +389,27 @@ if (Test-Path $fisrFeedersFile) {
         }
 
         try {
+            # If a CSV already exists in the output directory, move it to the
+            # backup location and append a date/time stamp before writing the
+            # new one.
+            if (Test-Path $teamSchemeFileCSV) {
+                try {
+                    if (-not (Test-Path $backupDir)) {
+                        New-Item -Path $backupDir -ItemType Directory -Force -ErrorAction Stop | Out-Null
+                    }
+                    $stamp = (Get-Date).ToString("yyyyMMdd_HHmmss")
+                    $origName = [System.IO.Path]::GetFileNameWithoutExtension($teamSchemeFileCSV)
+                    $ext = [System.IO.Path]::GetExtension($teamSchemeFileCSV)
+                    $backupName = "{0}_{1}{2}" -f $origName, $stamp, $ext
+                    $backupPath = [System.IO.Path]::Combine($backupDir, $backupName)
+                    Move-Item -Path $teamSchemeFileCSV -Destination $backupPath -Force -ErrorAction Stop
+                    "[LOG] Existing CSV backed up to $backupPath" | Out-File -Append -FilePath $logFile -Encoding UTF8
+                }
+                catch {
+                    "[ERROR] Failed to backup existing CSV to $backupDir : $_" | Out-File -Append -FilePath $logFile -Encoding UTF8
+                }
+            }
+
             Set-Content -Path $teamSchemeFile -Value $csvLines -Encoding UTF8 -ErrorAction Stop
             Move-Item -Path $teamSchemeFile -Destination $teamSchemeFileCSV -Force -ErrorAction Stop
             
