@@ -19,13 +19,28 @@ catch {
     exit 1
 }
 
+function Write-Log {
+    param(
+        [string] $Message,
+        [switch] $Reset
+    )
+
+    if ($Reset) {
+        Set-Content -Path $script:logFile -Value $Message -Encoding UTF8
+    }
+    else {
+        $Message | Out-File -Append -FilePath $script:logFile -Encoding UTF8
+    }
+    Write-Host $Message
+}
+
 # Create temp directory for processing
 $tempDir = "E:\Eterra\distribution\sce\ToolsWorkspace\ModelManagerFolders\AutomationSchemes_Temp"
 try {
     New-Item -Path $tempDir -ItemType Directory -Force -ErrorAction Stop | Out-Null
 }
 catch {
-    "[ERROR] Failed to create temp directory: $_" | Out-File -Append -FilePath $logFile -Encoding UTF8
+    Write-Log "[ERROR] Failed to create temp directory: $_"
     exit 1
 }
 
@@ -52,7 +67,8 @@ function Normalize-SubstationName {
 
     $normalizedName = $SubstationName -replace '(?i)(?<![A-Z0-9])P\.T\.(?![A-Z0-9])', 'PT'
     $normalizedName = $normalizedName -replace '(?i)(?<![A-Z0-9])U\.G\.S\.(?![A-Z0-9])', 'UGS'
-    return $normalizedName -replace '(?i)(?<![A-Z0-9])P\.M\.(?![A-Z0-9])', 'PM'
+    $normalizedName = $normalizedName -replace '(?i)(?<![A-Z0-9])P\.M\.(?![A-Z0-9])', 'PM'
+    return $normalizedName -replace '\.', ''
 }
 
 function Resolve-FeederModelName {
@@ -103,14 +119,14 @@ function Get-InternalsXml {
         }
         
         if ($attempt -lt $maxAttempts) {
-            "[LOG] Station file not found on attempt $attempt : $internalsPath - Waiting $retryDelaySeconds seconds before retry" | Out-File -Append -FilePath $script:logFile -Encoding UTF8
+            Write-Log "[LOG] Station file not found on attempt $attempt : $internalsPath - Waiting $retryDelaySeconds seconds before retry"
             Start-Sleep -Seconds $retryDelaySeconds
         }
     }
     
     if (-not $fileFound) {
         $script:processingError = "Station file not found after $maxAttempts attempts: $internalsPath"
-        "[ERROR] $($script:processingError)" | Out-File -Append -FilePath $script:logFile -Encoding UTF8
+        Write-Log "[ERROR] $($script:processingError)"
         return $null
     }
     
@@ -122,7 +138,7 @@ function Get-InternalsXml {
             
             # Copy the file to temp directory
             Copy-Item -Path $internalsPath -Destination $tempInternalsPath -Force -ErrorAction Stop
-            "[LOG] Copied $internalsFileName to temp directory" | Out-File -Append -FilePath $script:logFile -Encoding UTF8
+            Write-Log "[LOG] Copied $internalsFileName to temp directory"
             
             # Read from temp directory
             $xmlText = Get-Content -Path $tempInternalsPath -Raw -ErrorAction Stop
@@ -136,7 +152,7 @@ function Get-InternalsXml {
         }
         catch {
             $script:processingError = "Failed to copy or parse $internalsFileName : $_"
-            "[ERROR] $($script:processingError)" | Out-File -Append -FilePath $script:logFile -Encoding UTF8
+            Write-Log "[ERROR] $($script:processingError)"
             return $null
         }
     }
@@ -153,11 +169,11 @@ function Cleanup-TempFiles {
     try {
         if (Test-Path $TempDir) {
             Remove-Item -Path $TempDir -Recurse -Force -ErrorAction Stop
-            "[LOG] Cleaned up temp directory: $TempDir" | Out-File -Append -FilePath $script:logFile -Encoding UTF8
+            Write-Log "[LOG] Cleaned up temp directory: $TempDir"
         }
     }
     catch {
-        "[ERROR] Failed to cleanup temp directory: $_" | Out-File -Append -FilePath $script:logFile -Encoding UTF8
+        Write-Log "[ERROR] Failed to cleanup temp directory: $_"
     }
 }
 
@@ -181,21 +197,21 @@ function Cleanup-SchemeFile {
     $schemeEndTime = Get-Date
     $processingTime = ($schemeEndTime - $schemeStartTime).TotalSeconds
     
-    "[LOG] Scheme $SchemeName processing completed in $([math]::Round($processingTime, 2)) seconds" | Out-File -Append -FilePath $script:logFile -Encoding UTF8
+    Write-Log "[LOG] Scheme $SchemeName processing completed in $([math]::Round($processingTime, 2)) seconds"
     
     # Cleanup temp file for this scheme
     try {
         if (Test-Path $tempFilePath) {
             Remove-Item -Path $tempFilePath -Force -ErrorAction Stop
-            "[LOG] Cleaned up temp file for scheme $SchemeName : $($SchemeName)_INTERNALS.xml" | Out-File -Append -FilePath $script:logFile -Encoding UTF8
+            Write-Log "[LOG] Cleaned up temp file for scheme $SchemeName : $($SchemeName)_INTERNALS.xml"
         }
     }
     catch {
-        "[ERROR] Failed to cleanup temp file for scheme $SchemeName : $_" | Out-File -Append -FilePath $script:logFile -Encoding UTF8
+        Write-Log "[ERROR] Failed to cleanup temp file for scheme $SchemeName : $_"
     }
 }
 
-Set-Content -Path $logFile -Value "[LOG] Starting Automation Schemes File Build for CL FISR Device Participation" -Encoding UTF8
+Write-Log "[LOG] Starting Automation Schemes File Build for CL FISR Device Participation" -Reset
 
 if (Test-Path $fisrFeedersFile) {
     $feedersList = Get-Content $fisrFeedersFile
@@ -207,17 +223,17 @@ if (Test-Path $fisrFeedersFile) {
         $feederXmlPath = $etlDir + $feederModelName + ".xml"
         if (Test-Path $feederXmlPath) {
             if ($feederModelName -ne $feeder) {
-                "[LOG] Parsing GCM feeder model for $feeder using alias $feederModelName" | Out-File -Append -FilePath $logFile -Encoding UTF8
+                Write-Log "[LOG] Parsing GCM feeder model for $feeder using alias $feederModelName"
             }
             else {
-                "[LOG] Parsing GCM feeder model for $feeder" | Out-File -Append -FilePath $logFile -Encoding UTF8
+                Write-Log "[LOG] Parsing GCM feeder model for $feeder"
             }
             try {
                 $feederGC = Get-Content -Path $feederXmlPath -Raw
                 $feederXML = [xml]$feederGC
             }
             catch {
-                "[ERROR] Failed to parse feeder XML for $feeder at $feederXmlPath" | Out-File -Append -FilePath $logFile -Encoding UTF8
+                Write-Log "[ERROR] Failed to parse feeder XML for $feeder at $feederXmlPath"
                 continue
             }
             $sub = Normalize-SubstationName -SubstationName ([string]$feederXML.CircuitConnectivity.Substation.name)
@@ -258,7 +274,7 @@ if (Test-Path $fisrFeedersFile) {
             else {
                 # If Get-InternalsXml returned null and set an error, stop processing
                 if ($processingError) {
-                    "[ERROR] Processing Terminated: $processingError" | Out-File -Append -FilePath $logFile -Encoding UTF8
+                    Write-Log "[ERROR] Processing Terminated: $processingError"
                     Cleanup-TempFiles -TempDir $tempDir
                     exit 1
                 }
@@ -266,16 +282,16 @@ if (Test-Path $fisrFeedersFile) {
         }
         else {
             if ($feederModelName -ne $feeder) {
-                "[ERROR] Feeders file not found for $feeder using alias $feederModelName : $etlDir$feederModelName.xml" | Out-File -Append -FilePath $logFile -Encoding UTF8
+                Write-Log "[ERROR] Feeders file not found for $feeder using alias $feederModelName : $etlDir$feederModelName.xml"
             }
             else {
-                "[ERROR] Feeders file not found: $etlDir$feeder.xml" | Out-File -Append -FilePath $logFile -Encoding UTF8
+                Write-Log "[ERROR] Feeders file not found: $etlDir$feeder.xml"
             }
         }
         
         # Check if we should stop processing due to errors
         if ($processingError) {
-            "[ERROR] Processing Terminated: $processingError" | Out-File -Append -FilePath $logFile -Encoding UTF8
+            Write-Log "[ERROR] Processing Terminated: $processingError"
             Cleanup-TempFiles -TempDir $tempDir
             exit 1
         }
@@ -324,15 +340,15 @@ if (Test-Path $fisrFeedersFile) {
             Move-Item -Path $teamSchemeFile -Destination $teamSchemeFileCSV -Force -ErrorAction Stop
             
             $stationCount = $stationsProcessed.Count
-            "[LOG] Processing complete - $stationCount stations processed" | Out-File -Append -FilePath $logFile -Encoding UTF8
+            Write-Log "[LOG] Processing complete - $stationCount stations processed"
             
             # Calculate and log total processing time
             $scriptEndTime = Get-Date
             $totalProcessingTime = ($scriptEndTime - $scriptStartTime).TotalSeconds
-            "[LOG] Total processing time: $([math]::Round($totalProcessingTime, 2)) seconds" | Out-File -Append -FilePath $logFile -Encoding UTF8
+            Write-Log "[LOG] Total processing time: $([math]::Round($totalProcessingTime, 2)) seconds"
         }
         catch {
-            "[ERROR] Unable to write to AutomationSchemes.csv: $_" | Out-File -Append -FilePath $logFile -Encoding UTF8
+            Write-Log "[ERROR] Unable to write to AutomationSchemes.csv: $_"
             Cleanup-TempFiles -TempDir $tempDir
             exit 1
         }
@@ -342,7 +358,7 @@ if (Test-Path $fisrFeedersFile) {
     Cleanup-TempFiles -TempDir $tempDir
 }
 else {
-    "[ERROR] FISR feeders file not found" | Out-File -Append -FilePath $logFile -Encoding UTF8
+    Write-Log "[ERROR] FISR feeders file not found"
     Cleanup-TempFiles -TempDir $tempDir
     exit 1
 }
