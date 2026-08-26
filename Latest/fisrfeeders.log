@@ -1776,947 +1776,947 @@
 [LOG] Parsing GCM feeder model for OXFORD
 [LOG] Parsing GCM feeder model for GRANDVIEW
 [LOG] Parsing GCM feeder model for FAIRBANKS
-[LOG] Feeder XML phase: 35.87 seconds (parse work 124.74s, XPath work 0s)
+[LOG] Feeder XML phase: 35.88 seconds (parse work 124.77s, XPath work 0s)
 [LOG] Copied ACTON_INTERNALS.xml to temp directory
-[LOG] Scheme ACTON processing completed in 7.65 seconds
+[LOG] Scheme ACTON processing completed in 7.77 seconds
 [LOG] Cleaned up temp file for scheme ACTON : ACTON_INTERNALS.xml
 [LOG] Copied ANAVERDE_INTERNALS.xml to temp directory
-[LOG] Scheme ANAVERDE processing completed in 7.66 seconds
+[LOG] Scheme ANAVERDE processing completed in 7.79 seconds
 [LOG] Cleaned up temp file for scheme ANAVERDE : ANAVERDE_INTERNALS.xml
 [LOG] Copied DEL SUR_INTERNALS.xml to temp directory
-[LOG] Scheme DEL SUR processing completed in 7.67 seconds
+[LOG] Scheme DEL SUR processing completed in 7.79 seconds
 [LOG] Cleaned up temp file for scheme DEL SUR : DEL SUR_INTERNALS.xml
 [LOG] Copied GREAT LAKES_INTERNALS.xml to temp directory
-[LOG] Scheme GREAT LAKES processing completed in 7.68 seconds
+[LOG] Scheme GREAT LAKES processing completed in 7.8 seconds
 [LOG] Cleaned up temp file for scheme GREAT LAKES : GREAT LAKES_INTERNALS.xml
 [LOG] Copied HELIJET_INTERNALS.xml to temp directory
-[LOG] Scheme HELIJET processing completed in 7.65 seconds
+[LOG] Scheme HELIJET processing completed in 7.77 seconds
 [LOG] Cleaned up temp file for scheme HELIJET : HELIJET_INTERNALS.xml
 [LOG] Copied LANCASTER_INTERNALS.xml to temp directory
-[LOG] Scheme LANCASTER processing completed in 7.61 seconds
+[LOG] Scheme LANCASTER processing completed in 7.73 seconds
 [LOG] Cleaned up temp file for scheme LANCASTER : LANCASTER_INTERNALS.xml
 [LOG] Copied LITTLE ROCK_INTERNALS.xml to temp directory
-[LOG] Scheme LITTLE ROCK processing completed in 7.62 seconds
+[LOG] Scheme LITTLE ROCK processing completed in 7.73 seconds
 [LOG] Cleaned up temp file for scheme LITTLE ROCK : LITTLE ROCK_INTERNALS.xml
 [LOG] Copied NEENACH_INTERNALS.xml to temp directory
-[LOG] Scheme NEENACH processing completed in 7.61 seconds
+[LOG] Scheme NEENACH processing completed in 7.74 seconds
 [LOG] Cleaned up temp file for scheme NEENACH : NEENACH_INTERNALS.xml
 [LOG] Copied OASIS_INTERNALS.xml to temp directory
-[LOG] Scheme OASIS processing completed in 7.6 seconds
+[LOG] Scheme OASIS processing completed in 7.73 seconds
 [LOG] Cleaned up temp file for scheme OASIS : OASIS_INTERNALS.xml
 [LOG] Copied PALMDALE_INTERNALS.xml to temp directory
-[LOG] Scheme PALMDALE processing completed in 7.57 seconds
+[LOG] Scheme PALMDALE processing completed in 7.7 seconds
 [LOG] Cleaned up temp file for scheme PALMDALE : PALMDALE_INTERNALS.xml
 [LOG] Copied PIUTE_INTERNALS.xml to temp directory
-[LOG] Scheme PIUTE processing completed in 7.53 seconds
+[LOG] Scheme PIUTE processing completed in 7.62 seconds
 [LOG] Cleaned up temp file for scheme PIUTE : PIUTE_INTERNALS.xml
 [LOG] Copied QUARTZ HILL_INTERNALS.xml to temp directory
-[LOG] Scheme QUARTZ HILL processing completed in 7.52 seconds
+[LOG] Scheme QUARTZ HILL processing completed in 7.62 seconds
 [LOG] Cleaned up temp file for scheme QUARTZ HILL : QUARTZ HILL_INTERNALS.xml
 [LOG] Copied REDMAN_INTERNALS.xml to temp directory
-[LOG] Scheme REDMAN processing completed in 7.52 seconds
+[LOG] Scheme REDMAN processing completed in 7.63 seconds
 [LOG] Cleaned up temp file for scheme REDMAN : REDMAN_INTERNALS.xml
 [LOG] Copied RITTER RANCH_INTERNALS.xml to temp directory
-[LOG] Scheme RITTER RANCH processing completed in 7.5 seconds
+[LOG] Scheme RITTER RANCH processing completed in 7.62 seconds
 [LOG] Cleaned up temp file for scheme RITTER RANCH : RITTER RANCH_INTERNALS.xml
 [LOG] Copied ROSAMOND_INTERNALS.xml to temp directory
-[LOG] Scheme ROSAMOND processing completed in 7.5 seconds
+[LOG] Scheme ROSAMOND processing completed in 7.59 seconds
 [LOG] Cleaned up temp file for scheme ROSAMOND : ROSAMOND_INTERNALS.xml
 [LOG] Copied SHUTTLE_INTERNALS.xml to temp directory
-[LOG] Scheme SHUTTLE processing completed in 7.49 seconds
+[LOG] Scheme SHUTTLE processing completed in 7.58 seconds
 [LOG] Cleaned up temp file for scheme SHUTTLE : SHUTTLE_INTERNALS.xml
 [LOG] Copied WILSONA_INTERNALS.xml to temp directory
-[LOG] Scheme WILSONA processing completed in 7.48 seconds
+[LOG] Scheme WILSONA processing completed in 7.58 seconds
 [LOG] Cleaned up temp file for scheme WILSONA : WILSONA_INTERNALS.xml
 [LOG] Copied FRAZIER PARK_INTERNALS.xml to temp directory
-[LOG] Scheme FRAZIER PARK processing completed in 7.49 seconds
+[LOG] Scheme FRAZIER PARK processing completed in 7.59 seconds
 [LOG] Cleaned up temp file for scheme FRAZIER PARK : FRAZIER PARK_INTERNALS.xml
 [LOG] Copied GORMAN_INTERNALS.xml to temp directory
-[LOG] Scheme GORMAN processing completed in 7.47 seconds
+[LOG] Scheme GORMAN processing completed in 7.55 seconds
 [LOG] Cleaned up temp file for scheme GORMAN : GORMAN_INTERNALS.xml
 [LOG] Copied TEJON PEAK PT_INTERNALS.xml to temp directory
-[LOG] Scheme TEJON PEAK PT processing completed in 7.38 seconds
+[LOG] Scheme TEJON PEAK PT processing completed in 7.55 seconds
 [LOG] Cleaned up temp file for scheme TEJON PEAK PT : TEJON PEAK PT_INTERNALS.xml
 [LOG] Copied GRAPEVINE PEAK PT_INTERNALS.xml to temp directory
-[LOG] Scheme GRAPEVINE PEAK PT processing completed in 7.36 seconds
+[LOG] Scheme GRAPEVINE PEAK PT processing completed in 7.46 seconds
 [LOG] Cleaned up temp file for scheme GRAPEVINE PEAK PT : GRAPEVINE PEAK PT_INTERNALS.xml
 [LOG] Copied TAFT_INTERNALS.xml to temp directory
-[LOG] Scheme TAFT processing completed in 7.36 seconds
+[LOG] Scheme TAFT processing completed in 7.45 seconds
 [LOG] Cleaned up temp file for scheme TAFT : TAFT_INTERNALS.xml
 [LOG] Copied TEJON (PGAE)_INTERNALS.xml to temp directory
-[LOG] Scheme TEJON (PGAE) processing completed in 7.33 seconds
+[LOG] Scheme TEJON (PGAE) processing completed in 7.42 seconds
 [LOG] Cleaned up temp file for scheme TEJON (PGAE) : TEJON (PGAE)_INTERNALS.xml
 [LOG] Copied CHATSWORTH_INTERNALS.xml to temp directory
-[LOG] Scheme CHATSWORTH processing completed in 7.34 seconds
+[LOG] Scheme CHATSWORTH processing completed in 7.43 seconds
 [LOG] Cleaned up temp file for scheme CHATSWORTH : CHATSWORTH_INTERNALS.xml
 [LOG] Copied COLOSSUS_INTERNALS.xml to temp directory
-[LOG] Scheme COLOSSUS processing completed in 7.35 seconds
+[LOG] Scheme COLOSSUS processing completed in 7.42 seconds
 [LOG] Cleaned up temp file for scheme COLOSSUS : COLOSSUS_INTERNALS.xml
 [LOG] Copied DRINKWATER PT_INTERNALS.xml to temp directory
-[LOG] Scheme DRINKWATER PT processing completed in 7.35 seconds
+[LOG] Scheme DRINKWATER PT processing completed in 7.43 seconds
 [LOG] Cleaned up temp file for scheme DRINKWATER PT : DRINKWATER PT_INTERNALS.xml
 [LOG] Copied DWP POWER PLANT 1_INTERNALS.xml to temp directory
-[LOG] Scheme DWP POWER PLANT 1 processing completed in 7.34 seconds
+[LOG] Scheme DWP POWER PLANT 1 processing completed in 7.44 seconds
 [LOG] Cleaned up temp file for scheme DWP POWER PLANT 1 : DWP POWER PLANT 1_INTERNALS.xml
 [LOG] Copied ELIZABETH LAKE_INTERNALS.xml to temp directory
-[LOG] Scheme ELIZABETH LAKE processing completed in 7.32 seconds
+[LOG] Scheme ELIZABETH LAKE processing completed in 7.4 seconds
 [LOG] Cleaned up temp file for scheme ELIZABETH LAKE : ELIZABETH LAKE_INTERNALS.xml
 [LOG] Copied ESCONDIDO PT_INTERNALS.xml to temp directory
-[LOG] Scheme ESCONDIDO PT processing completed in 7.33 seconds
+[LOG] Scheme ESCONDIDO PT processing completed in 7.41 seconds
 [LOG] Cleaned up temp file for scheme ESCONDIDO PT : ESCONDIDO PT_INTERNALS.xml
 [LOG] Copied FILLMORE_INTERNALS.xml to temp directory
-[LOG] Scheme FILLMORE processing completed in 7.34 seconds
+[LOG] Scheme FILLMORE processing completed in 7.42 seconds
 [LOG] Cleaned up temp file for scheme FILLMORE : FILLMORE_INTERNALS.xml
 [LOG] Copied HASKELL_INTERNALS.xml to temp directory
-[LOG] Scheme HASKELL processing completed in 7.33 seconds
+[LOG] Scheme HASKELL processing completed in 7.43 seconds
 [LOG] Cleaned up temp file for scheme HASKELL : HASKELL_INTERNALS.xml
 [LOG] Copied KAGLE CANYON PT_INTERNALS.xml to temp directory
-[LOG] Scheme KAGLE CANYON PT processing completed in 7.34 seconds
+[LOG] Scheme KAGLE CANYON PT processing completed in 7.43 seconds
 [LOG] Cleaned up temp file for scheme KAGLE CANYON PT : KAGLE CANYON PT_INTERNALS.xml
 [LOG] Copied LOCKHEED_INTERNALS.xml to temp directory
-[LOG] Scheme LOCKHEED processing completed in 7.33 seconds
+[LOG] Scheme LOCKHEED processing completed in 7.42 seconds
 [LOG] Cleaned up temp file for scheme LOCKHEED : LOCKHEED_INTERNALS.xml
 [LOG] Copied LOUCKS PT_INTERNALS.xml to temp directory
-[LOG] Scheme LOUCKS PT processing completed in 7.27 seconds
+[LOG] Scheme LOUCKS PT processing completed in 7.35 seconds
 [LOG] Cleaned up temp file for scheme LOUCKS PT : LOUCKS PT_INTERNALS.xml
 [LOG] Copied NEWHALL_INTERNALS.xml to temp directory
-[LOG] Scheme NEWHALL processing completed in 7.26 seconds
+[LOG] Scheme NEWHALL processing completed in 7.35 seconds
 [LOG] Cleaned up temp file for scheme NEWHALL : NEWHALL_INTERNALS.xml
 [LOG] Copied NORTH OAKS_INTERNALS.xml to temp directory
-[LOG] Scheme NORTH OAKS processing completed in 7.25 seconds
+[LOG] Scheme NORTH OAKS processing completed in 7.36 seconds
 [LOG] Cleaned up temp file for scheme NORTH OAKS : NORTH OAKS_INTERNALS.xml
 [LOG] Copied SAN FERNANDO_INTERNALS.xml to temp directory
-[LOG] Scheme SAN FERNANDO processing completed in 7.26 seconds
+[LOG] Scheme SAN FERNANDO processing completed in 7.37 seconds
 [LOG] Cleaned up temp file for scheme SAN FERNANDO : SAN FERNANDO_INTERNALS.xml
 [LOG] Copied SANTA SUSANA_INTERNALS.xml to temp directory
-[LOG] Scheme SANTA SUSANA processing completed in 7.27 seconds
+[LOG] Scheme SANTA SUSANA processing completed in 7.38 seconds
 [LOG] Cleaned up temp file for scheme SANTA SUSANA : SANTA SUSANA_INTERNALS.xml
 [LOG] Copied SAUGUS_INTERNALS.xml to temp directory
-[LOG] Scheme SAUGUS processing completed in 7.22 seconds
+[LOG] Scheme SAUGUS processing completed in 7.33 seconds
 [LOG] Cleaned up temp file for scheme SAUGUS : SAUGUS_INTERNALS.xml
 [LOG] Copied SESPE PT_INTERNALS.xml to temp directory
-[LOG] Scheme SESPE PT processing completed in 7.18 seconds
+[LOG] Scheme SESPE PT processing completed in 7.34 seconds
 [LOG] Cleaned up temp file for scheme SESPE PT : SESPE PT_INTERNALS.xml
 [LOG] Copied SOLEMINT_INTERNALS.xml to temp directory
-[LOG] Scheme SOLEMINT processing completed in 7.18 seconds
+[LOG] Scheme SOLEMINT processing completed in 7.31 seconds
 [LOG] Cleaned up temp file for scheme SOLEMINT : SOLEMINT_INTERNALS.xml
 [LOG] Copied BANDUCCI_INTERNALS.xml to temp directory
-[LOG] Scheme BANDUCCI processing completed in 7.2 seconds
+[LOG] Scheme BANDUCCI processing completed in 7.32 seconds
 [LOG] Cleaned up temp file for scheme BANDUCCI : BANDUCCI_INTERNALS.xml
 [LOG] Copied BREEZE_INTERNALS.xml to temp directory
-[LOG] Scheme BREEZE processing completed in 7.2 seconds
+[LOG] Scheme BREEZE processing completed in 7.33 seconds
 [LOG] Cleaned up temp file for scheme BREEZE : BREEZE_INTERNALS.xml
 [LOG] Copied CORRECTION_INTERNALS.xml to temp directory
-[LOG] Scheme CORRECTION processing completed in 7.19 seconds
+[LOG] Scheme CORRECTION processing completed in 7.31 seconds
 [LOG] Cleaned up temp file for scheme CORRECTION : CORRECTION_INTERNALS.xml
 [LOG] Copied CORUM_INTERNALS.xml to temp directory
-[LOG] Scheme CORUM processing completed in 7.18 seconds
+[LOG] Scheme CORUM processing completed in 7.31 seconds
 [LOG] Cleaned up temp file for scheme CORUM : CORUM_INTERNALS.xml
 [LOG] Copied CUMMINGS_INTERNALS.xml to temp directory
-[LOG] Scheme CUMMINGS processing completed in 7.15 seconds
+[LOG] Scheme CUMMINGS processing completed in 7.3 seconds
 [LOG] Cleaned up temp file for scheme CUMMINGS : CUMMINGS_INTERNALS.xml
 [LOG] Copied GOLDTOWN_INTERNALS.xml to temp directory
-[LOG] Scheme GOLDTOWN processing completed in 7.15 seconds
+[LOG] Scheme GOLDTOWN processing completed in 7.27 seconds
 [LOG] Cleaned up temp file for scheme GOLDTOWN : GOLDTOWN_INTERNALS.xml
 [LOG] Copied HAVILAH_INTERNALS.xml to temp directory
-[LOG] Scheme HAVILAH processing completed in 7.15 seconds
+[LOG] Scheme HAVILAH processing completed in 7.28 seconds
 [LOG] Cleaned up temp file for scheme HAVILAH : HAVILAH_INTERNALS.xml
 [LOG] Copied KERN RIVER 1_INTERNALS.xml to temp directory
-[LOG] Scheme KERN RIVER 1 processing completed in 7.16 seconds
+[LOG] Scheme KERN RIVER 1 processing completed in 7.29 seconds
 [LOG] Cleaned up temp file for scheme KERN RIVER 1 : KERN RIVER 1_INTERNALS.xml
 [LOG] Copied LORAINE_INTERNALS.xml to temp directory
-[LOG] Scheme LORAINE processing completed in 7.12 seconds
+[LOG] Scheme LORAINE processing completed in 7.28 seconds
 [LOG] Cleaned up temp file for scheme LORAINE : LORAINE_INTERNALS.xml
 [LOG] Copied MEBANE PT_INTERNALS.xml to temp directory
-[LOG] Scheme MEBANE PT processing completed in 7.11 seconds
+[LOG] Scheme MEBANE PT processing completed in 7.23 seconds
 [LOG] Cleaned up temp file for scheme MEBANE PT : MEBANE PT_INTERNALS.xml
 [LOG] Copied MIDWIND_INTERNALS.xml to temp directory
-[LOG] Scheme MIDWIND processing completed in 7.11 seconds
+[LOG] Scheme MIDWIND processing completed in 7.24 seconds
 [LOG] Cleaned up temp file for scheme MIDWIND : MIDWIND_INTERNALS.xml
 [LOG] Copied MONOLITH_INTERNALS.xml to temp directory
-[LOG] Scheme MONOLITH processing completed in 7.09 seconds
+[LOG] Scheme MONOLITH processing completed in 7.25 seconds
 [LOG] Cleaned up temp file for scheme MONOLITH : MONOLITH_INTERNALS.xml
 [LOG] Copied NORTHWIND_INTERNALS.xml to temp directory
-[LOG] Scheme NORTHWIND processing completed in 7.1 seconds
+[LOG] Scheme NORTHWIND processing completed in 7.23 seconds
 [LOG] Cleaned up temp file for scheme NORTHWIND : NORTHWIND_INTERNALS.xml
 [LOG] Copied SOUTHWIND_INTERNALS.xml to temp directory
-[LOG] Scheme SOUTHWIND processing completed in 7.11 seconds
+[LOG] Scheme SOUTHWIND processing completed in 7.24 seconds
 [LOG] Cleaned up temp file for scheme SOUTHWIND : SOUTHWIND_INTERNALS.xml
 [LOG] Copied WALKER BASIN_INTERNALS.xml to temp directory
-[LOG] Scheme WALKER BASIN processing completed in 7.11 seconds
+[LOG] Scheme WALKER BASIN processing completed in 7.25 seconds
 [LOG] Cleaned up temp file for scheme WALKER BASIN : WALKER BASIN_INTERNALS.xml
 [LOG] Copied ARRO_INTERNALS.xml to temp directory
-[LOG] Scheme ARRO processing completed in 7.08 seconds
+[LOG] Scheme ARRO processing completed in 7.2 seconds
 [LOG] Cleaned up temp file for scheme ARRO : ARRO_INTERNALS.xml
 [LOG] Copied CARDIFF_INTERNALS.xml to temp directory
-[LOG] Scheme CARDIFF processing completed in 7.09 seconds
+[LOG] Scheme CARDIFF processing completed in 7.21 seconds
 [LOG] Cleaned up temp file for scheme CARDIFF : CARDIFF_INTERNALS.xml
 [LOG] Copied DEL ROSA_INTERNALS.xml to temp directory
-[LOG] Scheme DEL ROSA processing completed in 7.1 seconds
+[LOG] Scheme DEL ROSA processing completed in 7.21 seconds
 [LOG] Cleaned up temp file for scheme DEL ROSA : DEL ROSA_INTERNALS.xml
 [LOG] Copied HIGHLAND_INTERNALS.xml to temp directory
-[LOG] Scheme HIGHLAND processing completed in 7.04 seconds
+[LOG] Scheme HIGHLAND processing completed in 7.23 seconds
 [LOG] Cleaned up temp file for scheme HIGHLAND : HIGHLAND_INTERNALS.xml
 [LOG] Copied REDLANDS_INTERNALS.xml to temp directory
-[LOG] Scheme REDLANDS processing completed in 7.02 seconds
+[LOG] Scheme REDLANDS processing completed in 7.17 seconds
 [LOG] Cleaned up temp file for scheme REDLANDS : REDLANDS_INTERNALS.xml
 [LOG] Copied SAN BERNARDINO_INTERNALS.xml to temp directory
-[LOG] Scheme SAN BERNARDINO processing completed in 6.96 seconds
+[LOG] Scheme SAN BERNARDINO processing completed in 7.1 seconds
 [LOG] Cleaned up temp file for scheme SAN BERNARDINO : SAN BERNARDINO_INTERNALS.xml
 [LOG] Copied SANTA ANA RIVER 1_INTERNALS.xml to temp directory
-[LOG] Scheme SANTA ANA RIVER 1 processing completed in 6.93 seconds
+[LOG] Scheme SANTA ANA RIVER 1 processing completed in 7.08 seconds
 [LOG] Cleaned up temp file for scheme SANTA ANA RIVER 1 : SANTA ANA RIVER 1_INTERNALS.xml
 [LOG] Copied SMILEY_INTERNALS.xml to temp directory
-[LOG] Scheme SMILEY processing completed in 6.93 seconds
+[LOG] Scheme SMILEY processing completed in 7.08 seconds
 [LOG] Cleaned up temp file for scheme SMILEY : SMILEY_INTERNALS.xml
 [LOG] Copied STODDARD_INTERNALS.xml to temp directory
-[LOG] Scheme STODDARD processing completed in 6.94 seconds
+[LOG] Scheme STODDARD processing completed in 7.09 seconds
 [LOG] Cleaned up temp file for scheme STODDARD : STODDARD_INTERNALS.xml
 [LOG] Copied TENNESSEE_INTERNALS.xml to temp directory
-[LOG] Scheme TENNESSEE processing completed in 6.92 seconds
+[LOG] Scheme TENNESSEE processing completed in 7.09 seconds
 [LOG] Cleaned up temp file for scheme TENNESSEE : TENNESSEE_INTERNALS.xml
 [LOG] Copied TIMOTEO_INTERNALS.xml to temp directory
-[LOG] Scheme TIMOTEO processing completed in 6.91 seconds
+[LOG] Scheme TIMOTEO processing completed in 7.07 seconds
 [LOG] Cleaned up temp file for scheme TIMOTEO : TIMOTEO_INTERNALS.xml
 [LOG] Copied TIPPECANOE_INTERNALS.xml to temp directory
-[LOG] Scheme TIPPECANOE processing completed in 6.92 seconds
+[LOG] Scheme TIPPECANOE processing completed in 7.09 seconds
 [LOG] Cleaned up temp file for scheme TIPPECANOE : TIPPECANOE_INTERNALS.xml
 [LOG] Copied YUCAIPA_INTERNALS.xml to temp directory
-[LOG] Scheme YUCAIPA processing completed in 6.93 seconds
+[LOG] Scheme YUCAIPA processing completed in 7.09 seconds
 [LOG] Cleaned up temp file for scheme YUCAIPA : YUCAIPA_INTERNALS.xml
 [LOG] Copied ALDER_INTERNALS.xml to temp directory
-[LOG] Scheme ALDER processing completed in 6.91 seconds
+[LOG] Scheme ALDER processing completed in 7.08 seconds
 [LOG] Cleaned up temp file for scheme ALDER : ALDER_INTERNALS.xml
 [LOG] Copied ARCHLINE_INTERNALS.xml to temp directory
-[LOG] Scheme ARCHLINE processing completed in 6.89 seconds
+[LOG] Scheme ARCHLINE processing completed in 7.07 seconds
 [LOG] Cleaned up temp file for scheme ARCHLINE : ARCHLINE_INTERNALS.xml
 [LOG] Copied DECLEZ_INTERNALS.xml to temp directory
-[LOG] Scheme DECLEZ processing completed in 6.86 seconds
+[LOG] Scheme DECLEZ processing completed in 7.03 seconds
 [LOG] Cleaned up temp file for scheme DECLEZ : DECLEZ_INTERNALS.xml
 [LOG] Copied ETIWANDA_INTERNALS.xml to temp directory
-[LOG] Scheme ETIWANDA processing completed in 6.84 seconds
+[LOG] Scheme ETIWANDA processing completed in 6.97 seconds
 [LOG] Cleaned up temp file for scheme ETIWANDA : ETIWANDA_INTERNALS.xml
 [LOG] Copied FALCON RIDGE_INTERNALS.xml to temp directory
-[LOG] Scheme FALCON RIDGE processing completed in 6.81 seconds
+[LOG] Scheme FALCON RIDGE processing completed in 6.97 seconds
 [LOG] Cleaned up temp file for scheme FALCON RIDGE : FALCON RIDGE_INTERNALS.xml
 [LOG] Copied FORGE_INTERNALS.xml to temp directory
-[LOG] Scheme FORGE processing completed in 6.81 seconds
+[LOG] Scheme FORGE processing completed in 6.97 seconds
 [LOG] Cleaned up temp file for scheme FORGE : FORGE_INTERNALS.xml
 [LOG] Copied GENAMIC_INTERNALS.xml to temp directory
-[LOG] Scheme GENAMIC processing completed in 6.8 seconds
+[LOG] Scheme GENAMIC processing completed in 6.96 seconds
 [LOG] Cleaned up temp file for scheme GENAMIC : GENAMIC_INTERNALS.xml
 [LOG] Copied NIAGARA_INTERNALS.xml to temp directory
-[LOG] Scheme NIAGARA processing completed in 6.77 seconds
+[LOG] Scheme NIAGARA processing completed in 6.95 seconds
 [LOG] Cleaned up temp file for scheme NIAGARA : NIAGARA_INTERNALS.xml
 [LOG] Copied RANDALL_INTERNALS.xml to temp directory
-[LOG] Scheme RANDALL processing completed in 6.75 seconds
+[LOG] Scheme RANDALL processing completed in 6.9 seconds
 [LOG] Cleaned up temp file for scheme RANDALL : RANDALL_INTERNALS.xml
 [LOG] Copied THRIVE_INTERNALS.xml to temp directory
-[LOG] Scheme THRIVE processing completed in 6.77 seconds
+[LOG] Scheme THRIVE processing completed in 6.9 seconds
 [LOG] Cleaned up temp file for scheme THRIVE : THRIVE_INTERNALS.xml
 [LOG] Copied WIMBLEDON_INTERNALS.xml to temp directory
-[LOG] Scheme WIMBLEDON processing completed in 6.78 seconds
+[LOG] Scheme WIMBLEDON processing completed in 6.92 seconds
 [LOG] Cleaned up temp file for scheme WIMBLEDON : WIMBLEDON_INTERNALS.xml
 [LOG] Copied ALOLA_INTERNALS.xml to temp directory
-[LOG] Scheme ALOLA processing completed in 6.78 seconds
+[LOG] Scheme ALOLA processing completed in 6.93 seconds
 [LOG] Cleaned up temp file for scheme ALOLA : ALOLA_INTERNALS.xml
 [LOG] Copied BANNING_INTERNALS.xml to temp directory
-[LOG] Scheme BANNING processing completed in 6.77 seconds
+[LOG] Scheme BANNING processing completed in 6.9 seconds
 [LOG] Cleaned up temp file for scheme BANNING : BANNING_INTERNALS.xml
 [LOG] Copied BEAUMONT_INTERNALS.xml to temp directory
-[LOG] Scheme BEAUMONT processing completed in 6.77 seconds
+[LOG] Scheme BEAUMONT processing completed in 6.92 seconds
 [LOG] Cleaned up temp file for scheme BEAUMONT : BEAUMONT_INTERNALS.xml
 [LOG] Copied CABAZON_INTERNALS.xml to temp directory
-[LOG] Scheme CABAZON processing completed in 6.73 seconds
+[LOG] Scheme CABAZON processing completed in 6.89 seconds
 [LOG] Cleaned up temp file for scheme CABAZON : CABAZON_INTERNALS.xml
 [LOG] Copied CAMP ANGELUS PT_INTERNALS.xml to temp directory
-[LOG] Scheme CAMP ANGELUS PT processing completed in 6.74 seconds
+[LOG] Scheme CAMP ANGELUS PT processing completed in 6.86 seconds
 [LOG] Cleaned up temp file for scheme CAMP ANGELUS PT : CAMP ANGELUS PT_INTERNALS.xml
 [LOG] Copied CONVERSE FLATS_INTERNALS.xml to temp directory
-[LOG] Scheme CONVERSE FLATS processing completed in 6.72 seconds
+[LOG] Scheme CONVERSE FLATS processing completed in 6.87 seconds
 [LOG] Cleaned up temp file for scheme CONVERSE FLATS : CONVERSE FLATS_INTERNALS.xml
 [LOG] Copied CRUMP PT_INTERNALS.xml to temp directory
-[LOG] Scheme CRUMP PT processing completed in 6.73 seconds
+[LOG] Scheme CRUMP PT processing completed in 6.87 seconds
 [LOG] Cleaned up temp file for scheme CRUMP PT : CRUMP PT_INTERNALS.xml
 [LOG] Copied DYSART PT_INTERNALS.xml to temp directory
-[LOG] Scheme DYSART PT processing completed in 6.73 seconds
+[LOG] Scheme DYSART PT processing completed in 6.86 seconds
 [LOG] Cleaned up temp file for scheme DYSART PT : DYSART PT_INTERNALS.xml
 [LOG] Copied EL CASCO_INTERNALS.xml to temp directory
-[LOG] Scheme EL CASCO processing completed in 6.7 seconds
+[LOG] Scheme EL CASCO processing completed in 6.85 seconds
 [LOG] Cleaned up temp file for scheme EL CASCO : EL CASCO_INTERNALS.xml
 [LOG] Copied FOREST HOME_INTERNALS.xml to temp directory
-[LOG] Scheme FOREST HOME processing completed in 6.68 seconds
+[LOG] Scheme FOREST HOME processing completed in 6.85 seconds
 [LOG] Cleaned up temp file for scheme FOREST HOME : FOREST HOME_INTERNALS.xml
 [LOG] Copied GUNSITE PT_INTERNALS.xml to temp directory
-[LOG] Scheme GUNSITE PT processing completed in 6.71 seconds
+[LOG] Scheme GUNSITE PT processing completed in 6.85 seconds
 [LOG] Cleaned up temp file for scheme GUNSITE PT : GUNSITE PT_INTERNALS.xml
 [LOG] Copied MARASCHINO_INTERNALS.xml to temp directory
-[LOG] Scheme MARASCHINO processing completed in 6.7 seconds
+[LOG] Scheme MARASCHINO processing completed in 6.85 seconds
 [LOG] Cleaned up temp file for scheme MARASCHINO : MARASCHINO_INTERNALS.xml
 [LOG] Copied MENTONE_INTERNALS.xml to temp directory
-[LOG] Scheme MENTONE processing completed in 6.67 seconds
+[LOG] Scheme MENTONE processing completed in 6.84 seconds
 [LOG] Cleaned up temp file for scheme MENTONE : MENTONE_INTERNALS.xml
 [LOG] Copied OUTLET PT_INTERNALS.xml to temp directory
-[LOG] Scheme OUTLET PT processing completed in 6.68 seconds
+[LOG] Scheme OUTLET PT processing completed in 6.84 seconds
 [LOG] Cleaned up temp file for scheme OUTLET PT : OUTLET PT_INTERNALS.xml
 [LOG] Copied PHEASANT PT_INTERNALS.xml to temp directory
-[LOG] Scheme PHEASANT PT processing completed in 6.67 seconds
+[LOG] Scheme PHEASANT PT processing completed in 6.84 seconds
 [LOG] Cleaned up temp file for scheme PHEASANT PT : PHEASANT PT_INTERNALS.xml
 [LOG] Copied WEESHA PT_INTERNALS.xml to temp directory
-[LOG] Scheme WEESHA PT processing completed in 6.64 seconds
+[LOG] Scheme WEESHA PT processing completed in 6.8 seconds
 [LOG] Cleaned up temp file for scheme WEESHA PT : WEESHA PT_INTERNALS.xml
 [LOG] Copied ZANJA_INTERNALS.xml to temp directory
-[LOG] Scheme ZANJA processing completed in 6.62 seconds
+[LOG] Scheme ZANJA processing completed in 6.81 seconds
 [LOG] Cleaned up temp file for scheme ZANJA : ZANJA_INTERNALS.xml
 [LOG] Copied ARROWHEAD_INTERNALS.xml to temp directory
-[LOG] Scheme ARROWHEAD processing completed in 6.62 seconds
+[LOG] Scheme ARROWHEAD processing completed in 6.81 seconds
 [LOG] Cleaned up temp file for scheme ARROWHEAD : ARROWHEAD_INTERNALS.xml
 [LOG] Copied BLOOMINGTON_INTERNALS.xml to temp directory
-[LOG] Scheme BLOOMINGTON processing completed in 6.62 seconds
+[LOG] Scheme BLOOMINGTON processing completed in 6.76 seconds
 [LOG] Cleaned up temp file for scheme BLOOMINGTON : BLOOMINGTON_INTERNALS.xml
 [LOG] Copied BLUE CUT PT_INTERNALS.xml to temp directory
-[LOG] Scheme BLUE CUT PT processing completed in 6.63 seconds
+[LOG] Scheme BLUE CUT PT processing completed in 6.77 seconds
 [LOG] Cleaned up temp file for scheme BLUE CUT PT : BLUE CUT PT_INTERNALS.xml
 [LOG] Copied BROOKINGS PT_INTERNALS.xml to temp directory
-[LOG] Scheme BROOKINGS PT processing completed in 6.59 seconds
+[LOG] Scheme BROOKINGS PT processing completed in 6.77 seconds
 [LOG] Cleaned up temp file for scheme BROOKINGS PT : BROOKINGS PT_INTERNALS.xml
 [LOG] Copied BURNT MILL_INTERNALS.xml to temp directory
-[LOG] Scheme BURNT MILL processing completed in 6.55 seconds
+[LOG] Scheme BURNT MILL processing completed in 6.75 seconds
 [LOG] Cleaned up temp file for scheme BURNT MILL : BURNT MILL_INTERNALS.xml
 [LOG] Copied CALECTRIC_INTERNALS.xml to temp directory
-[LOG] Scheme CALECTRIC processing completed in 6.56 seconds
+[LOG] Scheme CALECTRIC processing completed in 6.75 seconds
 [LOG] Cleaned up temp file for scheme CALECTRIC : CALECTRIC_INTERNALS.xml
 [LOG] Copied CANADIAN_INTERNALS.xml to temp directory
-[LOG] Scheme CANADIAN processing completed in 6.57 seconds
+[LOG] Scheme CANADIAN processing completed in 6.76 seconds
 [LOG] Cleaned up temp file for scheme CANADIAN : CANADIAN_INTERNALS.xml
 [LOG] Copied CEDAR PINES PT_INTERNALS.xml to temp directory
-[LOG] Scheme CEDAR PINES PT processing completed in 6.53 seconds
+[LOG] Scheme CEDAR PINES PT processing completed in 6.73 seconds
 [LOG] Cleaned up temp file for scheme CEDAR PINES PT : CEDAR PINES PT_INTERNALS.xml
 [LOG] Copied CHILLON PT_INTERNALS.xml to temp directory
-[LOG] Scheme CHILLON PT processing completed in 6.51 seconds
+[LOG] Scheme CHILLON PT processing completed in 6.71 seconds
 [LOG] Cleaned up temp file for scheme CHILLON PT : CHILLON PT_INTERNALS.xml
 [LOG] Copied COLTON_INTERNALS.xml to temp directory
-[LOG] Scheme COLTON processing completed in 6.51 seconds
+[LOG] Scheme COLTON processing completed in 6.69 seconds
 [LOG] Cleaned up temp file for scheme COLTON : COLTON_INTERNALS.xml
 [LOG] Copied COTTAGE GROVE_INTERNALS.xml to temp directory
-[LOG] Scheme COTTAGE GROVE processing completed in 6.51 seconds
+[LOG] Scheme COTTAGE GROVE processing completed in 6.7 seconds
 [LOG] Cleaned up temp file for scheme COTTAGE GROVE : COTTAGE GROVE_INTERNALS.xml
 [LOG] Copied DALBA PT_INTERNALS.xml to temp directory
-[LOG] Scheme DALBA PT processing completed in 6.52 seconds
+[LOG] Scheme DALBA PT processing completed in 6.71 seconds
 [LOG] Cleaned up temp file for scheme DALBA PT : DALBA PT_INTERNALS.xml
 [LOG] Copied GLEN AVON_INTERNALS.xml to temp directory
-[LOG] Scheme GLEN AVON processing completed in 6.47 seconds
+[LOG] Scheme GLEN AVON processing completed in 6.71 seconds
 [LOG] Cleaned up temp file for scheme GLEN AVON : GLEN AVON_INTERNALS.xml
 [LOG] Copied GREEN BEAR PT_INTERNALS.xml to temp directory
-[LOG] Scheme GREEN BEAR PT processing completed in 6.48 seconds
+[LOG] Scheme GREEN BEAR PT processing completed in 6.7 seconds
 [LOG] Cleaned up temp file for scheme GREEN BEAR PT : GREEN BEAR PT_INTERNALS.xml
 [LOG] Copied HIGH SCHOOL PT_INTERNALS.xml to temp directory
-[LOG] Scheme HIGH SCHOOL PT processing completed in 6.49 seconds
+[LOG] Scheme HIGH SCHOOL PT processing completed in 6.71 seconds
 [LOG] Cleaned up temp file for scheme HIGH SCHOOL PT : HIGH SCHOOL PT_INTERNALS.xml
 [LOG] Copied HOMART_INTERNALS.xml to temp directory
-[LOG] Scheme HOMART processing completed in 6.45 seconds
+[LOG] Scheme HOMART processing completed in 6.68 seconds
 [LOG] Cleaned up temp file for scheme HOMART : HOMART_INTERNALS.xml
 [LOG] Copied HOOK CREEK PT_INTERNALS.xml to temp directory
-[LOG] Scheme HOOK CREEK PT processing completed in 6.46 seconds
+[LOG] Scheme HOOK CREEK PT processing completed in 6.68 seconds
 [LOG] Cleaned up temp file for scheme HOOK CREEK PT : HOOK CREEK PT_INTERNALS.xml
 [LOG] Copied HUSTON_INTERNALS.xml to temp directory
-[LOG] Scheme HUSTON processing completed in 6.47 seconds
+[LOG] Scheme HUSTON processing completed in 6.68 seconds
 [LOG] Cleaned up temp file for scheme HUSTON : HUSTON_INTERNALS.xml
 [LOG] Copied JOB PT_INTERNALS.xml to temp directory
-[LOG] Scheme JOB PT processing completed in 6.45 seconds
+[LOG] Scheme JOB PT processing completed in 6.69 seconds
 [LOG] Cleaned up temp file for scheme JOB PT : JOB PT_INTERNALS.xml
 [LOG] Copied KUFFEL PT_INTERNALS.xml to temp directory
-[LOG] Scheme KUFFEL PT processing completed in 6.4 seconds
+[LOG] Scheme KUFFEL PT processing completed in 6.64 seconds
 [LOG] Cleaned up temp file for scheme KUFFEL PT : KUFFEL PT_INTERNALS.xml
 [LOG] Copied LURING PT_INTERNALS.xml to temp directory
-[LOG] Scheme LURING PT processing completed in 6.41 seconds
+[LOG] Scheme LURING PT processing completed in 6.65 seconds
 [LOG] Cleaned up temp file for scheme LURING PT : LURING PT_INTERNALS.xml
 [LOG] Copied MAXWELL_INTERNALS.xml to temp directory
-[LOG] Scheme MAXWELL processing completed in 6.42 seconds
+[LOG] Scheme MAXWELL processing completed in 6.66 seconds
 [LOG] Cleaned up temp file for scheme MAXWELL : MAXWELL_INTERNALS.xml
 [LOG] Copied MT VERNON_INTERNALS.xml to temp directory
-[LOG] Scheme MT VERNON processing completed in 6.43 seconds
+[LOG] Scheme MT VERNON processing completed in 6.65 seconds
 [LOG] Cleaned up temp file for scheme MT VERNON : MT VERNON_INTERNALS.xml
 [LOG] Copied MUSCOY_INTERNALS.xml to temp directory
-[LOG] Scheme MUSCOY processing completed in 6.41 seconds
+[LOG] Scheme MUSCOY processing completed in 6.65 seconds
 [LOG] Cleaned up temp file for scheme MUSCOY : MUSCOY_INTERNALS.xml
 [LOG] Copied NORTH BAY PT_INTERNALS.xml to temp directory
-[LOG] Scheme NORTH BAY PT processing completed in 6.42 seconds
+[LOG] Scheme NORTH BAY PT processing completed in 6.66 seconds
 [LOG] Cleaned up temp file for scheme NORTH BAY PT : NORTH BAY PT_INTERNALS.xml
 [LOG] Copied OAK KNOLL PT_INTERNALS.xml to temp directory
-[LOG] Scheme OAK KNOLL PT processing completed in 6.41 seconds
+[LOG] Scheme OAK KNOLL PT processing completed in 6.62 seconds
 [LOG] Cleaned up temp file for scheme OAK KNOLL PT : OAK KNOLL PT_INTERNALS.xml
 [LOG] Copied PEPPER_INTERNALS.xml to temp directory
-[LOG] Scheme PEPPER processing completed in 6.39 seconds
+[LOG] Scheme PEPPER processing completed in 6.64 seconds
 [LOG] Cleaned up temp file for scheme PEPPER : PEPPER_INTERNALS.xml
 [LOG] Copied RIALTO_INTERNALS.xml to temp directory
-[LOG] Scheme RIALTO processing completed in 6.4 seconds
+[LOG] Scheme RIALTO processing completed in 6.65 seconds
 [LOG] Cleaned up temp file for scheme RIALTO : RIALTO_INTERNALS.xml
 [LOG] Copied RUBIDOUX_INTERNALS.xml to temp directory
-[LOG] Scheme RUBIDOUX processing completed in 6.4 seconds
+[LOG] Scheme RUBIDOUX processing completed in 6.64 seconds
 [LOG] Cleaned up temp file for scheme RUBIDOUX : RUBIDOUX_INTERNALS.xml
 [LOG] Copied RUNNING SPRINGS_INTERNALS.xml to temp directory
-[LOG] Scheme RUNNING SPRINGS processing completed in 6.41 seconds
+[LOG] Scheme RUNNING SPRINGS processing completed in 6.65 seconds
 [LOG] Cleaned up temp file for scheme RUNNING SPRINGS : RUNNING SPRINGS_INTERNALS.xml
 [LOG] Copied SHANDIN_INTERNALS.xml to temp directory
-[LOG] Scheme SHANDIN processing completed in 6.39 seconds
+[LOG] Scheme SHANDIN processing completed in 6.63 seconds
 [LOG] Cleaned up temp file for scheme SHANDIN : SHANDIN_INTERNALS.xml
 [LOG] Copied SIXTEENTH STREET_INTERNALS.xml to temp directory
-[LOG] Scheme SIXTEENTH STREET processing completed in 6.38 seconds
+[LOG] Scheme SIXTEENTH STREET processing completed in 6.62 seconds
 [LOG] Cleaned up temp file for scheme SIXTEENTH STREET : SIXTEENTH STREET_INTERNALS.xml
 [LOG] Copied VALLEY OF THE MOON PT_INTERNALS.xml to temp directory
-[LOG] Scheme VALLEY OF THE MOON PT processing completed in 6.37 seconds
+[LOG] Scheme VALLEY OF THE MOON PT processing completed in 6.61 seconds
 [LOG] Cleaned up temp file for scheme VALLEY OF THE MOON PT : VALLEY OF THE MOON PT_INTERNALS.xml
 [LOG] Copied WEST RIVERSIDE_INTERNALS.xml to temp directory
-[LOG] Scheme WEST RIVERSIDE processing completed in 6.35 seconds
+[LOG] Scheme WEST RIVERSIDE processing completed in 6.62 seconds
 [LOG] Cleaned up temp file for scheme WEST RIVERSIDE : WEST RIVERSIDE_INTERNALS.xml
 [LOG] Copied ALLVIEW PT_INTERNALS.xml to temp directory
-[LOG] Scheme ALLVIEW PT processing completed in 6.36 seconds
+[LOG] Scheme ALLVIEW PT processing completed in 6.61 seconds
 [LOG] Cleaned up temp file for scheme ALLVIEW PT : ALLVIEW PT_INTERNALS.xml
 [LOG] Copied ALPINE PT_INTERNALS.xml to temp directory
-[LOG] Scheme ALPINE PT processing completed in 6.35 seconds
+[LOG] Scheme ALPINE PT processing completed in 6.6 seconds
 [LOG] Cleaned up temp file for scheme ALPINE PT : ALPINE PT_INTERNALS.xml
 [LOG] Copied TELEGRAPH_INTERNALS.xml to temp directory
-[LOG] Scheme TELEGRAPH processing completed in 6.36 seconds
+[LOG] Scheme TELEGRAPH processing completed in 6.58 seconds
 [LOG] Cleaned up temp file for scheme TELEGRAPH : TELEGRAPH_INTERNALS.xml
 [LOG] Copied BLISS_INTERNALS.xml to temp directory
-[LOG] Scheme BLISS processing completed in 6.37 seconds
+[LOG] Scheme BLISS processing completed in 6.58 seconds
 [LOG] Cleaned up temp file for scheme BLISS : BLISS_INTERNALS.xml
 [LOG] Copied PIXLEY_INTERNALS.xml to temp directory
-[LOG] Scheme PIXLEY processing completed in 6.38 seconds
+[LOG] Scheme PIXLEY processing completed in 6.59 seconds
 [LOG] Cleaned up temp file for scheme PIXLEY : PIXLEY_INTERNALS.xml
 [LOG] Copied VICTOR_INTERNALS.xml to temp directory
-[LOG] Scheme VICTOR processing completed in 6.4 seconds
+[LOG] Scheme VICTOR processing completed in 6.6 seconds
 [LOG] Cleaned up temp file for scheme VICTOR : VICTOR_INTERNALS.xml
 [LOG] Copied CITRUS_INTERNALS.xml to temp directory
-[LOG] Scheme CITRUS processing completed in 6.29 seconds
+[LOG] Scheme CITRUS processing completed in 6.43 seconds
 [LOG] Cleaned up temp file for scheme CITRUS : CITRUS_INTERNALS.xml
 [LOG] Copied PORTERVILLE_INTERNALS.xml to temp directory
-[LOG] Scheme PORTERVILLE processing completed in 6.3 seconds
+[LOG] Scheme PORTERVILLE processing completed in 6.44 seconds
 [LOG] Cleaned up temp file for scheme PORTERVILLE : PORTERVILLE_INTERNALS.xml
 [LOG] Copied ROSEMEAD_INTERNALS.xml to temp directory
-[LOG] Scheme ROSEMEAD processing completed in 6.31 seconds
+[LOG] Scheme ROSEMEAD processing completed in 6.45 seconds
 [LOG] Cleaned up temp file for scheme ROSEMEAD : ROSEMEAD_INTERNALS.xml
 [LOG] Copied REPETTO_INTERNALS.xml to temp directory
-[LOG] Scheme REPETTO processing completed in 6.21 seconds
+[LOG] Scheme REPETTO processing completed in 6.37 seconds
 [LOG] Cleaned up temp file for scheme REPETTO : REPETTO_INTERNALS.xml
 [LOG] Copied NARROWS_INTERNALS.xml to temp directory
-[LOG] Scheme NARROWS processing completed in 6.15 seconds
+[LOG] Scheme NARROWS processing completed in 6.37 seconds
 [LOG] Cleaned up temp file for scheme NARROWS : NARROWS_INTERNALS.xml
 [LOG] Copied RIO HONDO_INTERNALS.xml to temp directory
-[LOG] Scheme RIO HONDO processing completed in 6.17 seconds
+[LOG] Scheme RIO HONDO processing completed in 6.37 seconds
 [LOG] Cleaned up temp file for scheme RIO HONDO : RIO HONDO_INTERNALS.xml
 [LOG] Copied ALHAMBRA_INTERNALS.xml to temp directory
-[LOG] Scheme ALHAMBRA processing completed in 6.15 seconds
+[LOG] Scheme ALHAMBRA processing completed in 6.33 seconds
 [LOG] Cleaned up temp file for scheme ALHAMBRA : ALHAMBRA_INTERNALS.xml
 [LOG] Copied HESPERIA_INTERNALS.xml to temp directory
-[LOG] Scheme HESPERIA processing completed in 6.13 seconds
+[LOG] Scheme HESPERIA processing completed in 6.31 seconds
 [LOG] Cleaned up temp file for scheme HESPERIA : HESPERIA_INTERNALS.xml
 [LOG] Copied SAVAGE_INTERNALS.xml to temp directory
-[LOG] Scheme SAVAGE processing completed in 6.05 seconds
+[LOG] Scheme SAVAGE processing completed in 6.29 seconds
 [LOG] Cleaned up temp file for scheme SAVAGE : SAVAGE_INTERNALS.xml
 [LOG] Copied DOWNS_INTERNALS.xml to temp directory
-[LOG] Scheme DOWNS processing completed in 6.05 seconds
+[LOG] Scheme DOWNS processing completed in 6.27 seconds
 [LOG] Cleaned up temp file for scheme DOWNS : DOWNS_INTERNALS.xml
 [LOG] Copied LINDSAY_INTERNALS.xml to temp directory
-[LOG] Scheme LINDSAY processing completed in 6.06 seconds
+[LOG] Scheme LINDSAY processing completed in 6.25 seconds
 [LOG] Cleaned up temp file for scheme LINDSAY : LINDSAY_INTERNALS.xml
 [LOG] Copied APPLE VALLEY_INTERNALS.xml to temp directory
-[LOG] Scheme APPLE VALLEY processing completed in 6.07 seconds
+[LOG] Scheme APPLE VALLEY processing completed in 6.25 seconds
 [LOG] Cleaned up temp file for scheme APPLE VALLEY : APPLE VALLEY_INTERNALS.xml
 [LOG] Copied TIPTON_INTERNALS.xml to temp directory
-[LOG] Scheme TIPTON processing completed in 6 seconds
+[LOG] Scheme TIPTON processing completed in 6.19 seconds
 [LOG] Cleaned up temp file for scheme TIPTON : TIPTON_INTERNALS.xml
 [LOG] Copied TERRA BELLA_INTERNALS.xml to temp directory
-[LOG] Scheme TERRA BELLA processing completed in 5.98 seconds
+[LOG] Scheme TERRA BELLA processing completed in 6.18 seconds
 [LOG] Cleaned up temp file for scheme TERRA BELLA : TERRA BELLA_INTERNALS.xml
 [LOG] Copied EARLIMART_INTERNALS.xml to temp directory
-[LOG] Scheme EARLIMART processing completed in 5.99 seconds
+[LOG] Scheme EARLIMART processing completed in 6.19 seconds
 [LOG] Cleaned up temp file for scheme EARLIMART : EARLIMART_INTERNALS.xml
 [LOG] Copied AQUEDUCT_INTERNALS.xml to temp directory
-[LOG] Scheme AQUEDUCT processing completed in 5.97 seconds
+[LOG] Scheme AQUEDUCT processing completed in 6.15 seconds
 [LOG] Cleaned up temp file for scheme AQUEDUCT : AQUEDUCT_INTERNALS.xml
 [LOG] Copied QUINN_INTERNALS.xml to temp directory
-[LOG] Scheme QUINN processing completed in 5.96 seconds
+[LOG] Scheme QUINN processing completed in 6.1 seconds
 [LOG] Cleaned up temp file for scheme QUINN : QUINN_INTERNALS.xml
 [LOG] Copied WOODVILLE_INTERNALS.xml to temp directory
-[LOG] Scheme WOODVILLE processing completed in 5.93 seconds
+[LOG] Scheme WOODVILLE processing completed in 6.11 seconds
 [LOG] Cleaned up temp file for scheme WOODVILLE : WOODVILLE_INTERNALS.xml
 [LOG] Copied POPLAR_INTERNALS.xml to temp directory
-[LOG] Scheme POPLAR processing completed in 5.93 seconds
+[LOG] Scheme POPLAR processing completed in 6.12 seconds
 [LOG] Cleaned up temp file for scheme POPLAR : POPLAR_INTERNALS.xml
 [LOG] Copied RANCHO_INTERNALS.xml to temp directory
-[LOG] Scheme RANCHO processing completed in 5.86 seconds
+[LOG] Scheme RANCHO processing completed in 6.08 seconds
 [LOG] Cleaned up temp file for scheme RANCHO : RANCHO_INTERNALS.xml
 [LOG] Copied LUCERNE_INTERNALS.xml to temp directory
-[LOG] Scheme LUCERNE processing completed in 5.86 seconds
+[LOG] Scheme LUCERNE processing completed in 6.04 seconds
 [LOG] Cleaned up temp file for scheme LUCERNE : LUCERNE_INTERNALS.xml
 [LOG] Copied BROWNING_INTERNALS.xml to temp directory
-[LOG] Scheme BROWNING processing completed in 5.87 seconds
+[LOG] Scheme BROWNING processing completed in 6.05 seconds
 [LOG] Cleaned up temp file for scheme BROWNING : BROWNING_INTERNALS.xml
 [LOG] Copied COLUMBINE_INTERNALS.xml to temp directory
-[LOG] Scheme COLUMBINE processing completed in 5.87 seconds
+[LOG] Scheme COLUMBINE processing completed in 6.05 seconds
 [LOG] Cleaned up temp file for scheme COLUMBINE : COLUMBINE_INTERNALS.xml
 [LOG] Copied DELANO_INTERNALS.xml to temp directory
-[LOG] Scheme DELANO processing completed in 5.81 seconds
+[LOG] Scheme DELANO processing completed in 6.05 seconds
 [LOG] Cleaned up temp file for scheme DELANO : DELANO_INTERNALS.xml
 [LOG] Copied ISABELLA_INTERNALS.xml to temp directory
-[LOG] Scheme ISABELLA processing completed in 5.81 seconds
+[LOG] Scheme ISABELLA processing completed in 6.02 seconds
 [LOG] Cleaned up temp file for scheme ISABELLA : ISABELLA_INTERNALS.xml
 [LOG] Copied LEMON COVE_INTERNALS.xml to temp directory
-[LOG] Scheme LEMON COVE processing completed in 5.81 seconds
+[LOG] Scheme LEMON COVE processing completed in 6 seconds
 [LOG] Cleaned up temp file for scheme LEMON COVE : LEMON COVE_INTERNALS.xml
 [LOG] Copied MARIPOSA_INTERNALS.xml to temp directory
-[LOG] Scheme MARIPOSA processing completed in 5.82 seconds
+[LOG] Scheme MARIPOSA processing completed in 6.01 seconds
 [LOG] Cleaned up temp file for scheme MARIPOSA : MARIPOSA_INTERNALS.xml
 [LOG] Copied MASCOT_INTERNALS.xml to temp directory
-[LOG] Scheme MASCOT processing completed in 5.79 seconds
+[LOG] Scheme MASCOT processing completed in 5.99 seconds
 [LOG] Cleaned up temp file for scheme MASCOT : MASCOT_INTERNALS.xml
 [LOG] Copied OCTOL_INTERNALS.xml to temp directory
-[LOG] Scheme OCTOL processing completed in 5.79 seconds
+[LOG] Scheme OCTOL processing completed in 5.95 seconds
 [LOG] Cleaned up temp file for scheme OCTOL : OCTOL_INTERNALS.xml
 [LOG] Copied VENICE HILL_INTERNALS.xml to temp directory
-[LOG] Scheme VENICE HILL processing completed in 5.79 seconds
+[LOG] Scheme VENICE HILL processing completed in 5.96 seconds
 [LOG] Cleaned up temp file for scheme VENICE HILL : VENICE HILL_INTERNALS.xml
 [LOG] Copied VESTAL_INTERNALS.xml to temp directory
-[LOG] Scheme VESTAL processing completed in 5.75 seconds
+[LOG] Scheme VESTAL processing completed in 5.97 seconds
 [LOG] Cleaned up temp file for scheme VESTAL : VESTAL_INTERNALS.xml
 [LOG] Copied VISALIA_INTERNALS.xml to temp directory
-[LOG] Scheme VISALIA processing completed in 5.76 seconds
+[LOG] Scheme VISALIA processing completed in 5.95 seconds
 [LOG] Cleaned up temp file for scheme VISALIA : VISALIA_INTERNALS.xml
 [LOG] Copied WHEATLAND_INTERNALS.xml to temp directory
-[LOG] Scheme WHEATLAND processing completed in 5.71 seconds
+[LOG] Scheme WHEATLAND processing completed in 5.87 seconds
 [LOG] Cleaned up temp file for scheme WHEATLAND : WHEATLAND_INTERNALS.xml
 [LOG] Copied ARROYO_INTERNALS.xml to temp directory
-[LOG] Scheme ARROYO processing completed in 5.72 seconds
+[LOG] Scheme ARROYO processing completed in 5.87 seconds
 [LOG] Cleaned up temp file for scheme ARROYO : ARROYO_INTERNALS.xml
 [LOG] Copied GOULD_INTERNALS.xml to temp directory
-[LOG] Scheme GOULD processing completed in 5.7 seconds
+[LOG] Scheme GOULD processing completed in 5.87 seconds
 [LOG] Cleaned up temp file for scheme GOULD : GOULD_INTERNALS.xml
 [LOG] Copied LA CANADA_INTERNALS.xml to temp directory
-[LOG] Scheme LA CANADA processing completed in 5.7 seconds
+[LOG] Scheme LA CANADA processing completed in 5.88 seconds
 [LOG] Cleaned up temp file for scheme LA CANADA : LA CANADA_INTERNALS.xml
 [LOG] Copied NEWMARK_INTERNALS.xml to temp directory
-[LOG] Scheme NEWMARK processing completed in 5.69 seconds
+[LOG] Scheme NEWMARK processing completed in 5.84 seconds
 [LOG] Cleaned up temp file for scheme NEWMARK : NEWMARK_INTERNALS.xml
 [LOG] Copied RAVENDALE_INTERNALS.xml to temp directory
-[LOG] Scheme RAVENDALE processing completed in 5.7 seconds
+[LOG] Scheme RAVENDALE processing completed in 5.84 seconds
 [LOG] Cleaned up temp file for scheme RAVENDALE : RAVENDALE_INTERNALS.xml
 [LOG] Copied WABASH_INTERNALS.xml to temp directory
-[LOG] Scheme WABASH processing completed in 5.69 seconds
+[LOG] Scheme WABASH processing completed in 5.8 seconds
 [LOG] Cleaned up temp file for scheme WABASH : WABASH_INTERNALS.xml
 [LOG] Copied AMADOR_INTERNALS.xml to temp directory
-[LOG] Scheme AMADOR processing completed in 5.68 seconds
+[LOG] Scheme AMADOR processing completed in 5.82 seconds
 [LOG] Cleaned up temp file for scheme AMADOR : AMADOR_INTERNALS.xml
 [LOG] Copied ANITA_INTERNALS.xml to temp directory
-[LOG] Scheme ANITA processing completed in 5.67 seconds
+[LOG] Scheme ANITA processing completed in 5.78 seconds
 [LOG] Cleaned up temp file for scheme ANITA : ANITA_INTERNALS.xml
 [LOG] Copied ARCADIA_INTERNALS.xml to temp directory
-[LOG] Scheme ARCADIA processing completed in 5.67 seconds
+[LOG] Scheme ARCADIA processing completed in 5.76 seconds
 [LOG] Cleaned up temp file for scheme ARCADIA : ARCADIA_INTERNALS.xml
 [LOG] Copied BRADBURY_INTERNALS.xml to temp directory
-[LOG] Scheme BRADBURY processing completed in 5.59 seconds
+[LOG] Scheme BRADBURY processing completed in 5.75 seconds
 [LOG] Cleaned up temp file for scheme BRADBURY : BRADBURY_INTERNALS.xml
 [LOG] Copied DALTON_INTERNALS.xml to temp directory
-[LOG] Scheme DALTON processing completed in 5.57 seconds
+[LOG] Scheme DALTON processing completed in 5.73 seconds
 [LOG] Cleaned up temp file for scheme DALTON : DALTON_INTERNALS.xml
 [LOG] Copied LARK ELLEN_INTERNALS.xml to temp directory
-[LOG] Scheme LARK ELLEN processing completed in 5.54 seconds
+[LOG] Scheme LARK ELLEN processing completed in 5.69 seconds
 [LOG] Cleaned up temp file for scheme LARK ELLEN : LARK ELLEN_INTERNALS.xml
 [LOG] Copied SKILAND_INTERNALS.xml to temp directory
-[LOG] Scheme SKILAND processing completed in 5.53 seconds
+[LOG] Scheme SKILAND processing completed in 5.67 seconds
 [LOG] Cleaned up temp file for scheme SKILAND : SKILAND_INTERNALS.xml
 [LOG] Copied CALCITY_INTERNALS.xml to temp directory
-[LOG] Scheme CALCITY processing completed in 5.53 seconds
+[LOG] Scheme CALCITY processing completed in 5.68 seconds
 [LOG] Cleaned up temp file for scheme CALCITY : CALCITY_INTERNALS.xml
 [LOG] Copied EDWARDS_INTERNALS.xml to temp directory
-[LOG] Scheme EDWARDS processing completed in 5.52 seconds
+[LOG] Scheme EDWARDS processing completed in 5.67 seconds
 [LOG] Cleaned up temp file for scheme EDWARDS : EDWARDS_INTERNALS.xml
 [LOG] Copied RANDSBURG_INTERNALS.xml to temp directory
-[LOG] Scheme RANDSBURG processing completed in 5.51 seconds
+[LOG] Scheme RANDSBURG processing completed in 5.65 seconds
 [LOG] Cleaned up temp file for scheme RANDSBURG : RANDSBURG_INTERNALS.xml
 [LOG] Copied HELENDALE_INTERNALS.xml to temp directory
-[LOG] Scheme HELENDALE processing completed in 5.46 seconds
+[LOG] Scheme HELENDALE processing completed in 5.64 seconds
 [LOG] Cleaned up temp file for scheme HELENDALE : HELENDALE_INTERNALS.xml
 [LOG] Copied ORO GRANDE_INTERNALS.xml to temp directory
-[LOG] Scheme ORO GRANDE processing completed in 5.45 seconds
+[LOG] Scheme ORO GRANDE processing completed in 5.62 seconds
 [LOG] Cleaned up temp file for scheme ORO GRANDE : ORO GRANDE_INTERNALS.xml
 [LOG] Copied ROADWAY_INTERNALS.xml to temp directory
-[LOG] Scheme ROADWAY processing completed in 5.46 seconds
+[LOG] Scheme ROADWAY processing completed in 5.6 seconds
 [LOG] Cleaned up temp file for scheme ROADWAY : ROADWAY_INTERNALS.xml
 [LOG] Copied VICTORVILLE_INTERNALS.xml to temp directory
-[LOG] Scheme VICTORVILLE processing completed in 5.47 seconds
+[LOG] Scheme VICTORVILLE processing completed in 5.61 seconds
 [LOG] Cleaned up temp file for scheme VICTORVILLE : VICTORVILLE_INTERNALS.xml
 [LOG] Copied BELVEDERE_INTERNALS.xml to temp directory
-[LOG] Scheme BELVEDERE processing completed in 5.45 seconds
+[LOG] Scheme BELVEDERE processing completed in 5.61 seconds
 [LOG] Cleaned up temp file for scheme BELVEDERE : BELVEDERE_INTERNALS.xml
 [LOG] Copied BRIDGEPORT_INTERNALS.xml to temp directory
-[LOG] Scheme BRIDGEPORT processing completed in 5.46 seconds
+[LOG] Scheme BRIDGEPORT processing completed in 5.62 seconds
 [LOG] Cleaned up temp file for scheme BRIDGEPORT : BRIDGEPORT_INTERNALS.xml
 [LOG] Copied CANTIL_INTERNALS.xml to temp directory
-[LOG] Scheme CANTIL processing completed in 5.39 seconds
+[LOG] Scheme CANTIL processing completed in 5.55 seconds
 [LOG] Cleaned up temp file for scheme CANTIL : CANTIL_INTERNALS.xml
 [LOG] Copied HOLGATE_INTERNALS.xml to temp directory
-[LOG] Scheme HOLGATE processing completed in 5.41 seconds
+[LOG] Scheme HOLGATE processing completed in 5.56 seconds
 [LOG] Cleaned up temp file for scheme HOLGATE : HOLGATE_INTERNALS.xml
 [LOG] Copied JUNE LAKE_INTERNALS.xml to temp directory
-[LOG] Scheme JUNE LAKE processing completed in 5.4 seconds
+[LOG] Scheme JUNE LAKE processing completed in 5.55 seconds
 [LOG] Cleaned up temp file for scheme JUNE LAKE : JUNE LAKE_INTERNALS.xml
 [LOG] Copied ASHLEY PT_INTERNALS.xml to temp directory
-[LOG] Scheme ASHLEY PT processing completed in 5.41 seconds
+[LOG] Scheme ASHLEY PT processing completed in 5.52 seconds
 [LOG] Cleaned up temp file for scheme ASHLEY PT : ASHLEY PT_INTERNALS.xml
 [LOG] Copied BARD PT_INTERNALS.xml to temp directory
-[LOG] Scheme BARD PT processing completed in 5.37 seconds
+[LOG] Scheme BARD PT processing completed in 5.53 seconds
 [LOG] Cleaned up temp file for scheme BARD PT : BARD PT_INTERNALS.xml
 [LOG] Copied BARWICK PT_INTERNALS.xml to temp directory
-[LOG] Scheme BARWICK PT processing completed in 5.38 seconds
+[LOG] Scheme BARWICK PT processing completed in 5.53 seconds
 [LOG] Cleaned up temp file for scheme BARWICK PT : BARWICK PT_INTERNALS.xml
 [LOG] Copied Beverly_INTERNALS.xml to temp directory
-[LOG] Scheme Beverly processing completed in 5.38 seconds
+[LOG] Scheme Beverly processing completed in 5.54 seconds
 [LOG] Cleaned up temp file for scheme Beverly : Beverly_INTERNALS.xml
 [LOG] Copied BLUFF COVE_INTERNALS.xml to temp directory
-[LOG] Scheme BLUFF COVE processing completed in 5.39 seconds
+[LOG] Scheme BLUFF COVE processing completed in 5.52 seconds
 [LOG] Cleaned up temp file for scheme BLUFF COVE : BLUFF COVE_INTERNALS.xml
 [LOG] Copied BRIDGE_INTERNALS.xml to temp directory
-[LOG] Scheme BRIDGE processing completed in 5.38 seconds
+[LOG] Scheme BRIDGE processing completed in 5.52 seconds
 [LOG] Cleaned up temp file for scheme BRIDGE : BRIDGE_INTERNALS.xml
 [LOG] Copied BRIGHTON_INTERNALS.xml to temp directory
-[LOG] Scheme BRIGHTON processing completed in 5.39 seconds
+[LOG] Scheme BRIGHTON processing completed in 5.54 seconds
 [LOG] Cleaned up temp file for scheme BRIGHTON : BRIGHTON_INTERNALS.xml
 [LOG] Copied CAMARILLO_INTERNALS.xml to temp directory
-[LOG] Scheme CAMARILLO processing completed in 5.38 seconds
+[LOG] Scheme CAMARILLO processing completed in 5.5 seconds
 [LOG] Cleaned up temp file for scheme CAMARILLO : CAMARILLO_INTERNALS.xml
 [LOG] Copied CANALINO PT_INTERNALS.xml to temp directory
-[LOG] Scheme CANALINO PT processing completed in 5.37 seconds
+[LOG] Scheme CANALINO PT processing completed in 5.51 seconds
 [LOG] Cleaned up temp file for scheme CANALINO PT : CANALINO PT_INTERNALS.xml
 [LOG] Copied CAPITAN_INTERNALS.xml to temp directory
-[LOG] Scheme CAPITAN processing completed in 5.36 seconds
+[LOG] Scheme CAPITAN processing completed in 5.5 seconds
 [LOG] Cleaned up temp file for scheme CAPITAN : CAPITAN_INTERNALS.xml
 [LOG] Copied CARPINTERIA_INTERNALS.xml to temp directory
-[LOG] Scheme CARPINTERIA processing completed in 5.33 seconds
+[LOG] Scheme CARPINTERIA processing completed in 5.47 seconds
 [LOG] Cleaned up temp file for scheme CARPINTERIA : CARPINTERIA_INTERNALS.xml
 [LOG] Copied CASITAS_INTERNALS.xml to temp directory
-[LOG] Scheme CASITAS processing completed in 5.3 seconds
+[LOG] Scheme CASITAS processing completed in 5.47 seconds
 [LOG] Cleaned up temp file for scheme CASITAS : CASITAS_INTERNALS.xml
 [LOG] Copied CASPER PT_INTERNALS.xml to temp directory
-[LOG] Scheme CASPER PT processing completed in 5.31 seconds
+[LOG] Scheme CASPER PT processing completed in 5.45 seconds
 [LOG] Cleaned up temp file for scheme CASPER PT : CASPER PT_INTERNALS.xml
 [LOG] Copied CHANNEL ISLANDS_INTERNALS.xml to temp directory
-[LOG] Scheme CHANNEL ISLANDS processing completed in 5.32 seconds
+[LOG] Scheme CHANNEL ISLANDS processing completed in 5.46 seconds
 [LOG] Cleaned up temp file for scheme CHANNEL ISLANDS : CHANNEL ISLANDS_INTERNALS.xml
 [LOG] Copied COLONIA_INTERNALS.xml to temp directory
-[LOG] Scheme COLONIA processing completed in 5.3 seconds
+[LOG] Scheme COLONIA processing completed in 5.45 seconds
 [LOG] Cleaned up temp file for scheme COLONIA : COLONIA_INTERNALS.xml
 [LOG] Copied COLORADO_INTERNALS.xml to temp directory
-[LOG] Scheme COLORADO processing completed in 5.27 seconds
+[LOG] Scheme COLORADO processing completed in 5.41 seconds
 [LOG] Cleaned up temp file for scheme COLORADO : COLORADO_INTERNALS.xml
 [LOG] Copied COMPRESS_INTERNALS.xml to temp directory
-[LOG] Scheme COMPRESS processing completed in 5.27 seconds
+[LOG] Scheme COMPRESS processing completed in 5.4 seconds
 [LOG] Cleaned up temp file for scheme COMPRESS : COMPRESS_INTERNALS.xml
 [LOG] Copied COURT HOUSE PT_INTERNALS.xml to temp directory
-[LOG] Scheme COURT HOUSE PT processing completed in 5.25 seconds
+[LOG] Scheme COURT HOUSE PT processing completed in 5.4 seconds
 [LOG] Cleaned up temp file for scheme COURT HOUSE PT : COURT HOUSE PT_INTERNALS.xml
 [LOG] Copied CRATER_INTERNALS.xml to temp directory
-[LOG] Scheme CRATER processing completed in 5.24 seconds
+[LOG] Scheme CRATER processing completed in 5.39 seconds
 [LOG] Cleaned up temp file for scheme CRATER : CRATER_INTERNALS.xml
 [LOG] Copied CREST_INTERNALS.xml to temp directory
-[LOG] Scheme CREST processing completed in 5.25 seconds
+[LOG] Scheme CREST processing completed in 5.37 seconds
 [LOG] Cleaned up temp file for scheme CREST : CREST_INTERNALS.xml
 [LOG] Copied CRESTWIND UGS_INTERNALS.xml to temp directory
-[LOG] Scheme CRESTWIND UGS processing completed in 5.23 seconds
+[LOG] Scheme CRESTWIND UGS processing completed in 5.38 seconds
 [LOG] Cleaned up temp file for scheme CRESTWIND UGS : CRESTWIND UGS_INTERNALS.xml
 [LOG] Copied CULVER_INTERNALS.xml to temp directory
-[LOG] Scheme CULVER processing completed in 5.24 seconds
+[LOG] Scheme CULVER processing completed in 5.38 seconds
 [LOG] Cleaned up temp file for scheme CULVER : CULVER_INTERNALS.xml
 [LOG] Copied DITMAR_INTERNALS.xml to temp directory
-[LOG] Scheme DITMAR processing completed in 5.22 seconds
+[LOG] Scheme DITMAR processing completed in 5.37 seconds
 [LOG] Cleaned up temp file for scheme DITMAR : DITMAR_INTERNALS.xml
 [LOG] Copied DOLPHIN PT_INTERNALS.xml to temp directory
-[LOG] Scheme DOLPHIN PT processing completed in 5.21 seconds
+[LOG] Scheme DOLPHIN PT processing completed in 5.31 seconds
 [LOG] Cleaned up temp file for scheme DOLPHIN PT : DOLPHIN PT_INTERNALS.xml
 [LOG] Copied EL NIDO_INTERNALS.xml to temp directory
-[LOG] Scheme EL NIDO processing completed in 5.18 seconds
+[LOG] Scheme EL NIDO processing completed in 5.3 seconds
 [LOG] Cleaned up temp file for scheme EL NIDO : EL NIDO_INTERNALS.xml
 [LOG] Copied ELAINE PT_INTERNALS.xml to temp directory
-[LOG] Scheme ELAINE PT processing completed in 5.18 seconds
+[LOG] Scheme ELAINE PT processing completed in 5.29 seconds
 [LOG] Cleaned up temp file for scheme ELAINE PT : ELAINE PT_INTERNALS.xml
 [LOG] Copied ESTERO_INTERNALS.xml to temp directory
-[LOG] Scheme ESTERO processing completed in 5.15 seconds
+[LOG] Scheme ESTERO processing completed in 5.28 seconds
 [LOG] Cleaned up temp file for scheme ESTERO : ESTERO_INTERNALS.xml
 [LOG] Copied FAIRFAX_INTERNALS.xml to temp directory
-[LOG] Scheme FAIRFAX processing completed in 5.15 seconds
+[LOG] Scheme FAIRFAX processing completed in 5.27 seconds
 [LOG] Cleaned up temp file for scheme FAIRFAX : FAIRFAX_INTERNALS.xml
 [LOG] Copied FELTON_INTERNALS.xml to temp directory
-[LOG] Scheme FELTON processing completed in 5.19 seconds
+[LOG] Scheme FELTON processing completed in 5.28 seconds
 [LOG] Cleaned up temp file for scheme FELTON : FELTON_INTERNALS.xml
 [LOG] Copied GAVIOTA_INTERNALS.xml to temp directory
-[LOG] Scheme GAVIOTA processing completed in 5.16 seconds
+[LOG] Scheme GAVIOTA processing completed in 5.23 seconds
 [LOG] Cleaned up temp file for scheme GAVIOTA : GAVIOTA_INTERNALS.xml
 [LOG] Copied GOLETA_INTERNALS.xml to temp directory
-[LOG] Scheme GOLETA processing completed in 5.16 seconds
+[LOG] Scheme GOLETA processing completed in 5.25 seconds
 [LOG] Cleaned up temp file for scheme GOLETA : GOLETA_INTERNALS.xml
 [LOG] Copied GONZALES_INTERNALS.xml to temp directory
-[LOG] Scheme GONZALES processing completed in 5.12 seconds
+[LOG] Scheme GONZALES processing completed in 5.22 seconds
 [LOG] Cleaned up temp file for scheme GONZALES : GONZALES_INTERNALS.xml
 [LOG] Copied HAVEDA_INTERNALS.xml to temp directory
-[LOG] Scheme HAVEDA processing completed in 5.12 seconds
+[LOG] Scheme HAVEDA processing completed in 5.23 seconds
 [LOG] Cleaned up temp file for scheme HAVEDA : HAVEDA_INTERNALS.xml
 [LOG] Copied HILLGREEN PT_INTERNALS.xml to temp directory
-[LOG] Scheme HILLGREEN PT processing completed in 5.13 seconds
+[LOG] Scheme HILLGREEN PT processing completed in 5.22 seconds
 [LOG] Cleaned up temp file for scheme HILLGREEN PT : HILLGREEN PT_INTERNALS.xml
 [LOG] Copied HOWARD_INTERNALS.xml to temp directory
-[LOG] Scheme HOWARD processing completed in 5.14 seconds
+[LOG] Scheme HOWARD processing completed in 5.21 seconds
 [LOG] Cleaned up temp file for scheme HOWARD : HOWARD_INTERNALS.xml
 [LOG] Copied INGLEWOOD_INTERNALS.xml to temp directory
-[LOG] Scheme INGLEWOOD processing completed in 5.12 seconds
+[LOG] Scheme INGLEWOOD processing completed in 5.22 seconds
 [LOG] Cleaned up temp file for scheme INGLEWOOD : INGLEWOOD_INTERNALS.xml
 [LOG] Copied ISLA VISTA_INTERNALS.xml to temp directory
-[LOG] Scheme ISLA VISTA processing completed in 5.13 seconds
+[LOG] Scheme ISLA VISTA processing completed in 5.22 seconds
 [LOG] Cleaned up temp file for scheme ISLA VISTA : ISLA VISTA_INTERNALS.xml
 [LOG] Copied JACKNORTHROP PT_INTERNALS.xml to temp directory
-[LOG] Scheme JACKNORTHROP PT processing completed in 5.11 seconds
+[LOG] Scheme JACKNORTHROP PT processing completed in 5.18 seconds
 [LOG] Cleaned up temp file for scheme JACKNORTHROP PT : JACKNORTHROP PT_INTERNALS.xml
 [LOG] Copied LA CUMBRE PT_INTERNALS.xml to temp directory
-[LOG] Scheme LA CUMBRE PT processing completed in 5.08 seconds
+[LOG] Scheme LA CUMBRE PT processing completed in 5.19 seconds
 [LOG] Cleaned up temp file for scheme LA CUMBRE PT : LA CUMBRE PT_INTERNALS.xml
 [LOG] Copied LA FRESA_INTERNALS.xml to temp directory
-[LOG] Scheme LA FRESA processing completed in 5.06 seconds
+[LOG] Scheme LA FRESA processing completed in 5.15 seconds
 [LOG] Cleaned up temp file for scheme LA FRESA : LA FRESA_INTERNALS.xml
 [LOG] Copied LATIGO_INTERNALS.xml to temp directory
-[LOG] Scheme LATIGO processing completed in 5.06 seconds
+[LOG] Scheme LATIGO processing completed in 5.15 seconds
 [LOG] Cleaned up temp file for scheme LATIGO : LATIGO_INTERNALS.xml
 [LOG] Copied LAWNDALE_INTERNALS.xml to temp directory
-[LOG] Scheme LAWNDALE processing completed in 5.07 seconds
+[LOG] Scheme LAWNDALE processing completed in 5.16 seconds
 [LOG] Cleaned up temp file for scheme LAWNDALE : LAWNDALE_INTERNALS.xml
 [LOG] Copied LENNOX_INTERNALS.xml to temp directory
-[LOG] Scheme LENNOX processing completed in 5.07 seconds
+[LOG] Scheme LENNOX processing completed in 5.16 seconds
 [LOG] Cleaned up temp file for scheme LENNOX : LENNOX_INTERNALS.xml
 [LOG] Copied LEVY_INTERNALS.xml to temp directory
-[LOG] Scheme LEVY processing completed in 5.05 seconds
+[LOG] Scheme LEVY processing completed in 5.15 seconds
 [LOG] Cleaned up temp file for scheme LEVY : LEVY_INTERNALS.xml
 [LOG] Copied LOMA VISTA PT_INTERNALS.xml to temp directory
-[LOG] Scheme LOMA VISTA PT processing completed in 5.04 seconds
+[LOG] Scheme LOMA VISTA PT processing completed in 5.13 seconds
 [LOG] Cleaned up temp file for scheme LOMA VISTA PT : LOMA VISTA PT_INTERNALS.xml
 [LOG] Copied LUNADA_INTERNALS.xml to temp directory
-[LOG] Scheme LUNADA processing completed in 5.03 seconds
+[LOG] Scheme LUNADA processing completed in 5.12 seconds
 [LOG] Cleaned up temp file for scheme LUNADA : LUNADA_INTERNALS.xml
 [LOG] Copied MADRID_INTERNALS.xml to temp directory
 [LOG] Scheme MADRID processing completed in 4.99 seconds
 [LOG] Cleaned up temp file for scheme MADRID : MADRID_INTERNALS.xml
 [LOG] Copied MALIBU_INTERNALS.xml to temp directory
-[LOG] Scheme MALIBU processing completed in 4.99 seconds
+[LOG] Scheme MALIBU processing completed in 5.09 seconds
 [LOG] Cleaned up temp file for scheme MALIBU : MALIBU_INTERNALS.xml
 [LOG] Copied MANHATTAN_INTERNALS.xml to temp directory
-[LOG] Scheme MANHATTAN processing completed in 5 seconds
+[LOG] Scheme MANHATTAN processing completed in 5.08 seconds
 [LOG] Cleaned up temp file for scheme MANHATTAN : MANHATTAN_INTERNALS.xml
 [LOG] Copied MARINE_INTERNALS.xml to temp directory
-[LOG] Scheme MARINE processing completed in 5.01 seconds
+[LOG] Scheme MARINE processing completed in 5.03 seconds
 [LOG] Cleaned up temp file for scheme MARINE : MARINE_INTERNALS.xml
 [LOG] Copied MARYMOUNT_INTERNALS.xml to temp directory
-[LOG] Scheme MARYMOUNT processing completed in 5 seconds
+[LOG] Scheme MARYMOUNT processing completed in 5.04 seconds
 [LOG] Cleaned up temp file for scheme MARYMOUNT : MARYMOUNT_INTERNALS.xml
 [LOG] Copied MCKEVETT PT_INTERNALS.xml to temp directory
-[LOG] Scheme MCKEVETT PT processing completed in 4.98 seconds
+[LOG] Scheme MCKEVETT PT processing completed in 5.05 seconds
 [LOG] Cleaned up temp file for scheme MCKEVETT PT : MCKEVETT PT_INTERNALS.xml
 [LOG] Copied MOBILOIL_INTERNALS.xml to temp directory
-[LOG] Scheme MOBILOIL processing completed in 4.95 seconds
+[LOG] Scheme MOBILOIL processing completed in 5.01 seconds
 [LOG] Cleaned up temp file for scheme MOBILOIL : MOBILOIL_INTERNALS.xml
 [LOG] Copied MONETA_INTERNALS.xml to temp directory
-[LOG] Scheme MONETA processing completed in 4.95 seconds
+[LOG] Scheme MONETA processing completed in 5.01 seconds
 [LOG] Cleaned up temp file for scheme MONETA : MONETA_INTERNALS.xml
 [LOG] Copied MONTECITO_INTERNALS.xml to temp directory
-[LOG] Scheme MONTECITO processing completed in 4.96 seconds
+[LOG] Scheme MONTECITO processing completed in 5.01 seconds
 [LOG] Cleaned up temp file for scheme MONTECITO : MONTECITO_INTERNALS.xml
 [LOG] Copied MOORPARK_INTERNALS.xml to temp directory
-[LOG] Scheme MOORPARK processing completed in 4.97 seconds
+[LOG] Scheme MOORPARK processing completed in 5.02 seconds
 [LOG] Cleaned up temp file for scheme MOORPARK : MOORPARK_INTERNALS.xml
 [LOG] Copied MORNINGSIDE_INTERNALS.xml to temp directory
-[LOG] Scheme MORNINGSIDE processing completed in 4.91 seconds
+[LOG] Scheme MORNINGSIDE processing completed in 5 seconds
 [LOG] Cleaned up temp file for scheme MORNINGSIDE : MORNINGSIDE_INTERNALS.xml
 [LOG] Copied MOVIE_INTERNALS.xml to temp directory
-[LOG] Scheme MOVIE processing completed in 4.91 seconds
+[LOG] Scheme MOVIE processing completed in 4.97 seconds
 [LOG] Cleaned up temp file for scheme MOVIE : MOVIE_INTERNALS.xml
 [LOG] Copied MOYNIER PT_INTERNALS.xml to temp directory
-[LOG] Scheme MOYNIER PT processing completed in 4.93 seconds
+[LOG] Scheme MOYNIER PT processing completed in 4.99 seconds
 [LOG] Cleaned up temp file for scheme MOYNIER PT : MOYNIER PT_INTERNALS.xml
 [LOG] Copied NEWBURY_INTERNALS.xml to temp directory
-[LOG] Scheme NEWBURY processing completed in 4.91 seconds
+[LOG] Scheme NEWBURY processing completed in 4.95 seconds
 [LOG] Cleaned up temp file for scheme NEWBURY : NEWBURY_INTERNALS.xml
 [LOG] Copied NIDEVER PT_INTERNALS.xml to temp directory
-[LOG] Scheme NIDEVER PT processing completed in 4.9 seconds
+[LOG] Scheme NIDEVER PT processing completed in 4.95 seconds
 [LOG] Cleaned up temp file for scheme NIDEVER PT : NIDEVER PT_INTERNALS.xml
 [LOG] Copied NOGAL PT_INTERNALS.xml to temp directory
-[LOG] Scheme NOGAL PT processing completed in 4.89 seconds
+[LOG] Scheme NOGAL PT processing completed in 4.91 seconds
 [LOG] Cleaned up temp file for scheme NOGAL PT : NOGAL PT_INTERNALS.xml
 [LOG] Copied OAK PARK_INTERNALS.xml to temp directory
-[LOG] Scheme OAK PARK processing completed in 4.88 seconds
+[LOG] Scheme OAK PARK processing completed in 4.92 seconds
 [LOG] Cleaned up temp file for scheme OAK PARK : OAK PARK_INTERNALS.xml
 [LOG] Copied OCEAN PARK_INTERNALS.xml to temp directory
-[LOG] Scheme OCEAN PARK processing completed in 4.89 seconds
+[LOG] Scheme OCEAN PARK processing completed in 4.91 seconds
 [LOG] Cleaned up temp file for scheme OCEAN PARK : OCEAN PARK_INTERNALS.xml
 [LOG] Copied OJAI_INTERNALS.xml to temp directory
-[LOG] Scheme OJAI processing completed in 4.85 seconds
+[LOG] Scheme OJAI processing completed in 4.92 seconds
 [LOG] Cleaned up temp file for scheme OJAI : OJAI_INTERNALS.xml
 [LOG] Copied OLYMPIC_INTERNALS.xml to temp directory
-[LOG] Scheme OLYMPIC processing completed in 4.81 seconds
+[LOG] Scheme OLYMPIC processing completed in 4.89 seconds
 [LOG] Cleaned up temp file for scheme OLYMPIC : OLYMPIC_INTERNALS.xml
 [LOG] Copied ORSATTI PT_INTERNALS.xml to temp directory
-[LOG] Scheme ORSATTI PT processing completed in 4.82 seconds
+[LOG] Scheme ORSATTI PT processing completed in 4.89 seconds
 [LOG] Cleaned up temp file for scheme ORSATTI PT : ORSATTI PT_INTERNALS.xml
 [LOG] Copied ORTEGA_INTERNALS.xml to temp directory
-[LOG] Scheme ORTEGA processing completed in 4.82 seconds
+[LOG] Scheme ORTEGA processing completed in 4.9 seconds
 [LOG] Cleaned up temp file for scheme ORTEGA : ORTEGA_INTERNALS.xml
 [LOG] Copied PAINTED CAVE PT_INTERNALS.xml to temp directory
-[LOG] Scheme PAINTED CAVE PT processing completed in 4.78 seconds
+[LOG] Scheme PAINTED CAVE PT processing completed in 4.89 seconds
 [LOG] Cleaned up temp file for scheme PAINTED CAVE PT : PAINTED CAVE PT_INTERNALS.xml
 [LOG] Copied PALOS VERDES_INTERNALS.xml to temp directory
-[LOG] Scheme PALOS VERDES processing completed in 4.78 seconds
+[LOG] Scheme PALOS VERDES processing completed in 4.86 seconds
 [LOG] Cleaned up temp file for scheme PALOS VERDES : PALOS VERDES_INTERNALS.xml
 [LOG] Copied PANCHITO PT_INTERNALS.xml to temp directory
-[LOG] Scheme PANCHITO PT processing completed in 4.79 seconds
+[LOG] Scheme PANCHITO PT processing completed in 4.86 seconds
 [LOG] Cleaned up temp file for scheme PANCHITO PT : PANCHITO PT_INTERNALS.xml
 [LOG] Copied PAR PT_INTERNALS.xml to temp directory
-[LOG] Scheme PAR PT processing completed in 4.8 seconds
+[LOG] Scheme PAR PT processing completed in 4.87 seconds
 [LOG] Cleaned up temp file for scheme PAR PT : PAR PT_INTERNALS.xml
 [LOG] Copied PEACOCK UGS_INTERNALS.xml to temp directory
-[LOG] Scheme PEACOCK UGS processing completed in 4.77 seconds
+[LOG] Scheme PEACOCK UGS processing completed in 4.87 seconds
 [LOG] Cleaned up temp file for scheme PEACOCK UGS : PEACOCK UGS_INTERNALS.xml
 [LOG] Copied PEARL_INTERNALS.xml to temp directory
-[LOG] Scheme PEARL processing completed in 4.77 seconds
+[LOG] Scheme PEARL processing completed in 4.84 seconds
 [LOG] Cleaned up temp file for scheme PEARL : PEARL_INTERNALS.xml
 [LOG] Copied PERRY_INTERNALS.xml to temp directory
-[LOG] Scheme PERRY processing completed in 4.78 seconds
+[LOG] Scheme PERRY processing completed in 4.85 seconds
 [LOG] Cleaned up temp file for scheme PERRY : PERRY_INTERNALS.xml
 [LOG] Copied PHARMACY_INTERNALS.xml to temp directory
-[LOG] Scheme PHARMACY processing completed in 4.79 seconds
+[LOG] Scheme PHARMACY processing completed in 4.85 seconds
 [LOG] Cleaned up temp file for scheme PHARMACY : PHARMACY_INTERNALS.xml
 [LOG] Copied PIERPONT_INTERNALS.xml to temp directory
-[LOG] Scheme PIERPONT processing completed in 4.79 seconds
+[LOG] Scheme PIERPONT processing completed in 4.85 seconds
 [LOG] Cleaned up temp file for scheme PIERPONT : PIERPONT_INTERNALS.xml
 [LOG] Copied PLAYA_INTERNALS.xml to temp directory
-[LOG] Scheme PLAYA processing completed in 4.73 seconds
+[LOG] Scheme PLAYA processing completed in 4.82 seconds
 [LOG] Cleaned up temp file for scheme PLAYA : PLAYA_INTERNALS.xml
 [LOG] Copied POLARIS_INTERNALS.xml to temp directory
-[LOG] Scheme POLARIS processing completed in 4.74 seconds
+[LOG] Scheme POLARIS processing completed in 4.81 seconds
 [LOG] Cleaned up temp file for scheme POLARIS : POLARIS_INTERNALS.xml
 [LOG] Copied POTRERO_INTERNALS.xml to temp directory
-[LOG] Scheme POTRERO processing completed in 4.75 seconds
+[LOG] Scheme POTRERO processing completed in 4.81 seconds
 [LOG] Cleaned up temp file for scheme POTRERO : POTRERO_INTERNALS.xml
 [LOG] Copied PRUITT PT_INTERNALS.xml to temp directory
-[LOG] Scheme PRUITT PT processing completed in 4.75 seconds
+[LOG] Scheme PRUITT PT processing completed in 4.8 seconds
 [LOG] Cleaned up temp file for scheme PRUITT PT : PRUITT PT_INTERNALS.xml
 [LOG] Copied REDONDO_INTERNALS.xml to temp directory
-[LOG] Scheme REDONDO processing completed in 4.71 seconds
+[LOG] Scheme REDONDO processing completed in 4.8 seconds
 [LOG] Cleaned up temp file for scheme REDONDO : REDONDO_INTERNALS.xml
 [LOG] Copied ROLLING HILLS_INTERNALS.xml to temp directory
-[LOG] Scheme ROLLING HILLS processing completed in 4.72 seconds
+[LOG] Scheme ROLLING HILLS processing completed in 4.8 seconds
 [LOG] Cleaned up temp file for scheme ROLLING HILLS : ROLLING HILLS_INTERNALS.xml
 [LOG] Copied ROYAL_INTERNALS.xml to temp directory
-[LOG] Scheme ROYAL processing completed in 4.73 seconds
+[LOG] Scheme ROYAL processing completed in 4.8 seconds
 [LOG] Cleaned up temp file for scheme ROYAL : ROYAL_INTERNALS.xml
 [LOG] Copied SAN MARCOS_INTERNALS.xml to temp directory
-[LOG] Scheme SAN MARCOS processing completed in 4.72 seconds
+[LOG] Scheme SAN MARCOS processing completed in 4.8 seconds
 [LOG] Cleaned up temp file for scheme SAN MARCOS : SAN MARCOS_INTERNALS.xml
 [LOG] Copied SAN MIGUEL_INTERNALS.xml to temp directory
-[LOG] Scheme SAN MIGUEL processing completed in 4.71 seconds
+[LOG] Scheme SAN MIGUEL processing completed in 4.79 seconds
 [LOG] Cleaned up temp file for scheme SAN MIGUEL : SAN MIGUEL_INTERNALS.xml
 [LOG] Copied SAN VICENTE_INTERNALS.xml to temp directory
-[LOG] Scheme SAN VICENTE processing completed in 4.69 seconds
+[LOG] Scheme SAN VICENTE processing completed in 4.77 seconds
 [LOG] Cleaned up temp file for scheme SAN VICENTE : SAN VICENTE_INTERNALS.xml
 [LOG] Copied SANTA BARBARA_INTERNALS.xml to temp directory
-[LOG] Scheme SANTA BARBARA processing completed in 4.65 seconds
+[LOG] Scheme SANTA BARBARA processing completed in 4.74 seconds
 [LOG] Cleaned up temp file for scheme SANTA BARBARA : SANTA BARBARA_INTERNALS.xml
 [LOG] Copied SANTA MONICA_INTERNALS.xml to temp directory
-[LOG] Scheme SANTA MONICA processing completed in 4.66 seconds
+[LOG] Scheme SANTA MONICA processing completed in 4.73 seconds
 [LOG] Cleaned up temp file for scheme SANTA MONICA : SANTA MONICA_INTERNALS.xml
 [LOG] Copied SATICOY_INTERNALS.xml to temp directory
-[LOG] Scheme SATICOY processing completed in 4.66 seconds
+[LOG] Scheme SATICOY processing completed in 4.73 seconds
 [LOG] Cleaned up temp file for scheme SATICOY : SATICOY_INTERNALS.xml
 [LOG] Copied SAWTELLE_INTERNALS.xml to temp directory
-[LOG] Scheme SAWTELLE processing completed in 4.67 seconds
+[LOG] Scheme SAWTELLE processing completed in 4.74 seconds
 [LOG] Cleaned up temp file for scheme SAWTELLE : SAWTELLE_INTERNALS.xml
 [LOG] Copied SEPULVEDA_INTERNALS.xml to temp directory
-[LOG] Scheme SEPULVEDA processing completed in 4.62 seconds
+[LOG] Scheme SEPULVEDA processing completed in 4.69 seconds
 [LOG] Cleaned up temp file for scheme SEPULVEDA : SEPULVEDA_INTERNALS.xml
 [LOG] Copied SOMIS_INTERNALS.xml to temp directory
-[LOG] Scheme SOMIS processing completed in 4.6 seconds
+[LOG] Scheme SOMIS processing completed in 4.68 seconds
 [LOG] Cleaned up temp file for scheme SOMIS : SOMIS_INTERNALS.xml
 [LOG] Copied SONY_INTERNALS.xml to temp directory
-[LOG] Scheme SONY processing completed in 4.61 seconds
+[LOG] Scheme SONY processing completed in 4.68 seconds
 [LOG] Cleaned up temp file for scheme SONY : SONY_INTERNALS.xml
 [LOG] Copied SPACEX PT_INTERNALS.xml to temp directory
-[LOG] Scheme SPACEX PT processing completed in 4.6 seconds
+[LOG] Scheme SPACEX PT processing completed in 4.65 seconds
 [LOG] Cleaned up temp file for scheme SPACEX PT : SPACEX PT_INTERNALS.xml
 [LOG] Copied SURREY UGS_INTERNALS.xml to temp directory
-[LOG] Scheme SURREY UGS processing completed in 4.57 seconds
+[LOG] Scheme SURREY UGS processing completed in 4.66 seconds
 [LOG] Cleaned up temp file for scheme SURREY UGS : SURREY UGS_INTERNALS.xml
 [LOG] Copied TAHITI_INTERNALS.xml to temp directory
-[LOG] Scheme TAHITI processing completed in 4.58 seconds
+[LOG] Scheme TAHITI processing completed in 4.63 seconds
 [LOG] Cleaned up temp file for scheme TAHITI : TAHITI_INTERNALS.xml
 [LOG] Copied TAPIA_INTERNALS.xml to temp directory
-[LOG] Scheme TAPIA processing completed in 4.58 seconds
+[LOG] Scheme TAPIA processing completed in 4.62 seconds
 [LOG] Cleaned up temp file for scheme TAPIA : TAPIA_INTERNALS.xml
 [LOG] Copied TATANKA PT_INTERNALS.xml to temp directory
-[LOG] Scheme TATANKA PT processing completed in 4.57 seconds
+[LOG] Scheme TATANKA PT processing completed in 4.63 seconds
 [LOG] Cleaned up temp file for scheme TATANKA PT : TATANKA PT_INTERNALS.xml
 [LOG] Copied THOUSAND OAKS_INTERNALS.xml to temp directory
-[LOG] Scheme THOUSAND OAKS processing completed in 4.58 seconds
+[LOG] Scheme THOUSAND OAKS processing completed in 4.57 seconds
 [LOG] Cleaned up temp file for scheme THOUSAND OAKS : THOUSAND OAKS_INTERNALS.xml
 [LOG] Copied TOPAZ_INTERNALS.xml to temp directory
-[LOG] Scheme TOPAZ processing completed in 4.56 seconds
+[LOG] Scheme TOPAZ processing completed in 4.54 seconds
 [LOG] Cleaned up temp file for scheme TOPAZ : TOPAZ_INTERNALS.xml
 [LOG] Copied TORRANCE_INTERNALS.xml to temp directory
-[LOG] Scheme TORRANCE processing completed in 4.57 seconds
+[LOG] Scheme TORRANCE processing completed in 4.54 seconds
 [LOG] Cleaned up temp file for scheme TORRANCE : TORRANCE_INTERNALS.xml
 [LOG] Copied TWENTY THREE ST PT_INTERNALS.xml to temp directory
-[LOG] Scheme TWENTY THREE ST PT processing completed in 4.58 seconds
+[LOG] Scheme TWENTY THREE ST PT processing completed in 4.54 seconds
 [LOG] Cleaned up temp file for scheme TWENTY THREE ST PT : TWENTY THREE ST PT_INTERNALS.xml
 [LOG] Copied TWENTY TWO ST PT_INTERNALS.xml to temp directory
-[LOG] Scheme TWENTY TWO ST PT processing completed in 4.54 seconds
+[LOG] Scheme TWENTY TWO ST PT processing completed in 4.52 seconds
 [LOG] Cleaned up temp file for scheme TWENTY TWO ST PT : TWENTY TWO ST PT_INTERNALS.xml
 [LOG] Copied TYBURN PT_INTERNALS.xml to temp directory
-[LOG] Scheme TYBURN PT processing completed in 4.55 seconds
+[LOG] Scheme TYBURN PT processing completed in 4.53 seconds
 [LOG] Cleaned up temp file for scheme TYBURN PT : TYBURN PT_INTERNALS.xml
 [LOG] Copied VALDEZ_INTERNALS.xml to temp directory
-[LOG] Scheme VALDEZ processing completed in 4.45 seconds
+[LOG] Scheme VALDEZ processing completed in 4.51 seconds
 [LOG] Cleaned up temp file for scheme VALDEZ : VALDEZ_INTERNALS.xml
 [LOG] Copied VANDERLIP PT_INTERNALS.xml to temp directory
-[LOG] Scheme VANDERLIP PT processing completed in 4.46 seconds
+[LOG] Scheme VANDERLIP PT processing completed in 4.51 seconds
 [LOG] Cleaned up temp file for scheme VANDERLIP PT : VANDERLIP PT_INTERNALS.xml
 [LOG] Copied VEGAS_INTERNALS.xml to temp directory
-[LOG] Scheme VEGAS processing completed in 4.46 seconds
+[LOG] Scheme VEGAS processing completed in 4.51 seconds
 [LOG] Cleaned up temp file for scheme VEGAS : VEGAS_INTERNALS.xml
 [LOG] Copied VIA HUERTO PT_INTERNALS.xml to temp directory
-[LOG] Scheme VIA HUERTO PT processing completed in 4.45 seconds
+[LOG] Scheme VIA HUERTO PT processing completed in 4.49 seconds
 [LOG] Cleaned up temp file for scheme VIA HUERTO PT : VIA HUERTO PT_INTERNALS.xml
 [LOG] Copied VICTORIA_INTERNALS.xml to temp directory
-[LOG] Scheme VICTORIA processing completed in 4.46 seconds
+[LOG] Scheme VICTORIA processing completed in 4.51 seconds
 [LOG] Cleaned up temp file for scheme VICTORIA : VICTORIA_INTERNALS.xml
 [LOG] Copied WAKEFIELD_INTERNALS.xml to temp directory
-[LOG] Scheme WAKEFIELD processing completed in 4.45 seconds
+[LOG] Scheme WAKEFIELD processing completed in 4.49 seconds
 [LOG] Cleaned up temp file for scheme WAKEFIELD : WAKEFIELD_INTERNALS.xml
 [LOG] Copied WALTERIA_INTERNALS.xml to temp directory
-[LOG] Scheme WALTERIA processing completed in 4.42 seconds
+[LOG] Scheme WALTERIA processing completed in 4.47 seconds
 [LOG] Cleaned up temp file for scheme WALTERIA : WALTERIA_INTERNALS.xml
 [LOG] Copied WASTEWATER_INTERNALS.xml to temp directory
-[LOG] Scheme WASTEWATER processing completed in 4.42 seconds
+[LOG] Scheme WASTEWATER processing completed in 4.47 seconds
 [LOG] Cleaned up temp file for scheme WASTEWATER : WASTEWATER_INTERNALS.xml
 [LOG] Copied WESBASIN_INTERNALS.xml to temp directory
-[LOG] Scheme WESBASIN processing completed in 4.38 seconds
+[LOG] Scheme WESBASIN processing completed in 4.44 seconds
 [LOG] Cleaned up temp file for scheme WESBASIN : WESBASIN_INTERNALS.xml
 [LOG] Copied WESTFALL PM_INTERNALS.xml to temp directory
-[LOG] Scheme WESTFALL PM processing completed in 4.39 seconds
+[LOG] Scheme WESTFALL PM processing completed in 4.41 seconds
 [LOG] Cleaned up temp file for scheme WESTFALL PM : WESTFALL PM_INTERNALS.xml
 [LOG] Copied WINDSOR HILLS_INTERNALS.xml to temp directory
-[LOG] Scheme WINDSOR HILLS processing completed in 4.4 seconds
+[LOG] Scheme WINDSOR HILLS processing completed in 4.42 seconds
 [LOG] Cleaned up temp file for scheme WINDSOR HILLS : WINDSOR HILLS_INTERNALS.xml
 [LOG] Copied YUKON_INTERNALS.xml to temp directory
-[LOG] Scheme YUKON processing completed in 4.38 seconds
+[LOG] Scheme YUKON processing completed in 4.41 seconds
 [LOG] Cleaned up temp file for scheme YUKON : YUKON_INTERNALS.xml
-[LOG] Internals XML phase: 7.66 seconds (file I/O work 2.03s, parse work 13.94s, XPath work 0s)
-[LOG] Device matching phase: 0.31 seconds
-[LOG] CSV build phase: 0.03 seconds
-[LOG] CSV file I/O phase: 0.01 seconds
+[LOG] Internals XML phase: 7.78 seconds (file I/O work 2.16s, parse work 13.85s, XPath work 0s)
+[LOG] Device matching phase: 0.26 seconds
+[LOG] CSV build phase: 0.04 seconds
+[LOG] CSV file I/O phase: 0.02 seconds
 [LOG] Processing complete - 312 stations processed
-[LOG] Total processing time: 54.84 seconds
+[LOG] Total processing time: 55.11 seconds
 [LOG] Cleaned up temp directory: E:\Eterra\distribution\sce\ToolsWorkspace\ModelManagerFolders\AutomationSchemes_Temp
