@@ -262,7 +262,7 @@ public static class AutomationSchemeXmlParser
         };
     }
 }
-'@
+'@ -ReferencedAssemblies 'System.Xml.dll'
 }
 
 function Normalize-SubstationName {
