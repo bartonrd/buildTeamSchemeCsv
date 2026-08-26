@@ -173,7 +173,7 @@ public static class AutomationSchemeXmlParser
         int statusDepth = -1;
         string statusDevice = null;
         bool statusMatches = false;
-        string statusChild = null;
+        int pMeasDepth = -1;
         int breakerDepth = -1;
         string breakerName = null;
         string breakerId = null;
@@ -193,20 +193,23 @@ public static class AutomationSchemeXmlParser
                         statusDepth = depth;
                         statusDevice = null;
                         statusMatches = false;
-                        statusChild = null;
+                        pMeasDepth = -1;
                     }
                     else if (statusDepth >= 0)
                     {
                         if (depth == statusDepth + 1)
                         {
-                            statusChild = localName;
-                            if (localName == "device")
+                            if (localName.Equals("device", StringComparison.OrdinalIgnoreCase))
                             {
                                 statusDevice = reader.ReadString();
                             }
+                            else if (localName == "pMeas")
+                            {
+                                pMeasDepth = depth;
+                            }
                         }
-                        else if (depth == statusDepth + 2 &&
-                            statusChild == "pMeas" &&
+                        else if (pMeasDepth == statusDepth + 1 &&
+                            depth == pMeasDepth + 1 &&
                             localName == "MeasType" &&
                             reader.ReadString() == "SwitchStatusMeasurementType")
                         {
@@ -236,11 +239,16 @@ public static class AutomationSchemeXmlParser
                 {
                     if (statusDepth == reader.Depth && reader.LocalName == "Status")
                     {
-                        if (statusMatches)
+                        if (statusMatches && !String.IsNullOrWhiteSpace(statusDevice))
                         {
                             deviceIds.Add(statusDevice);
                         }
                         statusDepth = -1;
+                        pMeasDepth = -1;
+                    }
+                    else if (pMeasDepth == reader.Depth && reader.LocalName == "pMeas")
+                    {
+                        pMeasDepth = -1;
                     }
                     else if (breakerDepth == reader.Depth && reader.LocalName == "Breaker")
                     {
