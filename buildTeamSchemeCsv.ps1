@@ -1,3 +1,9 @@
+#Requires -Version 7.0
+
+param(
+    [ValidateRange(1, 64)]
+    [int] $MaxParallel = 4
+)
 
 #$processingDir = "E:\Eterra\distribution\sce\ToolsWorkspace\Converter\input\"
 $processingDir = "E:\Eterra\distribution\sce\ToolsWorkspace\ModelManagerFolders\Processing\"
@@ -49,9 +55,6 @@ $feederDeviceDict = @{}
 # feeder -> substation name
 $feederSubDict = @{}
 
-# cache of substation internals XML: substationName -> [xml]
-$internalsCache = @{}
-
 # Track processing state
 $processingError = $null
 $stationsProcessed = @{}
@@ -89,74 +92,6 @@ function Resolve-FeederModelName {
     }
 
     return $FeederName
-}
-
-function Get-InternalsXml {
-    param(
-        [string] $SubstationName,
-        [string] $ProcessingDir,
-        [string] $TempDir
-    )
-    $SubstationName = Normalize-SubstationName -SubstationName $SubstationName
-
-    if ([string]::IsNullOrWhiteSpace($SubstationName)) {
-        return $null
-    }
-    
-    $internalsPath = $ProcessingDir + $SubstationName + "_INTERNALS.xml"
-    $internalsFileName = $SubstationName + "_INTERNALS.xml"
-    $tempInternalsPath = [System.IO.Path]::Combine($TempDir, $internalsFileName)
-    
-    # Check if the source file exists with retry logic
-    $fileFound = $false
-    $maxAttempts = 3
-    $retryDelaySeconds = 15
-    
-    for ($attempt = 1; $attempt -le $maxAttempts; $attempt++) {
-        if (Test-Path $internalsPath) {
-            $fileFound = $true
-            break
-        }
-        
-        if ($attempt -lt $maxAttempts) {
-            Write-Log "[LOG] Station file not found on attempt $attempt : $internalsPath - Waiting $retryDelaySeconds seconds before retry"
-            Start-Sleep -Seconds $retryDelaySeconds
-        }
-    }
-    
-    if (-not $fileFound) {
-        $script:processingError = "Station file not found after $maxAttempts attempts: $internalsPath"
-        Write-Log "[ERROR] $($script:processingError)"
-        return $null
-    }
-    
-    # Copy to temp directory if not already cached
-    if (-not $script:internalsCache.ContainsKey($SubstationName)) {
-        try {
-            # Start timing for this scheme
-            $schemeStartTime = Get-Date
-            
-            # Copy the file to temp directory
-            Copy-Item -Path $internalsPath -Destination $tempInternalsPath -Force -ErrorAction Stop
-            Write-Log "[LOG] Copied $internalsFileName to temp directory"
-            
-            # Read from temp directory
-            $xmlText = Get-Content -Path $tempInternalsPath -Raw -ErrorAction Stop
-            $script:internalsCache[$SubstationName] = [xml]$xmlText
-            
-            # Track this station as processed with timing and temp file path
-            $script:stationsProcessed[$SubstationName] = @{
-                TempPath = $tempInternalsPath
-                StartTime = $schemeStartTime
-            }
-        }
-        catch {
-            $script:processingError = "Failed to copy or parse $internalsFileName : $_"
-            Write-Log "[ERROR] $($script:processingError)"
-            return $null
-        }
-    }
-    return $script:internalsCache[$SubstationName]
 }
 
 function Cleanup-TempFiles {
@@ -214,146 +149,306 @@ function Cleanup-SchemeFile {
 Write-Log "[LOG] Starting Automation Schemes File Build for CL FISR Device Participation" -Reset
 
 if (Test-Path $fisrFeedersFile) {
-    $feedersList = Get-Content $fisrFeedersFile
-    $processedSchemes = @{}  # Track which schemes have been cleaned up
-    
-    foreach ($feeder in $feedersList) {
-        if ([string]::IsNullOrWhiteSpace($feeder)) { continue }
+    $feedersList = @(Get-Content $fisrFeedersFile | Where-Object { -not [string]::IsNullOrWhiteSpace($_) })
+    Write-Log "[LOG] Parallel worker limit: $MaxParallel"
+
+    $feederInputs = [System.Collections.Generic.List[object]]::new()
+    for ($index = 0; $index -lt $feedersList.Count; $index++) {
+        $feeder = [string]$feedersList[$index]
         $feederModelName = Resolve-FeederModelName -FeederName $feeder
-        $feederXmlPath = $etlDir + $feederModelName + ".xml"
-        if (Test-Path $feederXmlPath) {
-            if ($feederModelName -ne $feeder) {
-                Write-Log "[LOG] Parsing GCM feeder model for $feeder using alias $feederModelName"
-            }
-            else {
-                Write-Log "[LOG] Parsing GCM feeder model for $feeder"
-            }
-            try {
-                $feederGC = Get-Content -Path $feederXmlPath -Raw
-                $feederXML = [xml]$feederGC
-            }
-            catch {
-                Write-Log "[ERROR] Failed to parse feeder XML for $feeder at $feederXmlPath"
-                continue
-            }
-            $sub = Normalize-SubstationName -SubstationName ([string]$feederXML.CircuitConnectivity.Substation.name)
-            $feederSubDict[$feeder] = $sub
-            
-            # Collect mRID values exactly like old script
-            $mRIDValues = $feederXML.SelectNodes("//*[local-name()='Switch' or local-name()='Recloser']/*[local-name()='mRID']") | ForEach-Object { $_.'#text' }
-            $mRIDValues += $feederXML.SelectNodes("//*[local-name()='CompositeSwitch']/*[local-name()='mRID']") | ForEach-Object { "$($_.'#text')_CS" }
-
-            # Check for the internals file for all switch status measurements
-            $subXML = Get-InternalsXml -SubstationName $sub -ProcessingDir $processingDir -TempDir $tempDir
-            if ($subXML) {
-                $statusList = $subXML.SelectNodes("//Status[./pMeas/MeasType = 'SwitchStatusMeasurementType']")
-                $cbList = $subXML.SelectNodes("//Breaker[contains(Name,'$feeder')]")
-
-                # Check to see what automated devices are in the feeder file and create a list
-                foreach ($status in $statusList) {
-                    if (($status.device -in $mRIDValues)) {
-                        if (-not $feederDeviceDict.ContainsKey($feeder)) {
-                            $feederDeviceDict[$feeder] = @()
-                        }
-                        $feederDeviceDict[$feeder] += $status.device
-                    }
-                }
-                foreach ($cb in $cbList) {
-                    if (-not $feederDeviceDict.ContainsKey($feeder)) {
-                        $feederDeviceDict[$feeder] = @()
-                    }
-                    $feederDeviceDict[$feeder] += $cb.Id
-                }
-                
-                # Clean up this scheme's temp file after processing if we haven't already
-                if (-not $processedSchemes.ContainsKey($sub)) {
-                    Cleanup-SchemeFile -SchemeName $sub
-                    $processedSchemes[$sub] = $true
-                }
-            }
-            else {
-                # If Get-InternalsXml returned null and set an error, stop processing
-                if ($processingError) {
-                    Write-Log "[ERROR] Processing Terminated: $processingError"
-                    Cleanup-TempFiles -TempDir $tempDir
-                    exit 1
-                }
-            }
-        }
-        else {
-            if ($feederModelName -ne $feeder) {
-                Write-Log "[ERROR] Feeders file not found for $feeder using alias $feederModelName : $etlDir$feederModelName.xml"
-            }
-            else {
-                Write-Log "[ERROR] Feeders file not found: $etlDir$feeder.xml"
-            }
-        }
-        
-        # Check if we should stop processing due to errors
-        if ($processingError) {
-            Write-Log "[ERROR] Processing Terminated: $processingError"
-            Cleanup-TempFiles -TempDir $tempDir
-            exit 1
-        }
+        $feederInputs.Add([pscustomobject]@{
+            Index = $index
+            Feeder = $feeder
+            ModelName = $feederModelName
+            Path = $etlDir + $feederModelName + ".xml"
+        })
     }
 
-    # Only write CSV if no errors occurred
-    if (-not $processingError) {
-        $csvLines = [System.Collections.Generic.List[string]]::new()
-
-        # SCHEME section - deduplicate by substation name
-        $csvLines.Add("SCHEME,0,ID_SCHEME,NAME_SCHEME,DESCRIPTION_SCHEME,,,,")
-        $uniqueSubstations = @{}
-        foreach ($key in $feederDeviceDict.Keys) {
-            $subNameUpper = [string]$feederSubDict[$key].ToUpper()
-            if (-not $uniqueSubstations.ContainsKey($subNameUpper)) {
-                $uniqueSubstations[$subNameUpper] = $true
-                $csvLines.Add("SCHEME,1," + $subNameUpper + "_SCHEME," + $subNameUpper + "_SCHEME,Automation Scheme,,,,")
+    $feederPhase = [System.Diagnostics.Stopwatch]::StartNew()
+    $feederResults = @($feederInputs | ForEach-Object -ThrottleLimit $MaxParallel -Parallel {
+        $inputRecord = $_
+        $logs = [System.Collections.Generic.List[string]]::new()
+        if (-not (Test-Path $inputRecord.Path)) {
+            if ($inputRecord.ModelName -ne $inputRecord.Feeder) {
+                $logs.Add("[ERROR] Feeders file not found for $($inputRecord.Feeder) using alias $($inputRecord.ModelName) : $($inputRecord.Path)")
+            }
+            else {
+                $logs.Add("[ERROR] Feeders file not found: $($inputRecord.Path)")
+            }
+            return [pscustomobject]@{
+                Index = $inputRecord.Index; Feeder = $inputRecord.Feeder; Sub = $null
+                MRIDs = @(); Logs = $logs.ToArray(); ParseSeconds = 0; XPathSeconds = 0
             }
         }
 
-        # TEAM section
-        $csvLines.Add(",,,,,,,,")
-        $csvLines.Add("TEAM,0,ID_TEAM,SCHEME_TEAM,NAME_TEAM,DESCRIPTION_TEAM,,,")
-        foreach ($key in $feederDeviceDict.Keys) {
-            $subNameUpper = [string]$feederSubDict[$key].ToUpper()
-            $feederNameUpper = [string]$key.ToUpper()
-            $csvLines.Add("TEAM,1," + $feederNameUpper + "_TEAM," + $subNameUpper + "_SCHEME," + $feederNameUpper + " FISR," + $feederNameUpper + " FISR,,,")
+        if ($inputRecord.ModelName -ne $inputRecord.Feeder) {
+            $logs.Add("[LOG] Parsing GCM feeder model for $($inputRecord.Feeder) using alias $($inputRecord.ModelName)")
         }
-
-        # TEAMSWITCH section
-        $csvLines.Add(",,,,,,,,")
-        $csvLines.Add("TEAMSWITCH,0,ID_TEAMSW,TEAM_TEAMSW,NAME_TEAMSW,SECONDID_TEAMSW,STATION1_TEAMSW,STATION2_TEAMSW,ROLE_TEAMSW")
-        foreach ($key in $feederDeviceDict.Keys) {
-            $subNameUpper = [string]$feederSubDict[$key].ToUpper()
-            $feederNameUpper = [string]$key.ToUpper()
-            foreach ($value in $feederDeviceDict[$key]) {
-                if (-not [string]::IsNullOrWhiteSpace($value)) {
-                    $deviceUpper = [string]$value.ToUpper()
-                    $csvLines.Add("TEAMSWITCH,1," + $deviceUpper + "," + $feederNameUpper + "_TEAM,na,na," + $subNameUpper + ",,PRIMARY")
-                }
-            }
+        else {
+            $logs.Add("[LOG] Parsing GCM feeder model for $($inputRecord.Feeder)")
         }
 
         try {
-            Set-Content -Path $teamSchemeFile -Value $csvLines -Encoding UTF8 -ErrorAction Stop
-            Move-Item -Path $teamSchemeFile -Destination $teamSchemeFileCSV -Force -ErrorAction Stop
-            
-            $stationCount = $stationsProcessed.Count
-            Write-Log "[LOG] Processing complete - $stationCount stations processed"
-            
-            # Calculate and log total processing time
-            $scriptEndTime = Get-Date
-            $totalProcessingTime = ($scriptEndTime - $scriptStartTime).TotalSeconds
-            Write-Log "[LOG] Total processing time: $([math]::Round($totalProcessingTime, 2)) seconds"
+            $parseTimer = [System.Diagnostics.Stopwatch]::StartNew()
+            $feederXML = [xml](Get-Content -Path $inputRecord.Path -Raw -ErrorAction Stop)
+            $parseTimer.Stop()
+
+            $sub = [string]$feederXML.CircuitConnectivity.Substation.name
+            if (-not [string]::IsNullOrWhiteSpace($sub)) {
+                $sub = $sub -replace '(?i)(?<![A-Z0-9])P\.T\.(?![A-Z0-9])', 'PT'
+                $sub = $sub -replace '(?i)(?<![A-Z0-9])U\.G\.S\.(?![A-Z0-9])', 'UGS'
+                $sub = $sub -replace '(?i)(?<![A-Z0-9])P\.M\.(?![A-Z0-9])', 'PM'
+                $sub = $sub -replace '\.', ''
+            }
+
+            $xpathTimer = [System.Diagnostics.Stopwatch]::StartNew()
+            $mRIDValues = @($feederXML.SelectNodes("//*[local-name()='Switch' or local-name()='Recloser']/*[local-name()='mRID']") |
+                ForEach-Object { [string]$_.'#text' })
+            $mRIDValues += @($feederXML.SelectNodes("//*[local-name()='CompositeSwitch']/*[local-name()='mRID']") |
+                ForEach-Object { "$($_.'#text')_CS" })
+            $xpathTimer.Stop()
+
+            return [pscustomobject]@{
+                Index = $inputRecord.Index; Feeder = $inputRecord.Feeder; Sub = $sub
+                MRIDs = $mRIDValues; Logs = $logs.ToArray()
+                ParseSeconds = $parseTimer.Elapsed.TotalSeconds
+                XPathSeconds = $xpathTimer.Elapsed.TotalSeconds
+            }
         }
         catch {
-            Write-Log "[ERROR] Unable to write to AutomationSchemes.csv: $_"
-            Cleanup-TempFiles -TempDir $tempDir
-            exit 1
+            $logs.Add("[ERROR] Failed to parse feeder XML for $($inputRecord.Feeder) at $($inputRecord.Path)")
+            return [pscustomobject]@{
+                Index = $inputRecord.Index; Feeder = $inputRecord.Feeder; Sub = $null
+                MRIDs = @(); Logs = $logs.ToArray(); ParseSeconds = 0; XPathSeconds = 0
+            }
+        }
+    } | Sort-Object Index)
+    $feederPhase.Stop()
+
+    foreach ($result in $feederResults) {
+        foreach ($message in $result.Logs) { Write-Log $message }
+        if (-not [string]::IsNullOrWhiteSpace($result.Sub)) {
+            $feederSubDict[$result.Feeder] = $result.Sub
         }
     }
-    
+    $feederParseWork = ($feederResults | Measure-Object -Property ParseSeconds -Sum).Sum
+    $feederXPathWork = ($feederResults | Measure-Object -Property XPathSeconds -Sum).Sum
+    Write-Log "[LOG] Feeder XML phase: $([math]::Round($feederPhase.Elapsed.TotalSeconds, 2)) seconds (parse work $([math]::Round($feederParseWork, 2))s, XPath work $([math]::Round($feederXPathWork, 2))s)"
+
+    $uniqueSubs = [System.Collections.Generic.List[string]]::new()
+    $seenSubs = [System.Collections.Generic.HashSet[string]]::new([System.StringComparer]::OrdinalIgnoreCase)
+    foreach ($result in $feederResults) {
+        if (-not [string]::IsNullOrWhiteSpace($result.Sub) -and $seenSubs.Add([string]$result.Sub)) {
+            $uniqueSubs.Add([string]$result.Sub)
+        }
+    }
+
+    $internalsInputs = [System.Collections.Generic.List[object]]::new()
+    for ($index = 0; $index -lt $uniqueSubs.Count; $index++) {
+        $sub = $uniqueSubs[$index]
+        $internalsFileName = $sub + "_INTERNALS.xml"
+        $internalsInputs.Add([pscustomobject]@{
+            Index = $index
+            Sub = $sub
+            FileName = $internalsFileName
+            SourcePath = $processingDir + $internalsFileName
+            TempPath = [System.IO.Path]::Combine($tempDir, $internalsFileName)
+        })
+    }
+
+    $internalsPhase = [System.Diagnostics.Stopwatch]::StartNew()
+    $internalsResults = @($internalsInputs | ForEach-Object -ThrottleLimit $MaxParallel -Parallel {
+        $inputRecord = $_
+        $logs = [System.Collections.Generic.List[string]]::new()
+        $maxAttempts = 3
+        $retryDelaySeconds = 15
+        $fileFound = $false
+
+        for ($attempt = 1; $attempt -le $maxAttempts; $attempt++) {
+            if (Test-Path $inputRecord.SourcePath) {
+                $fileFound = $true
+                break
+            }
+            if ($attempt -lt $maxAttempts) {
+                $logs.Add("[LOG] Station file not found on attempt $attempt : $($inputRecord.SourcePath) - Waiting $retryDelaySeconds seconds before retry")
+                Start-Sleep -Seconds $retryDelaySeconds
+            }
+        }
+
+        if (-not $fileFound) {
+            return [pscustomobject]@{
+                Index = $inputRecord.Index; Sub = $inputRecord.Sub
+                Error = "Station file not found after $maxAttempts attempts: $($inputRecord.SourcePath)"
+                DeviceIds = @(); Breakers = @(); TempPath = $inputRecord.TempPath
+                Logs = $logs.ToArray(); IoSeconds = 0; ParseSeconds = 0; XPathSeconds = 0
+            }
+        }
+
+        $startTime = Get-Date
+        try {
+            $ioTimer = [System.Diagnostics.Stopwatch]::StartNew()
+            Copy-Item -Path $inputRecord.SourcePath -Destination $inputRecord.TempPath -Force -ErrorAction Stop
+            $logs.Add("[LOG] Copied $($inputRecord.FileName) to temp directory")
+            $xmlText = Get-Content -Path $inputRecord.TempPath -Raw -ErrorAction Stop
+            $ioTimer.Stop()
+
+            $parseTimer = [System.Diagnostics.Stopwatch]::StartNew()
+            $subXML = [xml]$xmlText
+            $parseTimer.Stop()
+
+            $xpathTimer = [System.Diagnostics.Stopwatch]::StartNew()
+            $deviceIds = @($subXML.SelectNodes("//Status[./pMeas/MeasType = 'SwitchStatusMeasurementType']") |
+                ForEach-Object { [string]$_.device })
+            $breakers = @($subXML.SelectNodes("//Breaker") | ForEach-Object {
+                [pscustomobject]@{ Name = [string]$_.Name; Id = [string]$_.Id }
+            })
+            $xpathTimer.Stop()
+
+            return [pscustomobject]@{
+                Index = $inputRecord.Index; Sub = $inputRecord.Sub; Error = $null
+                DeviceIds = $deviceIds; Breakers = $breakers; TempPath = $inputRecord.TempPath
+                StartTime = $startTime; Logs = $logs.ToArray()
+                IoSeconds = $ioTimer.Elapsed.TotalSeconds
+                ParseSeconds = $parseTimer.Elapsed.TotalSeconds
+                XPathSeconds = $xpathTimer.Elapsed.TotalSeconds
+            }
+        }
+        catch {
+            return [pscustomobject]@{
+                Index = $inputRecord.Index; Sub = $inputRecord.Sub
+                Error = "Failed to copy or parse $($inputRecord.FileName) : $_"
+                DeviceIds = @(); Breakers = @(); TempPath = $inputRecord.TempPath
+                StartTime = $startTime; Logs = $logs.ToArray()
+                IoSeconds = 0; ParseSeconds = 0; XPathSeconds = 0
+            }
+        }
+    } | Sort-Object Index)
+    $internalsPhase.Stop()
+
+    $subData = @{}
+    foreach ($result in $internalsResults) {
+        foreach ($message in $result.Logs) { Write-Log $message }
+        if ($result.Error) {
+            if (-not $processingError) {
+                $processingError = $result.Error
+                Write-Log "[ERROR] $processingError"
+            }
+            continue
+        }
+
+        $subData[$result.Sub] = @{
+            DeviceIds = $result.DeviceIds
+            Breakers = $result.Breakers
+        }
+        $stationsProcessed[$result.Sub] = @{
+            TempPath = $result.TempPath
+            StartTime = $result.StartTime
+        }
+        Cleanup-SchemeFile -SchemeName $result.Sub
+    }
+    $internalsIoWork = ($internalsResults | Measure-Object -Property IoSeconds -Sum).Sum
+    $internalsParseWork = ($internalsResults | Measure-Object -Property ParseSeconds -Sum).Sum
+    $internalsXPathWork = ($internalsResults | Measure-Object -Property XPathSeconds -Sum).Sum
+    Write-Log "[LOG] Internals XML phase: $([math]::Round($internalsPhase.Elapsed.TotalSeconds, 2)) seconds (file I/O work $([math]::Round($internalsIoWork, 2))s, parse work $([math]::Round($internalsParseWork, 2))s, XPath work $([math]::Round($internalsXPathWork, 2))s)"
+
+    if ($processingError) {
+        Write-Log "[ERROR] Processing Terminated: $processingError"
+        Cleanup-TempFiles -TempDir $tempDir
+        exit 1
+    }
+
+    $matchingPhase = [System.Diagnostics.Stopwatch]::StartNew()
+    $feedersWithDevices = [System.Collections.Generic.List[string]]::new()
+    $seenOutputFeeders = [System.Collections.Generic.HashSet[string]]::new([System.StringComparer]::OrdinalIgnoreCase)
+    foreach ($result in $feederResults) {
+        if ([string]::IsNullOrWhiteSpace($result.Sub) -or -not $subData.ContainsKey($result.Sub)) {
+            continue
+        }
+
+        $mRIDSet = [System.Collections.Generic.HashSet[string]]::new([System.StringComparer]::Ordinal)
+        foreach ($mRID in $result.MRIDs) {
+            if (-not [string]::IsNullOrWhiteSpace($mRID)) {
+                [void]$mRIDSet.Add([string]$mRID)
+            }
+        }
+
+        $devices = [System.Collections.Generic.List[string]]::new()
+        foreach ($deviceId in $subData[$result.Sub].DeviceIds) {
+            if ($mRIDSet.Contains([string]$deviceId)) {
+                $devices.Add([string]$deviceId)
+            }
+        }
+        foreach ($breaker in $subData[$result.Sub].Breakers) {
+            if ($breaker.Name -and $breaker.Name.Contains($result.Feeder)) {
+                $devices.Add([string]$breaker.Id)
+            }
+        }
+
+        if ($devices.Count -gt 0) {
+            $feederDeviceDict[$result.Feeder] = $devices.ToArray()
+            if ($seenOutputFeeders.Add([string]$result.Feeder)) {
+                $feedersWithDevices.Add([string]$result.Feeder)
+            }
+        }
+    }
+    $matchingPhase.Stop()
+    Write-Log "[LOG] Device matching phase: $([math]::Round($matchingPhase.Elapsed.TotalSeconds, 2)) seconds"
+
+    $csvBuildPhase = [System.Diagnostics.Stopwatch]::StartNew()
+    $csvLines = [System.Collections.Generic.List[string]]::new()
+
+    $csvLines.Add("SCHEME,0,ID_SCHEME,NAME_SCHEME,DESCRIPTION_SCHEME,,,,")
+    $uniqueSubstations = [System.Collections.Generic.HashSet[string]]::new([System.StringComparer]::OrdinalIgnoreCase)
+    foreach ($key in $feedersWithDevices) {
+        $subNameUpper = [string]$feederSubDict[$key].ToUpper()
+        if ($uniqueSubstations.Add($subNameUpper)) {
+            $csvLines.Add("SCHEME,1," + $subNameUpper + "_SCHEME," + $subNameUpper + "_SCHEME,Automation Scheme,,,,")
+        }
+    }
+
+    $csvLines.Add(",,,,,,,,")
+    $csvLines.Add("TEAM,0,ID_TEAM,SCHEME_TEAM,NAME_TEAM,DESCRIPTION_TEAM,,,")
+    foreach ($key in $feedersWithDevices) {
+        $subNameUpper = [string]$feederSubDict[$key].ToUpper()
+        $feederNameUpper = [string]$key.ToUpper()
+        $csvLines.Add("TEAM,1," + $feederNameUpper + "_TEAM," + $subNameUpper + "_SCHEME," + $feederNameUpper + " FISR," + $feederNameUpper + " FISR,,,")
+    }
+
+    $csvLines.Add(",,,,,,,,")
+    $csvLines.Add("TEAMSWITCH,0,ID_TEAMSW,TEAM_TEAMSW,NAME_TEAMSW,SECONDID_TEAMSW,STATION1_TEAMSW,STATION2_TEAMSW,ROLE_TEAMSW")
+    foreach ($key in $feedersWithDevices) {
+        $subNameUpper = [string]$feederSubDict[$key].ToUpper()
+        $feederNameUpper = [string]$key.ToUpper()
+        foreach ($value in $feederDeviceDict[$key]) {
+            if (-not [string]::IsNullOrWhiteSpace($value)) {
+                $deviceUpper = [string]$value.ToUpper()
+                $csvLines.Add("TEAMSWITCH,1," + $deviceUpper + "," + $feederNameUpper + "_TEAM,na,na," + $subNameUpper + ",,PRIMARY")
+            }
+        }
+    }
+    $csvBuildPhase.Stop()
+    Write-Log "[LOG] CSV build phase: $([math]::Round($csvBuildPhase.Elapsed.TotalSeconds, 2)) seconds"
+
+    try {
+        $csvIoPhase = [System.Diagnostics.Stopwatch]::StartNew()
+        Set-Content -Path $teamSchemeFile -Value $csvLines -Encoding UTF8 -ErrorAction Stop
+        Move-Item -Path $teamSchemeFile -Destination $teamSchemeFileCSV -Force -ErrorAction Stop
+        $csvIoPhase.Stop()
+        Write-Log "[LOG] CSV file I/O phase: $([math]::Round($csvIoPhase.Elapsed.TotalSeconds, 2)) seconds"
+
+        $stationCount = $stationsProcessed.Count
+        Write-Log "[LOG] Processing complete - $stationCount stations processed"
+
+        $scriptEndTime = Get-Date
+        $totalProcessingTime = ($scriptEndTime - $scriptStartTime).TotalSeconds
+        Write-Log "[LOG] Total processing time: $([math]::Round($totalProcessingTime, 2)) seconds"
+    }
+    catch {
+        Write-Log "[ERROR] Unable to write to AutomationSchemes.csv: $_"
+        Cleanup-TempFiles -TempDir $tempDir
+        exit 1
+    }
+
     # Cleanup temp files after successful processing
     Cleanup-TempFiles -TempDir $tempDir
 }
