@@ -1,4 +1,4 @@
-#Requires -Version 7.0
+#Requires -Version 5.1
 
 param(
     [ValidateRange(1, 64)]
@@ -94,6 +94,49 @@ function Resolve-FeederModelName {
     return $FeederName
 }
 
+function Invoke-ParallelWork {
+    param(
+        [object[]] $InputObject,
+        [scriptblock] $ScriptBlock,
+        [int] $ThrottleLimit
+    )
+
+    if (-not $InputObject -or $InputObject.Count -eq 0) {
+        return @()
+    }
+
+    $runspacePool = [runspacefactory]::CreateRunspacePool(1, $ThrottleLimit)
+    $runspacePool.Open()
+    $jobs = [System.Collections.Generic.List[object]]::new()
+
+    try {
+        foreach ($item in $InputObject) {
+            $powershell = [powershell]::Create()
+            $powershell.RunspacePool = $runspacePool
+            [void]$powershell.AddScript($ScriptBlock.ToString()).AddArgument($item)
+            $jobs.Add([pscustomobject]@{
+                PowerShell = $powershell
+                Handle = $powershell.BeginInvoke()
+            })
+        }
+
+        $results = [System.Collections.Generic.List[object]]::new()
+        foreach ($job in $jobs) {
+            foreach ($result in $job.PowerShell.EndInvoke($job.Handle)) {
+                $results.Add($result)
+            }
+        }
+        return $results.ToArray()
+    }
+    finally {
+        foreach ($job in $jobs) {
+            $job.PowerShell.Dispose()
+        }
+        $runspacePool.Close()
+        $runspacePool.Dispose()
+    }
+}
+
 function Cleanup-TempFiles {
     param(
         [string] $TempDir
@@ -165,8 +208,9 @@ if (Test-Path $fisrFeedersFile) {
     }
 
     $feederPhase = [System.Diagnostics.Stopwatch]::StartNew()
-    $feederResults = @($feederInputs | ForEach-Object -ThrottleLimit $MaxParallel -Parallel {
-        $inputRecord = $_
+    $feederWorker = {
+        param($inputRecord)
+
         $logs = [System.Collections.Generic.List[string]]::new()
         if (-not (Test-Path $inputRecord.Path)) {
             if ($inputRecord.ModelName -ne $inputRecord.Feeder) {
@@ -216,7 +260,9 @@ if (Test-Path $fisrFeedersFile) {
                 MRIDs = @(); Logs = $logs.ToArray(); ParseSeconds = 0; XPathSeconds = 0
             }
         }
-    } | Sort-Object Index)
+    }
+    $feederResults = @(Invoke-ParallelWork -InputObject $feederInputs.ToArray() -ScriptBlock $feederWorker -ThrottleLimit $MaxParallel |
+        Sort-Object Index)
     $feederPhase.Stop()
 
     foreach ($result in $feederResults) {
@@ -252,8 +298,9 @@ if (Test-Path $fisrFeedersFile) {
     }
 
     $internalsPhase = [System.Diagnostics.Stopwatch]::StartNew()
-    $internalsResults = @($internalsInputs | ForEach-Object -ThrottleLimit $MaxParallel -Parallel {
-        $inputRecord = $_
+    $internalsWorker = {
+        param($inputRecord)
+
         $logs = [System.Collections.Generic.List[string]]::new()
         $maxAttempts = 3
         $retryDelaySeconds = 15
@@ -317,7 +364,9 @@ if (Test-Path $fisrFeedersFile) {
                 IoSeconds = 0; ParseSeconds = 0; XPathSeconds = 0
             }
         }
-    } | Sort-Object Index)
+    }
+    $internalsResults = @(Invoke-ParallelWork -InputObject $internalsInputs.ToArray() -ScriptBlock $internalsWorker -ThrottleLimit $MaxParallel |
+        Sort-Object Index)
     $internalsPhase.Stop()
 
     $subData = @{}
