@@ -194,12 +194,6 @@ if (Test-Path $fisrFeedersFile) {
             $parseTimer.Stop()
 
             $sub = [string]$feederXML.CircuitConnectivity.Substation.name
-            if (-not [string]::IsNullOrWhiteSpace($sub)) {
-                $sub = $sub -replace '(?i)(?<![A-Z0-9])P\.T\.(?![A-Z0-9])', 'PT'
-                $sub = $sub -replace '(?i)(?<![A-Z0-9])U\.G\.S\.(?![A-Z0-9])', 'UGS'
-                $sub = $sub -replace '(?i)(?<![A-Z0-9])P\.M\.(?![A-Z0-9])', 'PM'
-                $sub = $sub -replace '\.', ''
-            }
 
             $xpathTimer = [System.Diagnostics.Stopwatch]::StartNew()
             $mRIDValues = @($feederXML.SelectNodes("//*[local-name()='Switch' or local-name()='Recloser']/*[local-name()='mRID']") |
@@ -228,6 +222,7 @@ if (Test-Path $fisrFeedersFile) {
     foreach ($result in $feederResults) {
         foreach ($message in $result.Logs) { Write-Log $message }
         if (-not [string]::IsNullOrWhiteSpace($result.Sub)) {
+            $result.Sub = Normalize-SubstationName -SubstationName ([string]$result.Sub)
             $feederSubDict[$result.Feeder] = $result.Sub
         }
     }
@@ -365,7 +360,7 @@ if (Test-Path $fisrFeedersFile) {
             continue
         }
 
-        $mRIDSet = [System.Collections.Generic.HashSet[string]]::new([System.StringComparer]::Ordinal)
+        $mRIDSet = [System.Collections.Generic.HashSet[string]]::new([System.StringComparer]::OrdinalIgnoreCase)
         foreach ($mRID in $result.MRIDs) {
             if (-not [string]::IsNullOrWhiteSpace($mRID)) {
                 [void]$mRIDSet.Add([string]$mRID)
