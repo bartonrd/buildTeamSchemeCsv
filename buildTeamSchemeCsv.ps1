@@ -60,6 +60,211 @@ $processingError = $null
 $stationsProcessed = @{}
 $scriptStartTime = Get-Date
 
+if (-not ('AutomationSchemeXmlParser' -as [type])) {
+    Add-Type -TypeDefinition @'
+using System;
+using System.Collections.Generic;
+using System.IO;
+using System.Xml;
+
+public sealed class FeederParseResult
+{
+    public string Substation { get; set; }
+    public string[] MRIDs { get; set; }
+}
+
+public sealed class BreakerParseResult
+{
+    public string Name { get; set; }
+    public string Id { get; set; }
+}
+
+public sealed class InternalsParseResult
+{
+    public string[] DeviceIds { get; set; }
+    public BreakerParseResult[] Breakers { get; set; }
+}
+
+public static class AutomationSchemeXmlParser
+{
+    private const int BufferSize = 1024 * 1024;
+
+    private static XmlReaderSettings CreateSettings()
+    {
+        return new XmlReaderSettings
+        {
+            IgnoreComments = true,
+            IgnoreProcessingInstructions = true,
+            IgnoreWhitespace = true,
+            XmlResolver = null
+        };
+    }
+
+    private static FileStream OpenSequential(string path)
+    {
+        return new FileStream(
+            path,
+            FileMode.Open,
+            FileAccess.Read,
+            FileShare.Read,
+            BufferSize,
+            FileOptions.SequentialScan);
+    }
+
+    public static FeederParseResult ParseFeeder(string path)
+    {
+        string substation = null;
+        var mrids = new List<string>();
+        var elementNames = new List<string>();
+
+        using (var stream = OpenSequential(path))
+        using (var reader = XmlReader.Create(stream, CreateSettings()))
+        {
+            while (reader.Read())
+            {
+                if (reader.NodeType != XmlNodeType.Element)
+                {
+                    continue;
+                }
+
+                int depth = reader.Depth;
+                while (elementNames.Count <= depth)
+                {
+                    elementNames.Add(null);
+                }
+                elementNames[depth] = reader.LocalName;
+
+                if (reader.LocalName == "name" &&
+                    depth >= 2 &&
+                    elementNames[depth - 1] == "Substation" &&
+                    elementNames[depth - 2] == "CircuitConnectivity")
+                {
+                    substation = reader.ReadString();
+                    continue;
+                }
+
+                if (reader.LocalName != "mRID" || depth < 1)
+                {
+                    continue;
+                }
+
+                string parentName = elementNames[depth - 1];
+                if (parentName == "Switch" ||
+                    parentName == "Recloser" ||
+                    parentName == "CompositeSwitch")
+                {
+                    string mrid = reader.ReadString();
+                    mrids.Add(parentName == "CompositeSwitch" ? mrid + "_CS" : mrid);
+                }
+            }
+        }
+
+        return new FeederParseResult
+        {
+            Substation = substation,
+            MRIDs = mrids.ToArray()
+        };
+    }
+
+    public static InternalsParseResult ParseInternals(string path)
+    {
+        var deviceIds = new List<string>();
+        var breakers = new List<BreakerParseResult>();
+        int statusDepth = -1;
+        string statusDevice = null;
+        bool statusMatches = false;
+        string statusChild = null;
+        int breakerDepth = -1;
+        string breakerName = null;
+        string breakerId = null;
+
+        using (var stream = OpenSequential(path))
+        using (var reader = XmlReader.Create(stream, CreateSettings()))
+        {
+            while (reader.Read())
+            {
+                if (reader.NodeType == XmlNodeType.Element)
+                {
+                    string localName = reader.LocalName;
+                    int depth = reader.Depth;
+
+                    if (localName == "Status")
+                    {
+                        statusDepth = depth;
+                        statusDevice = null;
+                        statusMatches = false;
+                        statusChild = null;
+                    }
+                    else if (statusDepth >= 0)
+                    {
+                        if (depth == statusDepth + 1)
+                        {
+                            statusChild = localName;
+                            if (localName == "device")
+                            {
+                                statusDevice = reader.ReadString();
+                            }
+                        }
+                        else if (depth == statusDepth + 2 &&
+                            statusChild == "pMeas" &&
+                            localName == "MeasType" &&
+                            reader.ReadString() == "SwitchStatusMeasurementType")
+                        {
+                            statusMatches = true;
+                        }
+                    }
+
+                    if (localName == "Breaker")
+                    {
+                        breakerDepth = depth;
+                        breakerName = null;
+                        breakerId = null;
+                    }
+                    else if (breakerDepth >= 0 && depth == breakerDepth + 1)
+                    {
+                        if (localName == "Name")
+                        {
+                            breakerName = reader.ReadString();
+                        }
+                        else if (localName == "Id")
+                        {
+                            breakerId = reader.ReadString();
+                        }
+                    }
+                }
+                else if (reader.NodeType == XmlNodeType.EndElement)
+                {
+                    if (statusDepth == reader.Depth && reader.LocalName == "Status")
+                    {
+                        if (statusMatches)
+                        {
+                            deviceIds.Add(statusDevice);
+                        }
+                        statusDepth = -1;
+                    }
+                    else if (breakerDepth == reader.Depth && reader.LocalName == "Breaker")
+                    {
+                        breakers.Add(new BreakerParseResult
+                        {
+                            Name = breakerName,
+                            Id = breakerId
+                        });
+                        breakerDepth = -1;
+                    }
+                }
+            }
+        }
+
+        return new InternalsParseResult
+        {
+            DeviceIds = deviceIds.ToArray(),
+            Breakers = breakers.ToArray()
+        };
+    }
+}
+'@
+}
+
 function Normalize-SubstationName {
     param(
         [string] $SubstationName
@@ -192,7 +397,8 @@ function Cleanup-SchemeFile {
 Write-Log "[LOG] Starting Automation Schemes File Build for CL FISR Device Participation" -Reset
 
 if (Test-Path $fisrFeedersFile) {
-    $feedersList = @(Get-Content $fisrFeedersFile | Where-Object { -not [string]::IsNullOrWhiteSpace($_) })
+    $feedersList = @([System.IO.File]::ReadAllLines($fisrFeedersFile) |
+        Where-Object { -not [string]::IsNullOrWhiteSpace($_) })
     Write-Log "[LOG] Parallel worker limit: $MaxParallel"
 
     $feederInputs = [System.Collections.Generic.List[object]]::new()
@@ -234,23 +440,14 @@ if (Test-Path $fisrFeedersFile) {
 
         try {
             $parseTimer = [System.Diagnostics.Stopwatch]::StartNew()
-            $feederXML = [xml](Get-Content -Path $inputRecord.Path -Raw -ErrorAction Stop)
+            $parsedFeeder = [AutomationSchemeXmlParser]::ParseFeeder($inputRecord.Path)
             $parseTimer.Stop()
 
-            $sub = [string]$feederXML.CircuitConnectivity.Substation.name
-
-            $xpathTimer = [System.Diagnostics.Stopwatch]::StartNew()
-            $mRIDValues = @($feederXML.SelectNodes("//*[local-name()='Switch' or local-name()='Recloser']/*[local-name()='mRID']") |
-                ForEach-Object { [string]$_.'#text' })
-            $mRIDValues += @($feederXML.SelectNodes("//*[local-name()='CompositeSwitch']/*[local-name()='mRID']") |
-                ForEach-Object { "$($_.'#text')_CS" })
-            $xpathTimer.Stop()
-
             return [pscustomobject]@{
-                Index = $inputRecord.Index; Feeder = $inputRecord.Feeder; Sub = $sub
-                MRIDs = $mRIDValues; Logs = $logs.ToArray()
+                Index = $inputRecord.Index; Feeder = $inputRecord.Feeder; Sub = $parsedFeeder.Substation
+                MRIDs = $parsedFeeder.MRIDs; Logs = $logs.ToArray()
                 ParseSeconds = $parseTimer.Elapsed.TotalSeconds
-                XPathSeconds = $xpathTimer.Elapsed.TotalSeconds
+                XPathSeconds = 0
             }
         }
         catch {
@@ -331,28 +528,20 @@ if (Test-Path $fisrFeedersFile) {
             $ioTimer = [System.Diagnostics.Stopwatch]::StartNew()
             Copy-Item -Path $inputRecord.SourcePath -Destination $inputRecord.TempPath -Force -ErrorAction Stop
             $logs.Add("[LOG] Copied $($inputRecord.FileName) to temp directory")
-            $xmlText = Get-Content -Path $inputRecord.TempPath -Raw -ErrorAction Stop
             $ioTimer.Stop()
 
             $parseTimer = [System.Diagnostics.Stopwatch]::StartNew()
-            $subXML = [xml]$xmlText
+            $parsedInternals = [AutomationSchemeXmlParser]::ParseInternals($inputRecord.TempPath)
             $parseTimer.Stop()
-
-            $xpathTimer = [System.Diagnostics.Stopwatch]::StartNew()
-            $deviceIds = @($subXML.SelectNodes("//Status[./pMeas/MeasType = 'SwitchStatusMeasurementType']") |
-                ForEach-Object { [string]$_.device })
-            $breakers = @($subXML.SelectNodes("//Breaker") | ForEach-Object {
-                [pscustomobject]@{ Name = [string]$_.Name; Id = [string]$_.Id }
-            })
-            $xpathTimer.Stop()
 
             return [pscustomobject]@{
                 Index = $inputRecord.Index; Sub = $inputRecord.Sub; Error = $null
-                DeviceIds = $deviceIds; Breakers = $breakers; TempPath = $inputRecord.TempPath
+                DeviceIds = $parsedInternals.DeviceIds; Breakers = $parsedInternals.Breakers
+                TempPath = $inputRecord.TempPath
                 StartTime = $startTime; Logs = $logs.ToArray()
                 IoSeconds = $ioTimer.Elapsed.TotalSeconds
                 ParseSeconds = $parseTimer.Elapsed.TotalSeconds
-                XPathSeconds = $xpathTimer.Elapsed.TotalSeconds
+                XPathSeconds = 0
             }
         }
         catch {
